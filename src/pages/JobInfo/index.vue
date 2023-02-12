@@ -1,67 +1,42 @@
 <template>
   <div>
-    <Transition
-      appear
-      enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight"
-    >
+    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight">
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>我的作业</el-breadcrumb-item>
-        <el-breadcrumb-item
-          ><span @click="toJob" class="bread"
-            >作业列表</span
-          ></el-breadcrumb-item
-        >
+        <el-breadcrumb-item><span @click="toJob" class="bread">作业列表</span></el-breadcrumb-item>
         <el-breadcrumb-item>{{
           joblist[index].vcJobCnName
         }}</el-breadcrumb-item>
-      </el-breadcrumb></Transition
-    >
-    <el-card
-      style="
+      </el-breadcrumb>
+    </Transition>
+    <el-card style="
         background-color: #eaebed;
         margin: 10px;
         height: calc(100vh - 170px);
-      "
-      :body-style="{ padding: '0px' }"
-    >
+      " :body-style="{ padding: '0px' }">
       <el-row>
-        <el-card
-          :body-style="{ padding: '0px' }"
-          style="height: 85px; margin: 10px"
-          shadow="hover"
-        >
+        <el-card :body-style="{ padding: '0px' }" style="height: 85px; margin: 10px" shadow="hover">
           <el-row :span="12" style="margin-top: 10px">
             <h3 style="margin-left: 5px" class="size">
               <span style="color: #409eff">|</span>&nbsp;基本信息
             </h3>
           </el-row>
           <el-row style="margin-top: 30px; margin-left: 20px">
-            <el-col :span="8"
-              ><span class="size"
-                >作业名称：{{ joblist[index].vcJobCnName }}</span
-              ></el-col
-            >
-            <el-col :span="8"
-              ><span class="size">作业类型：标准作业</span></el-col
-            >
-            <el-col :span="8"
-              ><span class="size">所属队列：default</span></el-col
-            >
-          </el-row></el-card
-        >
+            <el-col :span="8"><span class="size">作业名称：{{ joblist[index].vcJobCnName }}</span></el-col>
+            <el-col :span="8"><span class="size">作业类型：标准作业</span></el-col>
+            <el-col :span="8"><span class="size">所属队列：default</span></el-col>
+          </el-row></el-card>
       </el-row>
+
+
       <el-row>
-        <el-card
-          :body-style="{ padding: '0px' }"
-          style="
+        <el-card :body-style="{ padding: '0px' }" style="
             height: calc(100vh - 290px);
             margin-left: 10px;
             margin-right: 10px;
             margin-buttom: 10px;
-          "
-          shadow="hover"
-        >
+          " shadow="hover">
           <el-row :span="12" style="margin-top: 10px">
             <h3 style="margin-left: 5px" class="size">
               <span style="color: #409eff">|</span>&nbsp;计算实例列表
@@ -69,143 +44,61 @@
           </el-row>
           <el-row style="margin-top: 10px; margin-left: 20px">
             <el-col :span="4" style="margin: 10px">
-              <el-input
-                size="small"
-                placeholder="请输入节点名称"
-                v-model="hostName"
-                prefix-icon="el-icon-search"
-              ></el-input>
+              <el-input size="small" placeholder="请输入节点名称" v-model="hostName" prefix-icon="el-icon-search"></el-input>
             </el-col>
             <el-col :span="4" style="margin: 10px">
-              <el-input
-                size="small"
-                prefix-icon="el-icon-search"
-                placeholder="请输入计算实例名称"
-                v-model="podName"
-              ></el-input>
+              <el-input size="small" prefix-icon="el-icon-search" placeholder="请输入计算实例名称" v-model="podName"></el-input>
             </el-col>
             <el-col :span="1" style="margin-top: 10px">
-              <el-button
-                type="primary"
-                size="small"
-                class="el-icon-search"
-                @click="searchList()"
-                >搜索</el-button
-              >
+              <el-button type="primary" size="small" class="el-icon-search" @click="searchList()">搜索</el-button>
             </el-col>
             <el-col :span="8" style="margin-left: 10px">
-              <el-tag
-                v-if="showHostName"
-                style="margin-top: 10px; height: 32px"
-                closable
-                @close="clearHostSearch"
-                >节点:{{ hostName }}</el-tag
-              >
-              <el-tag
-                v-if="showPodName"
-                style="margin-top: 10px; height: 32px; margin-left: 10px"
-                closable
-                @close="clearPodSearch"
-                >计算实例:{{ podName }}</el-tag
-              >
+              <el-tag v-if="showHostName" style="margin-top: 10px; height: 32px" closable @close="clearHostSearch">节点:{{
+                hostName
+              }}</el-tag>
+              <el-tag v-if="showPodName" style="margin-top: 10px; height: 32px; margin-left: 10px" closable
+                @close="clearPodSearch">计算实例:{{ podName }}</el-tag>
             </el-col>
           </el-row>
-          <Transition
-            appear
-            enter-active-class="animate__animated animate__fadeInLeft"
-            leave-active-class="animate__animated animate__fadeOutRight"
-          >
-            <el-table
-              class="size"
-              :row-style="{ height: 20 + 'px' }"
-              :cell-style="{ padding: 8 + 'px' }"
-              style="
+          <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
+            leave-active-class="animate__animated animate__fadeOutRight">
+            <el-table class="size" :row-style="{ height: 20 + 'px' }" :cell-style="{ padding: 8 + 'px' }" style="
                 width: 100%;
                 margin-top: 10px;
                 margin-left: 10px;
                 margin-rigth: 10px;
-              "
-              :data="formatedJobInfoList"
-              :border="true"
-              max-height="360"
-            >
-              <el-table-column
-                prop="hostName"
-                label="节点名称"
-                show-overflow-tooltip
-              >
+              " :data="formatedJobInfoList" :border="true" max-height="360">
+              <el-table-column prop="hostName" label="节点名称" show-overflow-tooltip>
               </el-table-column>
-              <el-table-column
-                prop="hostIp"
-                label="节点IP"
-                show-overflow-tooltip
-              ></el-table-column>
-              <el-table-column
-                prop="podName"
-                label="计算实例"
-                show-overflow-tooltip
-              ></el-table-column>
+              <el-table-column prop="hostIp" label="节点IP" show-overflow-tooltip></el-table-column>
+              <el-table-column prop="podName" label="计算实例" show-overflow-tooltip></el-table-column>
               <!-- <el-table-column
                 prop="podIp"
                 label="实例IP"
                 show-overflow-tooltip
               ></el-table-column> -->
-              <el-table-column
-                prop="status"
-                label="实例状态"
-                show-overflow-tooltip
-              ></el-table-column>
-              <el-table-column
-                prop="taskName"
-                label="所属任务"
-                show-overflow-tooltip
-              ></el-table-column>
-              <el-table-column
-                prop="startTime"
-                label="开始运行时间"
-                show-overflow-tooltip
-              ></el-table-column>
-              <el-table-column
-                prop="endTime"
-                label="运行结束时间"
-                show-overflow-tooltip
-              ></el-table-column>
+              <el-table-column prop="status" label="实例状态" show-overflow-tooltip></el-table-column>
+              <el-table-column prop="taskName" label="所属任务" show-overflow-tooltip></el-table-column>
+              <el-table-column prop="startTime" label="开始运行时间" show-overflow-tooltip></el-table-column>
+              <el-table-column prop="endTime" label="运行结束时间" show-overflow-tooltip></el-table-column>
               <!-- TODO:日志-->
               <el-table-column label="操作" width="200">
                 <template slot-scope="scope">
-                  <el-button
-                    size="mini"
-                    type="warning"
-                    icon="el-icon-chat-dot-round"
-                    @click="getJobLogs(scope.$index, scope.row)"
-                    >日志</el-button
-                  >
-                  <el-button
-                    size="mini"
-                    type="success"
-                    icon="el-icon-view"
-                    @click="ConvertViewLogs(scope.$index, scope.row)"
-                    >可视化</el-button
-                  >
+                  <el-button size="mini" type="warning" icon="el-icon-chat-dot-round"
+                    @click="getJobLogs(scope.$index, scope.row)">日志</el-button>
+                  <el-button size="mini" type="success" icon="el-icon-view"
+                    @click="ConvertViewLogs(scope.$index, scope.row)">可视化</el-button>
                 </template>
               </el-table-column>
-            </el-table></Transition
-          >
-          <el-dialog
-            :visible.sync="rizhiDialogVisible"
-            :before-close="handleClose"
-            width="1000px"
-            title="日志"
-          >
-            <pre
-              v-highlight
-              style="
+            </el-table>
+          </Transition>
+          <el-dialog :visible.sync="rizhiDialogVisible" :before-close="handleClose" width="1000px" title="日志">
+            <pre v-highlight style="
                 height: 500px;
                 overflow: auto;
                 padding-left: 20px;
                 padding-right: 20px;
-              "
-            >
+              ">
                   <code
                   class="json"
                   style="font-size: 16px; background-color: #20211d;height:440px;padding: 0px;margin: 0px;"
@@ -214,43 +107,24 @@
                 ></code>
                 </pre>
           </el-dialog>
-          <el-dialog
-            title="可视化"
-            class="dialog"
-            :visible.sync="viewDialogVisible"
-            width="60%"
-            :before-close="handleViewClose"
-          >
-            <el-cascader
-              :options="options"
-              v-model="selected"
-              @change="changeSelected"
-            ></el-cascader>
+          <el-dialog title="可视化" class="dialog" :visible.sync="viewDialogVisible" width="60%"
+            :before-close="handleViewClose">
+            <el-cascader :options="options" v-model="selected" @change="changeSelected"></el-cascader>
             <div id="chart" style="height: 400px; width: 100%"></div>
             <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="handleViewClose"
-                >关 闭</el-button
-              >
+              <el-button type="primary" @click="handleViewClose">关 闭</el-button>
             </span>
           </el-dialog>
 
           <el-col style="text-align: center">
-            <Transition
-              appear
-              enter-active-class="animate__animated animate__fadeInLeft"
-              leave-active-class="animate__animated animate__fadeOutRight"
-            >
-              <el-pagination
-                :background="true"
-                :page-sizes="[10, 20, 30]"
-                :page-size="10"
-                layout="prev, pager, next,sizes"
-                :page-count="Number(jobInfoPageCount)"
-                @current-change="handleCurrentChange"
-                @size-change="handleSizeChange"
-              ></el-pagination
-            ></Transition> </el-col
-        ></el-card>
+            <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
+              leave-active-class="animate__animated animate__fadeOutRight">
+              <el-pagination :background="true" :page-sizes="[10, 20, 30]" :page-size="10"
+                layout="prev, pager, next,sizes" :page-count="Number(jobInfoPageCount)"
+                @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
+            </Transition>
+          </el-col>
+        </el-card>
       </el-row>
     </el-card>
   </div>
@@ -692,19 +566,23 @@ export default {
   padding-top: 8px;
   padding-bottom: 8px;
 }
+
 .bread:hover {
   color: blue;
   cursor: pointer;
 }
+
 .size {
   font-size: 16px;
 }
+
 pre code.hljs {
   display: block;
   overflow-x: auto;
   padding: 0px;
 }
-.dialog >>> .el-dialog__body {
+
+.dialog>>>.el-dialog__body {
   padding: 10px;
 }
 </style>
