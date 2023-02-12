@@ -74,9 +74,9 @@
         icon="el-icon-refresh-left"
       ></el-button> -->
 
-
       <div id="map" style="float:right"></div>
       <div id="resultMap" style="float:right"></div>
+
       <div id="fullScreenMap" v-show="isFullScreen" style="height: 100%; width: 100%">
         <dv-border-box-11 :title="selectedTag" class="zIndex">
           <el-row style="height: 50px; padding-top: 43px">
@@ -129,6 +129,7 @@
           </el-row>
         </dv-border-box-11>
       </div>
+
     </el-card>
   </div>
 </template>
@@ -367,6 +368,13 @@ export default {
           mapDiv.removeChild(mapDiv.childNodes[i])
         }
       }
+      this.resultMap = null;
+      let resultMapDiv = document.getElementById('resultMap')
+      if (resultMapDiv.childNodes.length != 0) {
+        for (let i = 0; i < resultMapDiv.childNodes.length; i++) {
+          resultMapDiv.removeChild(resultMapDiv.childNodes[i])
+        }
+      }
 
       // mapboxgl.accessToken =
       //   "pk.eyJ1IjoicGxheS1pc2FhYyIsImEiOiJjazU0cDkzbWowamd2M2dtemd4bW9mbzRhIn0.cxD4Fw3ZPB_taMkyUSFENA";
@@ -404,7 +412,9 @@ export default {
       map.on("style.load", () => {
         map.setFog({}); // Set the default atmosphere style
       });
-
+      resultMap.on("style.load", () => {
+        resultMap.setFog({}); // Set the default atmosphere style
+      });
       map.doubleClickZoom.disable();
       resultMap.doubleClickZoom.disable();
       // 设置语言
