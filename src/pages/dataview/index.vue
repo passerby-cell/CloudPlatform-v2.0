@@ -19,13 +19,13 @@
           v-if="showDoubleMap">还原</el-button>
       </el-row>
       <el-button @click="create()" size="small" v-if="tag" style="
-          position: fixed;
-          bottom: 260px;
-          right: 31px;
-          z-index: 9999999;
-          font-size: 16px;
-          padding: 6px;
-        " icon="el-icon-circle-plus-outline"></el-button>
+                                                                        position: fixed;
+                                                                        bottom: 260px;
+                                                                        right: 31px;
+                                                                        z-index: 9999999;
+                                                                        font-size: 16px;
+                                                                        padding: 6px;
+                                                                      " icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
           position: fixed;
@@ -36,29 +36,29 @@
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
       <el-button @click="addThreeD()" size="small" style="
-          position: fixed;
-          bottom: 185px;
-          right: 31px;
-          z-index: 9999999;
-          font-size: 14px;
-          padding: 5px;
-        " v-if="!is3D">3D</el-button>
+                                                                        position: fixed;
+                                                                        bottom: 185px;
+                                                                        right: 31px;
+                                                                        z-index: 9999999;
+                                                                        font-size: 14px;
+                                                                        padding: 5px;
+                                                                      " v-if="!is3D">3D</el-button>
       <el-button @click="addTwoD()" size="small" style="
-          position: fixed;
-          bottom: 185px;
-          right: 31px;
-          z-index: 9999999;
-          font-size: 14px;
-          padding: 5px;
-        " v-if="is3D">2D</el-button>
+                                                                        position: fixed;
+                                                                        bottom: 185px;
+                                                                        right: 31px;
+                                                                        z-index: 9999999;
+                                                                        font-size: 14px;
+                                                                        padding: 5px;
+                                                                      " v-if="is3D">2D</el-button>
       <el-button @click="fixMap()" size="small" style="
-          position: fixed;
-          bottom: 222px;
-          right: 31px;
-          z-index: 9999999;
-          font-size: 16px;
-          padding: 6px;
-        " icon="el-icon-view" v-if="!isFixed"></el-button>
+                                                                        position: fixed;
+                                                                        bottom: 222px;
+                                                                        right: 31px;
+                                                                        z-index: 9999999;
+                                                                        font-size: 16px;
+                                                                        padding: 6px;
+                                                                      " icon="el-icon-view" v-if="!isFixed"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -136,6 +136,8 @@
 
 <script>
 import { mapState } from "vuex";
+import { addMengmaiLayer } from "./mengmai";
+import { addGuadaerLayer } from "./guadaer";
 // import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 import { } from "@/api";
@@ -177,7 +179,7 @@ export default {
       frameCount: 5,
       options: [
         {
-          index: 0, name: "孟买", tag: [72.830127, 18.975847], zoom: 15, templateId: 28, message: `<div style="height:100%;width:100%;">
+          index: 0, name: "孟买", tag: [72.830127, 18.975847], zoom: 15, templateId: 31, message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟买</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
@@ -187,13 +189,61 @@ export default {
         {
           index: 1,
           name: "瓜德尔港",
-          tag: [62.323615, 25.103452],
+          tag: [62.323615, 25.116452],
           zoom: 15,
-          templateId: 28,
+          templateId: 32,
           message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>瓜德尔港</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，预计4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
+              </div>
+              </div>`
+        },
+        {
+          index: 2,
+          name: "缅甸",
+          tag: [
+            96.50560601192916,
+            21.159081597411173
+          ],
+          zoom: 15,
+          templateId: 28,
+          message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>缅甸</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
+              </div>
+              </div>`
+        },
+        {
+          index: 3,
+          name: "孟加拉国",
+          tag: [
+            90.0880323658539,
+            24.36103990222381
+          ],
+          zoom: 15,
+          templateId: 34,
+          message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>孟加拉国</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟加拉国位于南亚次大陆东北部的恒河和布拉马普特拉河冲积而成的三角洲上。东、西、北三面与印度毗邻，东南部与缅甸接壤，南部濒临孟加拉湾。海岸线长550公里。全境85%的地区为平原，东南部和东北部为丘陵地带，国土大部分地区海拔低于12米。</h5>
+              </div>
+              </div>`
+        },
+        {
+          index: 4,
+          name: "哈萨克斯坦",
+          tag: [
+            67.30603532421415,
+            48.192331189685405
+          ],
+          zoom: 15,
+          templateId: 33,
+          message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
               </div>
               </div>`
         },
@@ -250,10 +300,10 @@ export default {
         document.getElementById("resultMap").style.top = 10 + 'px'
         this.initMap(3)
         let _this = this;
-        timer = setInterval(() => {
-          _this.currentImage = (_this.currentImage + 1) % _this.frameCount;
-          _this.resultMap.getSource('radar').updateImage({ url: _this.getPath() });
-        }, 500);
+        // timer = setInterval(() => {
+        //   _this.currentImage = (_this.currentImage + 1) % _this.frameCount;
+        //   _this.resultMap.getSource('radar').updateImage({ url: _this.getPath() });
+        // }, 500);
       } else {
         document.getElementById("map").style.width = (document.body.clientWidth - 200 - 30) + 'px'
         document.getElementById("resultMap").style.top = 200 + 'px'
@@ -433,49 +483,28 @@ export default {
       map.addControl(scale);
       scale.setUnit("metric");
       let _this = this;
-      resultMap.on('load', () => {
-        resultMap.addSource('radar', {
-          'type': 'image',
-          'url': _this.getPath(),
-          'coordinates': [
-            [62.314543049432984, 25.115354530413],
-            [62.314543049432984, 25.095380319320554],
-            [62.3365095788937, 25.09550465022575],
-            [62.336418051687644, 25.115271656610616]
-          ]
-        });
-        resultMap.addLayer({
-          id: 'radar-layer',
-          'type': 'raster',
-          'source': 'radar',
-          'paint': {
-            'raster-fade-duration': 0
-          }
-        });
-      });
-
-
-      resultMap.on('load', () => {
-        resultMap.addSource('road', {
-          'type': 'image',
-          'url': require("../../assets/images/guadaer.png"),
-          'coordinates': [
-            [72.81897900758375, 18.97891135781917],
-            [72.81811573553242, 18.95836545547479],
-            [72.83931386033453, 18.958184023426412],
-            [72.83931386033453, 18.978820652999744]
-          ]
-        });
-        resultMap.addLayer({
-          id: 'road-layer',
-          'type': 'raster',
-          'source': 'road',
-          'paint': {
-            'raster-fade-duration': 0
-          }
-        });
-      });
-
+      // resultMap.on('load', () => {
+      //   resultMap.addSource('radar', {
+      //     'type': 'image',
+      //     'url': _this.getPath(),
+      //     'coordinates': [
+      //       [62.314543049432984, 25.115354530413],
+      //       [62.314543049432984, 25.095380319320554],
+      //       [62.3365095788937, 25.09550465022575],
+      //       [62.336418051687644, 25.115271656610616]
+      //     ]
+      //   });
+      //   resultMap.addLayer({
+      //     id: 'radar-layer',
+      //     'type': 'raster',
+      //     'source': 'radar',
+      //     'paint': {
+      //       'raster-fade-duration': 0
+      //     }
+      //   });
+      // });
+      addMengmaiLayer(resultMap);
+      addGuadaerLayer(resultMap);
       for (let i = 0; i < this.options.length; i++) {
         let marker = new mapboxgl.Marker({
           color: "#5995FC",

@@ -20,8 +20,10 @@
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="createJob(scope.row.templateId)">创建作业</el-button>
               <el-button size="mini" type="danger" @click="deleteTemplate(scope.row)"
-                v-if="scope.row.templateId != 28">删除</el-button>
-              <el-tag v-if="scope.row.templateId == 28" type="success" style="margin-left: 10px;">系统预置</el-tag>
+                v-if="scope.row.templateId != 28 && scope.row.templateId != 36 && scope.row.templateId != 32 && scope.row.templateId != 35 && scope.row.templateId != 34">删除</el-button>
+              <el-tag
+                v-if="scope.row.templateId == 28 || scope.row.templateId == 36 || scope.row.templateId == 32 || scope.row.templateId == 35 || scope.row.templateId == 34"
+                type="success" style="margin-left: 10px;">系统预置</el-tag>
             </template>
           </el-table-column>
         </el-table>
