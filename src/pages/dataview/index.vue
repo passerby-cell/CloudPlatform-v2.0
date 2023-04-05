@@ -19,13 +19,14 @@
           v-if="showDoubleMap">还原</el-button>
       </el-row>
       <el-button @click="create()" size="small" v-if="tag" style="
-                                                                        position: fixed;
-                                                                        bottom: 260px;
-                                                                        right: 31px;
-                                                                        z-index: 9999999;
-                                                                        font-size: 16px;
-                                                                        padding: 6px;
-                                                                      " icon="el-icon-circle-plus-outline"></el-button>
+                                                                                        position: fixed;
+                                                                                        bottom: 260px;
+                                                                                        right: 31px;
+                                                                                        z-index: 9999999;
+                                                                                        font-size: 16px;
+                                                                                        padding: 6px;
+                                                                                      "
+        icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
           position: fixed;
@@ -36,29 +37,30 @@
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
       <el-button @click="addThreeD()" size="small" style="
-                                                                        position: fixed;
-                                                                        bottom: 185px;
-                                                                        right: 31px;
-                                                                        z-index: 9999999;
-                                                                        font-size: 14px;
-                                                                        padding: 5px;
-                                                                      " v-if="!is3D">3D</el-button>
+                                                                                        position: fixed;
+                                                                                        bottom: 185px;
+                                                                                        right: 31px;
+                                                                                        z-index: 9999999;
+                                                                                        font-size: 14px;
+                                                                                        padding: 5px;
+                                                                                      " v-if="!is3D">3D</el-button>
       <el-button @click="addTwoD()" size="small" style="
-                                                                        position: fixed;
-                                                                        bottom: 185px;
-                                                                        right: 31px;
-                                                                        z-index: 9999999;
-                                                                        font-size: 14px;
-                                                                        padding: 5px;
-                                                                      " v-if="is3D">2D</el-button>
+                                                                                        position: fixed;
+                                                                                        bottom: 185px;
+                                                                                        right: 31px;
+                                                                                        z-index: 9999999;
+                                                                                        font-size: 14px;
+                                                                                        padding: 5px;
+                                                                                      " v-if="is3D">2D</el-button>
       <el-button @click="fixMap()" size="small" style="
-                                                                        position: fixed;
-                                                                        bottom: 222px;
-                                                                        right: 31px;
-                                                                        z-index: 9999999;
-                                                                        font-size: 16px;
-                                                                        padding: 6px;
-                                                                      " icon="el-icon-view" v-if="!isFixed"></el-button>
+                                                                                        position: fixed;
+                                                                                        bottom: 222px;
+                                                                                        right: 31px;
+                                                                                        z-index: 9999999;
+                                                                                        font-size: 16px;
+                                                                                        padding: 6px;
+                                                                                      " icon="el-icon-view"
+        v-if="!isFixed"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -179,7 +181,7 @@ export default {
       frameCount: 5,
       options: [
         {
-          index: 0, name: "孟买", tag: [72.830127, 18.975847], zoom: 15, templateId: 31, message: `<div style="height:100%;width:100%;">
+          index: 0, name: "孟买", tag: [72.880127, 19.075847], zoom: 15, templateId: 31, message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟买</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
@@ -189,7 +191,7 @@ export default {
         {
           index: 1,
           name: "瓜德尔港",
-          tag: [62.323615, 25.116452],
+          tag: [62.323615, 25.119452],
           zoom: 15,
           templateId: 32,
           message: `<div style="height:100%;width:100%;">
@@ -447,7 +449,7 @@ export default {
         container: "resultMap", // container ID
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
         // style: "mapbox://styles/mapbox/satellite-streets-v11",
-        style: "mapbox://styles/mapbox/dark-v10",
+        style: "mapbox://styles/lawinbee/clg191r9o004o01mmhyrr4hfs",
         // style: "mapbox://styles/mapbox/streets-v11",
         zoom: zoom,
         center: [120, 40],

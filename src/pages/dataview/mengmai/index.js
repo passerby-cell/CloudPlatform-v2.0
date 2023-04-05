@@ -20,11 +20,11 @@ export const addMengmaiLayer = (resultMap) => {
   // });
   // });
   // resultMap.on("load", () => {
-  //   resultMap.addSource("route", require("./mengmai.json"));
+  //   resultMap.addSource("mengmairoute", require("./mengmai.json"));
   //   resultMap.addLayer({
-  //     id: "route",
+  //     id: "mengmairoute",
   //     type: "line",
-  //     source: "route",
+  //     source: "mengmairoute",
   //     layout: {
   //       "line-join": "round",
   //       "line-cap": "round",
