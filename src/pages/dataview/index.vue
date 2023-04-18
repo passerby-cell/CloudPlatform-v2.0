@@ -19,13 +19,13 @@
           v-if="showDoubleMap">还原</el-button>
       </el-row>
       <el-button @click="create()" size="small" v-if="tag" style="
-                                                                                                        position: fixed;
-                                                                                                        bottom: 260px;
-                                                                                                        right: 31px;
-                                                                                                        z-index: 9999999;
-                                                                                                        font-size: 16px;
-                                                                                                        padding: 6px;
-                                                                                                      "
+                                                                                                          position: fixed;
+                                                                                                          bottom: 260px;
+                                                                                                          right: 31px;
+                                                                                                          z-index: 9999999;
+                                                                                                          font-size: 16px;
+                                                                                                          padding: 6px;
+                                                                                                        "
         icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
@@ -37,31 +37,31 @@
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
       <el-button @click="addThreeD()" size="small" style="
-                                                                                                        position: fixed;
-                                                                                                        bottom: 185px;
-                                                                                                        right: 31px;
-                                                                                                        z-index: 9999999;
-                                                                                                        font-size: 14px;
-                                                                                                        padding: 5px;
-                                                                                                      "
+                                                                                                          position: fixed;
+                                                                                                          bottom: 185px;
+                                                                                                          right: 31px;
+                                                                                                          z-index: 9999999;
+                                                                                                          font-size: 14px;
+                                                                                                          padding: 5px;
+                                                                                                        "
         v-if="!is3D">3D</el-button>
       <el-button @click="addTwoD()" size="small" style="
-                                                                                                        position: fixed;
-                                                                                                        bottom: 185px;
-                                                                                                        right: 31px;
-                                                                                                        z-index: 9999999;
-                                                                                                        font-size: 14px;
-                                                                                                        padding: 5px;
-                                                                                                      "
+                                                                                                          position: fixed;
+                                                                                                          bottom: 185px;
+                                                                                                          right: 31px;
+                                                                                                          z-index: 9999999;
+                                                                                                          font-size: 14px;
+                                                                                                          padding: 5px;
+                                                                                                        "
         v-if="is3D">2D</el-button>
       <el-button @click="fixMap()" size="small" style="
-                                                                                                        position: fixed;
-                                                                                                        bottom: 222px;
-                                                                                                        right: 31px;
-                                                                                                        z-index: 9999999;
-                                                                                                        font-size: 16px;
-                                                                                                        padding: 6px;
-                                                                                                      "
+                                                                                                          position: fixed;
+                                                                                                          bottom: 222px;
+                                                                                                          right: 31px;
+                                                                                                          z-index: 9999999;
+                                                                                                          font-size: 16px;
+                                                                                                          padding: 6px;
+                                                                                                        "
         icon="el-icon-view" v-if="!isFixed"></el-button>
       <!-- <el-button
         @click="initMap(3)"
@@ -243,7 +243,7 @@ export default {
             48.192331189685405
           ],
           zoom: 15,
-          templateId: 33,
+          templateId: 36,
           message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
               <div>
