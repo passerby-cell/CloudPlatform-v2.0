@@ -19,13 +19,13 @@
           v-if="showDoubleMap">还原</el-button>
       </el-row>
       <el-button @click="create()" size="small" v-if="tag" style="
-                                                                                        position: fixed;
-                                                                                        bottom: 260px;
-                                                                                        right: 31px;
-                                                                                        z-index: 9999999;
-                                                                                        font-size: 16px;
-                                                                                        padding: 6px;
-                                                                                      "
+                                                                                                        position: fixed;
+                                                                                                        bottom: 260px;
+                                                                                                        right: 31px;
+                                                                                                        z-index: 9999999;
+                                                                                                        font-size: 16px;
+                                                                                                        padding: 6px;
+                                                                                                      "
         icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
@@ -37,30 +37,32 @@
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
       <el-button @click="addThreeD()" size="small" style="
-                                                                                        position: fixed;
-                                                                                        bottom: 185px;
-                                                                                        right: 31px;
-                                                                                        z-index: 9999999;
-                                                                                        font-size: 14px;
-                                                                                        padding: 5px;
-                                                                                      " v-if="!is3D">3D</el-button>
+                                                                                                        position: fixed;
+                                                                                                        bottom: 185px;
+                                                                                                        right: 31px;
+                                                                                                        z-index: 9999999;
+                                                                                                        font-size: 14px;
+                                                                                                        padding: 5px;
+                                                                                                      "
+        v-if="!is3D">3D</el-button>
       <el-button @click="addTwoD()" size="small" style="
-                                                                                        position: fixed;
-                                                                                        bottom: 185px;
-                                                                                        right: 31px;
-                                                                                        z-index: 9999999;
-                                                                                        font-size: 14px;
-                                                                                        padding: 5px;
-                                                                                      " v-if="is3D">2D</el-button>
+                                                                                                        position: fixed;
+                                                                                                        bottom: 185px;
+                                                                                                        right: 31px;
+                                                                                                        z-index: 9999999;
+                                                                                                        font-size: 14px;
+                                                                                                        padding: 5px;
+                                                                                                      "
+        v-if="is3D">2D</el-button>
       <el-button @click="fixMap()" size="small" style="
-                                                                                        position: fixed;
-                                                                                        bottom: 222px;
-                                                                                        right: 31px;
-                                                                                        z-index: 9999999;
-                                                                                        font-size: 16px;
-                                                                                        padding: 6px;
-                                                                                      " icon="el-icon-view"
-        v-if="!isFixed"></el-button>
+                                                                                                        position: fixed;
+                                                                                                        bottom: 222px;
+                                                                                                        right: 31px;
+                                                                                                        z-index: 9999999;
+                                                                                                        font-size: 16px;
+                                                                                                        padding: 6px;
+                                                                                                      "
+        icon="el-icon-view" v-if="!isFixed"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -140,6 +142,7 @@
 import { mapState } from "vuex";
 import { addMengmaiLayer } from "./mengmai";
 import { addGuadaerLayer } from "./guadaer";
+import { mengjialaguo_after, mengjialaguo_before } from "./mengjialaguo";
 // import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 import { } from "@/api";
@@ -221,10 +224,9 @@ export default {
           index: 3,
           name: "孟加拉国",
           tag: [
-            90.0880323658539,
-            24.36103990222381
+            89.91287977937156, 23.64362166893602
           ],
-          zoom: 15,
+          zoom: 11,
           templateId: 34,
           message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟加拉国</h1></div>
@@ -507,6 +509,8 @@ export default {
       // });
       addMengmaiLayer(resultMap);
       addGuadaerLayer(resultMap);
+      mengjialaguo_after(resultMap);
+      mengjialaguo_before(map)
       for (let i = 0; i < this.options.length; i++) {
         let marker = new mapboxgl.Marker({
           color: "#5995FC",
