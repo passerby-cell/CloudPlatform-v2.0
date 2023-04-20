@@ -11,10 +11,10 @@
       </el-breadcrumb>
     </Transition>
     <el-card style="
-                                background-color: #eaebed;
-                                margin: 10px;
-                                height: calc(100vh - 170px);
-                              " :body-style="{ padding: '0px' }">
+                                                    background-color: #eaebed;
+                                                    margin: 10px;
+                                                    height: calc(100vh - 170px);
+                                                  " :body-style="{ padding: '0px' }">
       <el-row>
         <el-card :body-style="{ padding: '0px' }" style="height: 85px; margin: 10px" shadow="hover">
           <el-row :span="12" style="margin-top: 10px">
@@ -32,11 +32,11 @@
 
       <el-row>
         <el-card :body-style="{ padding: '0px' }" style="
-                                    height: calc(100vh - 290px);
-                                    margin-left: 10px;
-                                    margin-right: 10px;
-                                    margin-buttom: 10px;
-                                  " shadow="hover">
+                                                        height: calc(100vh - 290px);
+                                                        margin-left: 10px;
+                                                        margin-right: 10px;
+                                                        margin-buttom: 10px;
+                                                      " shadow="hover">
           <el-row :span="12" style="margin-top: 10px">
             <h3 style="margin-left: 5px" class="size">
               <span style="color: #409eff">|</span>&nbsp;计算实例列表
@@ -63,11 +63,11 @@
           <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
             leave-active-class="animate__animated animate__fadeOutRight">
             <el-table class="size" :row-style="{ height: 20 + 'px' }" :cell-style="{ padding: 8 + 'px' }" style="
-                                        width: 100%;
-                                        margin-top: 10px;
-                                        margin-left: 10px;
-                                        margin-rigth: 10px;
-                                      " :data="formatedJobInfoList" :border="true" max-height="360">
+                                                            width: 100%;
+                                                            margin-top: 10px;
+                                                            margin-left: 10px;
+                                                            margin-rigth: 10px;
+                                                          " :data="formatedJobInfoList" :border="true" max-height="360">
               <el-table-column prop="hostName" label="节点名称" show-overflow-tooltip>
               </el-table-column>
               <el-table-column prop="hostIp" label="节点IP" show-overflow-tooltip></el-table-column>
@@ -94,18 +94,18 @@
           </Transition>
           <el-dialog :visible.sync="rizhiDialogVisible" :before-close="handleClose" width="1000px" title="日志">
             <pre v-highlight style="
-                                        height: 500px;
-                                        overflow: auto;
-                                        padding-left: 20px;
-                                        padding-right: 20px;
-                                      ">
-                                          <code
-                                          class="json"
-                                          style="font-size: 16px; background-color: #20211d;height:440px;padding: 0px;margin: 0px;"
-                                          id="statusLog"
-                                          :code="logs"
-                                        ></code>
-                                        </pre>
+                                                            height: 500px;
+                                                            overflow: auto;
+                                                            padding-left: 20px;
+                                                            padding-right: 20px;
+                                                          ">
+                                                              <code
+                                                              class="json"
+                                                              style="font-size: 16px; background-color: #20211d;height:440px;padding: 0px;margin: 0px;"
+                                                              id="statusLog"
+                                                              :code="logs"
+                                                            ></code>
+                                                            </pre>
           </el-dialog>
           <el-dialog title="可视化" class="dialog" :visible.sync="viewDialogVisible" width="60%"
             :before-close="handleViewClose">
@@ -333,19 +333,19 @@ export default {
       });
       let myStrTrain = result.data;
       let regTrain = /{"train":(.*)/;
-      do {
+      while (myStrTrain.indexOf(`{"train":`) != -1) {
         let myStr2 = regTrain.exec(myStrTrain)[1].trim();
         this.viewLogs += `{"train":` + myStr2;
         // console.log(myStr2);
         myStrTrain = myStrTrain.slice(
-          myStrTrain.indexOf(myStr2),
+          myStrTrain.indexOf(myStr2) + myStr2.length,
           myStrTrain.length
         );
         console.log(myStrTrain);
-      } while (myStrTrain.indexOf(`{"train":`) != -1);
+      }
       let regTest = /{"test":(.*)/;
       let myStrTest = result.data;
-      do {
+      while (myStrTest.indexOf(`{"test":`) != -1) {
         let myStr2 = regTest.exec(myStrTest)[1].trim();
         this.viewLogs += `{"test":` + myStr2;
         // console.log(myStr2);
@@ -353,13 +353,14 @@ export default {
           myStrTest.indexOf(myStr2) + myStr2.length,
           myStrTest.length
         );
-        console.log(myStrTest);
-      } while (myStrTest.indexOf(`{"test":`) != -1);
+        // console.log(myStrTest);
+      }
       // this.viewLogs += result.data.substring(
       //   result.data.indexOf(`{"train":{"epoch"`),
       //   result.data.length
       // );
       let view = `{"info": [` + this.viewLogs + `],}`;
+      console.log(view);
       this.jsonObj = eval("(" + view + ")");
       for (let i = 0; i < this.jsonObj.info.length; i++) {
         if (this.jsonObj.info[i].train) {
@@ -389,7 +390,7 @@ export default {
           label: "train",
           children: [
             { value: "loss", label: "loss" },
-            { value: "epochtime", label: "epochtime" },
+            // { value: "epochtime", label: "epochtime" },
           ],
         });
       }
