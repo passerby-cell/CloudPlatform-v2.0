@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center; font-size: 16px">
-    Copyright&copy;2022 南京信息工程大学
+    Copyright&copy;2023 南京信息工程大学
   </div>
 </template>
 
