@@ -79,7 +79,23 @@
       ></el-button> -->
 
       <div id="map" style="float:right"></div>
-      <div id="resultMap" style="float:right"></div>
+      <div id="resultMap" style="float:right">
+      </div>
+      <el-card v-if="showDoubleMap && selectedTag == '孟买'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是孟买图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是瓜德尔港图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是孟加拉国图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '缅甸'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
 
       <div id="fullScreenMap" v-show="isFullScreen" style="height: 100%; width: 100%">
         <dv-border-box-11 :title="selectedTag" class="zIndex">
@@ -344,7 +360,6 @@ export default {
     },
     full() {
       this.isFullScreen = true;
-
       this.launchFullscreen(document.getElementById("fullScreenMap"));
     },
     launchFullscreen(element) {
@@ -442,7 +457,10 @@ export default {
         // style: "mapbox://styles/mapbox/dark-v10",
         // style: "mapbox://styles/mapbox/streets-v11",
         zoom: zoom,
-        center: [120, 40],
+        center: [
+          77.08685480625758,
+          35.532881863509374
+        ],
         // projection: "globe",
         antialias: false,
         attributionControl: false,
@@ -513,7 +531,7 @@ export default {
       mengjialaguo_before(map)
       for (let i = 0; i < this.options.length; i++) {
         let marker = new mapboxgl.Marker({
-          color: "#5995FC",
+          color: "#BB271A",
           clickTolerance: 10,
           draggable: true,
         })
