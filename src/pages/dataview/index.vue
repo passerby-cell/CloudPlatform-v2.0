@@ -82,19 +82,68 @@
       <div id="resultMap" style="float:left">
       </div>
       <el-card v-if="showDoubleMap && selectedTag == '孟买'"
-        style="width: 120px;height: 40px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '10px' }">
-        <div style="width: 70px;
+        style="width: 120px;height: 30px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '5px' }">
+        <div style="line-height: 20px;height: 20px;">
+          <div style="width: 70px;
             height: 8px;
             background-color: #6EED47;
-            border-radius: 0%;"></div><span>道路</span>
+            border-radius: 0%;display:inline-block;margin-bottom: 2px;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
+        </div>
+
       </el-card>
       <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'"
-        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '10px' }">我是瓜德尔港图例</el-card>
+        style="width: 70px;height: 110px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '5px' }">
+
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #EA3323;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">建筑</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #EF8733;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #377E22;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">植被</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #0000F5;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #75147C;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">港口</div>
+        </div>
+      </el-card>
       <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'"
-        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '10px' }">我是孟加拉国图例</el-card>
+        style="width: 70px;height: 28px;line-height: 28px;position: fixed;top: 168px;left: 230px;z-index: 9;background-color: #5A9CF8;border: #5A9CF8;"
+        :body-style="{ padding: '5px' }">
+        <div style="line-height: 16px;height: 16px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #FFFFFF;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
+        </div>
+      </el-card>
       <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
         style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
         :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
