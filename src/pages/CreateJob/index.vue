@@ -151,10 +151,9 @@
         <el-row>
           <el-col :span="9"><el-form-item label="选择仓库" :label-width="formLabelWidth" prop="repositoryDir">
               <el-select style="width: 250px" v-model="taskInfo.repositoryDir" @change="changeImageCatalog">
-                <el-option v-for="(item, index) in imageCatalogList" :label="item.envName == 'cluster-default-default'
-                  ? 'private'
-                  : item.envName
-                  " :value="item.catalogId"></el-option>
+                <el-option v-for="(item, index) in imageCatalogList"
+                  :label="item.envName == 'cluster-default-default' ? 'private' : item.envName"
+                  :value="item.catalogId"></el-option>
               </el-select> </el-form-item></el-col>
           <el-col :span="7">
             <el-form-item label="选择镜像" :label-width="formLabelWidth" prop="imagePrefix">
@@ -1107,9 +1106,16 @@ export default {
       }
     }
     if (this.$route.query.templateId) {
+      var d = new Date();
       this.tasks.push(...this.TaskTemplate)
-      this.vcJob.vcJobCnName = this.JobTemplate.tvcJobCnName
-      this.vcJob.vcJobName = this.JobTemplate.tvcJobName
+      this.vcJob.vcJobCnName = this.JobTemplate.tvcJobCnName + (d.getMonth() + 1) + d.getDate() +
+        d.getHours() +
+        d.getMinutes() +
+        d.getSeconds();
+      this.vcJob.vcJobName = this.JobTemplate.tvcJobName + (d.getMonth() + 1) + d.getDate() +
+        d.getHours() +
+        d.getMinutes() +
+        d.getSeconds();
     }
   },
 };

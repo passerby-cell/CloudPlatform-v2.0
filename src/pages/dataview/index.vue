@@ -531,6 +531,7 @@ export default {
         ], duration: 3000,
       });
       this.tag = null;
+      this.selectedTag = null;
 
     },
     getPath() {
