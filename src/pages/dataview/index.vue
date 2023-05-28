@@ -62,7 +62,7 @@
                                                                                                                 font-size: 16px;
                                                                                                                 padding: 6px;
                                                                                                               "
-        icon="el-icon-view" v-if="!isFixed"></el-button>
+        icon="el-icon-view"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -79,7 +79,77 @@
       ></el-button> -->
 
       <div id="map" style="float:right"></div>
-      <div id="resultMap" style="float:right"></div>
+      <div id="resultMap" style="float:left">
+      </div>
+      <el-card v-if="showDoubleMap && selectedTag == '孟买'"
+        style="width: 120px;height: 30px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '5px' }">
+        <div style="line-height: 20px;height: 20px;">
+          <div style="width: 70px;
+            height: 8px;
+            background-color: #6EED47;
+            border-radius: 0%;display:inline-block;margin-bottom: 2px;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
+        </div>
+
+      </el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'"
+        style="width: 70px;height: 110px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '5px' }">
+
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #EA3323;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">建筑</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #EF8733;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #377E22;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">植被</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #0000F5;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
+        </div>
+        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #75147C;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">港口</div>
+        </div>
+      </el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'"
+        style="width: 70px;height: 28px;line-height: 28px;position: fixed;top: 168px;left: 230px;z-index: 9;background-color: #5A9CF8;border: #5A9CF8;"
+        :body-style="{ padding: '5px' }">
+        <div style="line-height: 16px;height: 16px;">
+          <div style="width: 14px;
+            height: 14px;
+            background-color: #FFFFFF;
+            border-radius: 50%;display:inline-block;"></div>
+          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
+        </div>
+      </el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '缅甸'"
+        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
+        :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
 
       <div id="fullScreenMap" v-show="isFullScreen" style="height: 100%; width: 100%">
         <dv-border-box-11 :title="selectedTag" class="zIndex">
@@ -290,32 +360,81 @@ export default {
           },
         ],
       },
+      map_x: null,
+      map_y: null,
+
+      map_zoom: null,
+
+      map_pitch: null,
+
+      map_bear: null,
     };
   },
   computed: {},
   methods: {
+    getMapIndexInfo() {
+      // 拖拽
+      this.map_x = this.map.getCenter().lng;
+      this.map_y = this.map.getCenter().lat;
+      //   放大缩小
+      this.map_zoom = this.map.getZoom();
+      // 倾斜
+      this.map_pitch = this.map.getPitch();
+      // 旋转
+      this.map_bear = this.map.getBearing();
+    },
+    useInfoSetMap() {
+      this.map.setCenter([this.map_x, this.map_y]);
+      this.map.setZoom(this.map_zoom);
+      this.map.setPitch(this.map_pitch);
+      this.map.setBearing(this.map_bear);
+      // this.tag = this.selectedTag
+      if (this.resultMap != null) {
+        this.resultMap.setCenter([this.map_x, this.map_y]);
+        this.resultMap.setZoom(this.map_zoom);
+        this.resultMap.setPitch(this.map_pitch);
+        this.resultMap.setBearing(this.map_bear);
+      }
+
+    },
+    removeMap() {
+      let resultMap = document.getElementById("resultMap")
+      let map = document.getElementById("map")
+      while (resultMap.hasChildNodes()) {
+        resultMap.removeChild(resultMap.firstChild);
+      }
+      while (map.hasChildNodes()) {
+        map.removeChild(map.firstChild);
+      }
+    },
     changeSize() {
       let timer
-
+      this.getMapIndexInfo()
       if (!this.showDoubleMap) {
         this.showDoubleMap = true;
-        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 46) / 2 + 'px'
-        document.getElementById("resultMap").style.width = (document.body.clientWidth - 200 - 46) / 2 + 'px'
+        this.removeMap()
+        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 42) / 2 + 'px'
+        document.getElementById("resultMap").style.width = (document.body.clientWidth - 200 - 42) / 2 + 'px'
         document.getElementById("resultMap").style.top = 10 + 'px'
-        this.initMap(3)
+        document.getElementById("resultMap").style.float = 'left'
+        document.getElementById("map").style.float = 'right'
+
+        this.initMap(3, true)
         let _this = this;
         // timer = setInterval(() => {
         //   _this.currentImage = (_this.currentImage + 1) % _this.frameCount;
         //   _this.resultMap.getSource('radar').updateImage({ url: _this.getPath() });
         // }, 500);
       } else {
-        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 30) + 'px'
+        this.removeMap()
+        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 40) + 'px'
         document.getElementById("resultMap").style.top = 200 + 'px'
-        this.showDoubleMap = false;
-        this.initMap(3)
-        clearInterval(timer)
-      }
 
+        this.showDoubleMap = false;
+        this.initMap(3, false)
+        // clearInterval(timer)
+      }
+      this.useInfoSetMap()
     },
     create() {
       this.$store.dispatch("Template/getJobTemplate", { templateId: this.templateId })
@@ -344,7 +463,6 @@ export default {
     },
     full() {
       this.isFullScreen = true;
-
       this.launchFullscreen(document.getElementById("fullScreenMap"));
     },
     launchFullscreen(element) {
@@ -378,7 +496,7 @@ export default {
     selectChange(value) {
       this.fixMap();
       this.jumpTo(value);
-      this.initFullScreenMap(value);
+      // this.initFullScreenMap(value);
       let z;
       this.options.forEach((item) => {
         if (item.tag == value) {
@@ -396,39 +514,45 @@ export default {
       });
       console.log(z);
       this.selectedTag = z.name;
-      this.map.flyTo({
+      this.map.jumpTo({
         center: tag,
         zoom: z.zoom,
+        duration: 3000,
       });
       this.tag = tag;
       this.isFixed = false;
     },
     fixMap() {
-      this.map.flyTo({
+      this.map.jumpTo({
         zoom: 3,
-        center: [120, 40],
+        center: [
+          77.08685480625758,
+          35.532881863509374
+        ], duration: 3000,
       });
       this.tag = null;
+      this.selectedTag = null;
+
     },
     getPath() {
       return `https://docs.mapbox.com/mapbox-gl-js/assets/radar` + this.currentImage + `.gif`;
     },
-    initMap(zoom) {
+    initMap(zoom, initResult) {
 
       this.map = null;
-      let mapDiv = document.getElementById('map')
-      if (mapDiv.childNodes.length != 0) {
-        for (let i = 0; i < mapDiv.childNodes.length; i++) {
-          mapDiv.removeChild(mapDiv.childNodes[i])
-        }
-      }
+      // let mapDiv = document.getElementById('map')
+      // if (mapDiv.childNodes.length != 0) {
+      //   for (let i = 0; i < mapDiv.childNodes.length; i++) {
+      //     mapDiv.removeChild(mapDiv.childNodes[i])
+      //   }
+      // }
       this.resultMap = null;
-      let resultMapDiv = document.getElementById('resultMap')
-      if (resultMapDiv.childNodes.length != 0) {
-        for (let i = 0; i < resultMapDiv.childNodes.length; i++) {
-          resultMapDiv.removeChild(resultMapDiv.childNodes[i])
-        }
-      }
+      // let resultMapDiv = document.getElementById('resultMap')
+      // if (resultMapDiv.childNodes.length != 0) {
+      //   for (let i = 0; i < resultMapDiv.childNodes.length; i++) {
+      //     resultMapDiv.removeChild(resultMapDiv.childNodes[i])
+      //   }
+      // }
 
       // mapboxgl.accessToken =
       //   "pk.eyJ1IjoicGxheS1pc2FhYyIsImEiOiJjazU0cDkzbWowamd2M2dtemd4bW9mbzRhIn0.cxD4Fw3ZPB_taMkyUSFENA";
@@ -442,23 +566,73 @@ export default {
         // style: "mapbox://styles/mapbox/dark-v10",
         // style: "mapbox://styles/mapbox/streets-v11",
         zoom: zoom,
-        center: [120, 40],
+        center: [
+          77.08685480625758,
+          35.532881863509374
+        ],
         // projection: "globe",
         antialias: false,
         attributionControl: false,
       });
-      const resultMap = new mapboxgl.Map({
-        container: "resultMap", // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        // style: "mapbox://styles/mapbox/satellite-streets-v11",
-        style: "mapbox://styles/lawinbee/clg191r9o004o01mmhyrr4hfs",
-        // style: "mapbox://styles/mapbox/streets-v11",
-        zoom: zoom,
-        center: [120, 40],
-        // projection: "globe",
-        antialias: false,
-        attributionControl: false,
-      });
+      if (initResult) {
+        const resultMap = new mapboxgl.Map({
+          container: "resultMap", // container ID
+          // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+          // style: "mapbox://styles/mapbox/satellite-streets-v11",
+          style: "mapbox://styles/lawinbee/clg191r9o004o01mmhyrr4hfs",
+          // style: "mapbox://styles/mapbox/streets-v11",
+          zoom: zoom,
+          center: [
+            77.08685480625758,
+            35.532881863509374
+          ],
+          // projection: "globe",
+          antialias: false,
+          attributionControl: false,
+        });
+        resultMap.on("style.load", () => {
+          resultMap.setFog({}); // Set the default atmosphere style
+        });
+        var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
+        resultMap.doubleClickZoom.disable();
+        resultMap.addControl(language2);
+        addMengmaiLayer(resultMap);
+        addGuadaerLayer(resultMap);
+        mengjialaguo_after(resultMap);
+        // 拖拽
+        map.on("drag", function () {
+          let map_x = map.getCenter().lng;
+          let map_y = map.getCenter().lat;
+          resultMap.setCenter([map_x, map_y]);
+        });
+
+        //   放大缩小
+        map.on("zoom", function () {
+          let map_zoom = map.getZoom();
+          let map_x = map.getCenter().lng;
+          let map_y = map.getCenter().lat;
+          resultMap.setCenter([map_x, map_y]);
+          resultMap.setZoom(map_zoom);
+        });
+
+        // 倾斜
+
+        map.on("pitch", function () {
+          let map_pitch = map.getPitch();
+          let map_x = map.getCenter().lng;
+          let map_y = map.getCenter().lat;
+          resultMap.setCenter([map_x, map_y]);
+          resultMap.setPitch(map_pitch);
+        });
+
+        // 旋转
+        map.on("rotate", function () {
+          let map_bear = map.getBearing();
+          resultMap.setBearing(map_bear);
+        });
+        this.resultMap = resultMap;
+
+      }
       map.on("click", (e) => {
         const { lng, lat } = e.lngLat;
         console.log(lng, lat);
@@ -466,16 +640,11 @@ export default {
       map.on("style.load", () => {
         map.setFog({}); // Set the default atmosphere style
       });
-      resultMap.on("style.load", () => {
-        resultMap.setFog({}); // Set the default atmosphere style
-      });
       map.doubleClickZoom.disable();
-      resultMap.doubleClickZoom.disable();
+
       // 设置语言
       var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
-      var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
       map.addControl(language);
-      resultMap.addControl(language2);
       // 地图导航
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "bottom-right");
@@ -507,13 +676,11 @@ export default {
       //     }
       //   });
       // });
-      addMengmaiLayer(resultMap);
-      addGuadaerLayer(resultMap);
-      mengjialaguo_after(resultMap);
+
       mengjialaguo_before(map)
       for (let i = 0; i < this.options.length; i++) {
         let marker = new mapboxgl.Marker({
-          color: "#5995FC",
+          color: "#BB271A",
           clickTolerance: 10,
           draggable: true,
         })
@@ -527,22 +694,22 @@ export default {
           .addTo(map);
 
       }
-      for (let i = 0; i < this.options.length; i++) {
-        let marker = new mapboxgl.Marker({
-          color: "#5995FC",
-          clickTolerance: 10,
-          draggable: true,
-        })
-          .setDraggable(false)
-          .setLngLat(this.options[i].tag)
-          .setPopup(
-            new mapboxgl.Popup().setHTML(
-              this.options[i].message
-            )
-          )
-          .addTo(resultMap);
+      // for (let i = 0; i < this.options.length; i++) {
+      //   let marker = new mapboxgl.Marker({
+      //     color: "#BB271A",
+      //     clickTolerance: 10,
+      //     draggable: true,
+      //   })
+      //     .setDraggable(false)
+      //     .setLngLat(this.options[i].tag)
+      //     .setPopup(
+      //       new mapboxgl.Popup().setHTML(
+      //         this.options[i].message
+      //       )
+      //     )
+      //     .addTo(resultMap);
 
-      }
+      // }
 
       for (let i = 0; i < this.mapState.length; i++) {
         for (let j = 0; j < this.mapState[i].length; j++) {
@@ -566,63 +733,18 @@ export default {
           })
         }
       }
-      // 拖拽
-      // resultMap.on("drag", function () {
-      //   let resultMap_x = resultMap.getCenter().lng;
-      //   let resultMap_y = resultMap.getCenter().lat;
-      //   map.setCenter([resultMap_x, resultMap_y]);
-      // });
-      map.on("drag", function () {
-        let map_x = map.getCenter().lng;
-        let map_y = map.getCenter().lat;
-        resultMap.setCenter([map_x, map_y]);
-      });
 
-      //   放大缩小
-      // resultMap.on("zoom", function () {
-      //   let resultMap_zoom = resultMap.getZoom();
-      //   map.setZoom(resultMap_zoom);
-      // });
-      map.on("zoom", function () {
-        let map_zoom = map.getZoom();
-        let map_x = map.getCenter().lng;
-        let map_y = map.getCenter().lat;
-        resultMap.setCenter([map_x, map_y]);
-        resultMap.setZoom(map_zoom);
-      });
-
-      // // 倾斜
-      // resultMap.on("pitch", function () {
-      //   let resultMap_pitch = resultMap.getPitch();
-      //   map.setPitch(resultMap_pitch);
-      // });
-      map.on("pitch", function () {
-        let map_pitch = map.getPitch();
-        let map_x = map.getCenter().lng;
-        let map_y = map.getCenter().lat;
-        resultMap.setCenter([map_x, map_y]);
-        resultMap.setPitch(map_pitch);
-      });
-
-      // // 旋转
-      map.on("rotate", function () {
-        let map_bear = map.getBearing();
-        resultMap.setBearing(map_bear);
-      });
-      // resultMap.on("rotate", function () {
-      //   let resultMap_bear = resultMap.getBearing();
-      //   map.setBearing(resultMap_bear);
-      // });
 
 
       this.map = map;
-      this.resultMap = resultMap;
       this.map.on("dblclick", (e) => {
         _this.flyToMarker(e);
       });
+
+
       this.isFixed = true;
       this.is3D = false;
-      this.tag = null;
+
     },
     initFullScreenMap(index) {
       let z = {};
@@ -706,7 +828,7 @@ export default {
     },
   },
   mounted() {
-    this.initMap(3);
+    this.initMap(3, true);
     // this.initFullScreenMap([120, 40]);
     document.getElementById("resultMap").style.top = 200 + 'px'
   },

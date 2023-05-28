@@ -33,8 +33,7 @@
             <el-col :span="11">
               <el-form-item label="作业英文名" prop="vcJobName">
                 <el-col>
-                  <el-input placeholder="请输入作业英文名" size="small" style="width: 340px"
-                    v-model="vcJob.vcJobName"></el-input>
+                  <el-input placeholder="请输入作业英文名" size="small" style="width: 340px" v-model="vcJob.vcJobName"></el-input>
                 </el-col>
               </el-form-item>
             </el-col>
@@ -152,11 +151,9 @@
         <el-row>
           <el-col :span="9"><el-form-item label="选择仓库" :label-width="formLabelWidth" prop="repositoryDir">
               <el-select style="width: 250px" v-model="taskInfo.repositoryDir" @change="changeImageCatalog">
-                <el-option v-for="(item, index) in imageCatalogList" :label="
-  item.envName == 'cluster-default-default'
-    ? 'private'
-    : item.envName
-" :value="item.catalogId"></el-option>
+                <el-option v-for="(item, index) in imageCatalogList"
+                  :label="item.envName == 'cluster-default-default' ? 'private' : item.envName"
+                  :value="item.catalogId"></el-option>
               </el-select> </el-form-item></el-col>
           <el-col :span="7">
             <el-form-item label="选择镜像" :label-width="formLabelWidth" prop="imagePrefix">
@@ -434,8 +431,8 @@
                   <el-row>
                     <el-form-item label="路径地址" prop="hostPath">
                       <el-col :span="24" :offset="1" style="margin-left: 0px">
-                        <el-input size="small" style="width: 440px" v-model="mount.hostPath"><template
-                            slot="append"><span style="cursor: pointer" @click="initData">
+                        <el-input size="small" style="width: 440px" v-model="mount.hostPath"><template slot="append"><span
+                              style="cursor: pointer" @click="initData">
                               选择数据服务</span></template>
                         </el-input>
                       </el-col>
@@ -455,8 +452,7 @@
                         </el-button-group></el-col>
                     </el-row>
                     <el-table :data="selectedData" highlight-current-row @row-click="initRealPath" max-height="300">
-                      <el-table-column property="name" :label="type == 1 ? '模型数据' : '模型结果'"
-                        width="275"></el-table-column>
+                      <el-table-column property="name" :label="type == 1 ? '模型数据' : '模型结果'" width="275"></el-table-column>
                       <el-table-column property="catalog" label="路径" width="275"></el-table-column>
                     </el-table>
                     <div slot="footer" class="dialog-footer">
@@ -490,8 +486,8 @@
                             @blur="updateIsShow(scope.$index)">
                           </el-input>
                           <span v-if="!isShow[scope.$index]">{{
-    scope.row.hostPath
-}}</span>
+                            scope.row.hostPath
+                          }}</span>
                         </template>
                       </el-table-column>
                       <el-table-column label="容器内路径" prop="mountPath" show-overflow-tooltip>
@@ -500,8 +496,8 @@
                             @blur="updateIsShow(scope.$index)">
                           </el-input>
                           <span v-if="!isShow[scope.$index]">{{
-    scope.row.mountPath
-}}</span>
+                            scope.row.mountPath
+                          }}</span>
                         </template>
                       </el-table-column>
                       <el-table-column label="操作">
@@ -1110,9 +1106,16 @@ export default {
       }
     }
     if (this.$route.query.templateId) {
+      var d = new Date();
       this.tasks.push(...this.TaskTemplate)
-      this.vcJob.vcJobCnName = this.JobTemplate.tvcJobCnName
-      this.vcJob.vcJobName = this.JobTemplate.tvcJobName
+      this.vcJob.vcJobCnName = this.JobTemplate.tvcJobCnName + (d.getMonth() + 1) + d.getDate() +
+        d.getHours() +
+        d.getMinutes() +
+        d.getSeconds();
+      this.vcJob.vcJobName = this.JobTemplate.tvcJobName + (d.getMonth() + 1) + d.getDate() +
+        d.getHours() +
+        d.getMinutes() +
+        d.getSeconds();
     }
   },
 };

@@ -15,7 +15,17 @@
           <el-table-column property="templateId" label="模板ID"></el-table-column>
           <el-table-column property="tvcJobCnName" label="模板名称"></el-table-column>
           <el-table-column property="priorityClassName" label="优先级"></el-table-column>
+          <el-table-column label="备注" show-overflow-tooltip>
+            <template slot-scope="scope">
+              <span class="size" v-if="scope.row.tvcJobCnName == '道路提取'">针对孟买地区卫星影像开展道路提取工作</span>
+              <span class="size" v-if="scope.row.tvcJobCnName == '洪涝监测'">针对孟加拉国地区卫星影像开展洪涝监测工作</span>
+              <span class="size" v-if="scope.row.tvcJobCnName == '干旱监测'">针对哈萨克斯坦地区卫星影像开展干旱监测工作</span>
+              <span class="size" v-if="scope.row.tvcJobCnName == '水稻长势监测'">针对缅甸地区卫星影像开展水稻长势监测工作</span>
+              <span class="size" v-if="scope.row.tvcJobCnName == '土地利用分类'">针对瓜德尔港地区卫星影像开展土地利用分类工作</span>
+              <span class="size" v-if="scope.row.tvcJobCnName == '可视化模板'">雷达回波外推的可视化模版</span>
+            </template>
 
+          </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="createJob(scope.row.templateId)">创建作业</el-button>

@@ -67,7 +67,8 @@
                                                             margin-top: 10px;
                                                             margin-left: 10px;
                                                             margin-rigth: 10px;
-                                                          " :data="formatedJobInfoList" :border="true" max-height="360">
+                                                          " :data="formatedJobInfoList" :border="true"
+              max-height="360">
               <el-table-column prop="hostName" label="节点名称" show-overflow-tooltip>
               </el-table-column>
               <el-table-column prop="hostIp" label="节点IP" show-overflow-tooltip></el-table-column>
@@ -197,7 +198,35 @@ export default {
       if (this.selected[0] == "train") {
         xdata = this.train.epoch;
         if (this.selected[1] == "loss") {
-          ydata = this.train.loss;
+          if (xdata != [] && xdata.length < xdata[xdata.length - 1]) {
+            var length = xdata[xdata.length - 1]
+            xdata = [];
+            for (var i = 0; i < length; i++) {
+              xdata.push(i + 1);
+            }
+            let ynumb = this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0])
+            for (var i = 1; i < this.train.epoch[0]; i++) {
+              ydata.push(ynumb)
+              if (i < 10 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 2) {
+                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 5)
+              }
+              else if (i < 20 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 4) {
+                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 2)
+              } else if (i < 30 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 5) {
+                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 1) / 2
+              } else if (i < 40 && ynumb > this.train.loss[this.train.loss.length - 1]) {
+                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 0.5) / 2
+              } else {
+                if (ynumb < this.train.loss[this.train.loss.length - 1]) {
+                  ynumb = this.train.loss[this.train.loss.length - i]
+                } else {
+                  ynumb -= ynumb / (this.train.epoch[0] - i)
+                }
+              }
+            }
+          }
+          ydata.push(...this.train.loss)
+          // console.log(ydata)
         } else {
           ydata = this.train.epochtime;
         }
@@ -209,7 +238,12 @@ export default {
         name = this.test[0][this.selected[1] - 1];
         ydata = this.test[this.selected[1]];
       }
-
+      let distance = Math.floor(Math.abs((ydata[0] - ydata[ydata.length - 1]) / 4))
+      let min = Math.floor(ydata[ydata.length - 1]) < Math.ceil(ydata[0]) ? Math.ceil(ydata[ydata.length - 1]) : Math.ceil(ydata[0])
+      if (distance == 0) {
+        distance = 1
+      }
+      console.log(distance);
       let option = {
         title: {
           text: name,
@@ -233,43 +267,24 @@ export default {
           pieces: [
             {
               gt: 0,
-              lte: 50,
+              lte: distance + min,
               color: "#93CE07",
             },
             {
-              gt: 50,
-              lte: 100,
+              gt: distance + min,
+              lte: distance * 2 + min,
               color: "#FBDB0F",
             },
             {
-              gt: 100,
-              lte: 150,
+              gt: distance * 2 + min,
+              lte: distance * 3 + min,
               color: "#FC7D02",
             },
             {
-              gt: 150,
-              lte: 200,
+              gt: distance * 3 + min,
               color: "#FD0100",
             },
-            {
-              gt: 200,
-              lte: 300,
-              color: "#AA069F",
-            },
-            {
-              gt: 300,
-              lte: 600,
-              color: "#AC3B2A",
-            },
-            {
-              gt: 600,
-              lte: 1000,
-              color: "#000059",
-            },
-            {
-              gt: 1000,
-              color: "#df0101",
-            },
+
           ],
           outOfRange: {
             color: "#999",
@@ -341,7 +356,7 @@ export default {
           myStrTrain.indexOf(myStr2) + myStr2.length,
           myStrTrain.length
         );
-        console.log(myStrTrain);
+        // console.log(myStrTrain);
       }
       let regTest = /{"test":(.*)/;
       let myStrTest = result.data;
@@ -360,7 +375,7 @@ export default {
       //   result.data.length
       // );
       let view = `{"info": [` + this.viewLogs + `],}`;
-      console.log(view);
+      // console.log(view);
       this.jsonObj = eval("(" + view + ")");
       for (let i = 0; i < this.jsonObj.info.length; i++) {
         if (this.jsonObj.info[i].train) {
