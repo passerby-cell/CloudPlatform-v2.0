@@ -8,25 +8,26 @@
     </Transition>
     <el-card class="card-style" shadow="hover" :body-style="{ padding: '10px' }" style="height: calc(100vh - 170px)">
       <el-row>
-        <el-select class="size" v-model="tag" placeholder="请选择示范点" style="width: 200px" @change="selectChange" clearable
+        <!-- <el-select class="size" v-model="tag" placeholder="请选择示范点" style="width: 200px" @change="selectChange" clearable
           @clear="fixMap()" size="small">
           <el-option v-for="item in options" :key="item.index" :label="item.name" :value="item.tag">
           </el-option>
-        </el-select>
-        <el-button @click="changeSize()" size="small" type="primary" style="margin-left:10px"
+        </el-select> -->
+        <el-cascader v-model="alltag" :options="allOptions" :props="{ expandTrigger: 'hover' }" size="small" class="size"
+          clearable @clear="fixMap()" placeholder="请选择示范点" @change="selectChange"></el-cascader>
+        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
           v-if="!showDoubleMap">结果对比</el-button>
-        <el-button @click="changeSize()" size="small" type="primary" style="margin-left:10px"
+        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
           v-if="showDoubleMap">还原</el-button>
       </el-row>
       <el-button @click="create()" size="small" v-if="tag" style="
-                                                                                                                position: fixed;
-                                                                                                                bottom: 260px;
-                                                                                                                right: 31px;
-                                                                                                                z-index: 9999999;
-                                                                                                                font-size: 16px;
-                                                                                                                padding: 6px;
-                                                                                                              "
-        icon="el-icon-circle-plus-outline"></el-button>
+          position: fixed;
+          bottom: 260px;
+          right: 31px;
+          z-index: 9999999;
+          font-size: 16px;
+          padding: 6px;
+        " icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
           position: fixed;
@@ -37,32 +38,29 @@
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
       <el-button @click="addThreeD()" size="small" style="
-                                                                                                                position: fixed;
-                                                                                                                bottom: 185px;
-                                                                                                                right: 31px;
-                                                                                                                z-index: 9999999;
-                                                                                                                font-size: 14px;
-                                                                                                                padding: 5px;
-                                                                                                              "
-        v-if="!is3D">3D</el-button>
+          position: fixed;
+          bottom: 185px;
+          right: 31px;
+          z-index: 9999999;
+          font-size: 14px;
+          padding: 5px;
+        " v-if="!is3D">3D</el-button>
       <el-button @click="addTwoD()" size="small" style="
-                                                                                                                position: fixed;
-                                                                                                                bottom: 185px;
-                                                                                                                right: 31px;
-                                                                                                                z-index: 9999999;
-                                                                                                                font-size: 14px;
-                                                                                                                padding: 5px;
-                                                                                                              "
-        v-if="is3D">2D</el-button>
+          position: fixed;
+          bottom: 185px;
+          right: 31px;
+          z-index: 9999999;
+          font-size: 14px;
+          padding: 5px;
+        " v-if="is3D">2D</el-button>
       <el-button @click="fixMap()" size="small" style="
-                                                                                                                position: fixed;
-                                                                                                                bottom: 222px;
-                                                                                                                right: 31px;
-                                                                                                                z-index: 9999999;
-                                                                                                                font-size: 16px;
-                                                                                                                padding: 6px;
-                                                                                                              "
-        icon="el-icon-view"></el-button>
+          position: fixed;
+          bottom: 222px;
+          right: 31px;
+          z-index: 9999999;
+          font-size: 16px;
+          padding: 6px;
+        " icon="el-icon-view"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -78,131 +76,140 @@
         icon="el-icon-refresh-left"
       ></el-button> -->
 
-      <div id="map" style="float:right"></div>
-      <div id="resultMap" style="float:left">
-      </div>
-      <el-card v-if="showDoubleMap && selectedTag == '孟买'"
-        style="width: 120px;height: 30px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '5px' }">
-        <div style="line-height: 20px;height: 20px;">
-          <div style="width: 70px;
-            height: 8px;
-            background-color: #6EED47;
-            border-radius: 0%;display:inline-block;margin-bottom: 2px;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
-        </div>
-
-      </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'"
-        style="width: 70px;height: 110px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '5px' }">
-
-        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #EA3323;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">建筑</div>
-        </div>
-        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #EF8733;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">道路</div>
-        </div>
-        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #377E22;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">植被</div>
-        </div>
-        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #0000F5;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
-        </div>
-        <div style="line-height: 16px;height: 16px;margin-top: 4px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #75147C;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">港口</div>
+      <div id="map" style="float: right"></div>
+      <div id="resultMap" style="float: left"></div>
+      <el-card v-if="showDoubleMap && selectedTag == '孟买'" style="
+          width: 120px;
+          height: 30px;
+          position: fixed;
+          top: 168px;
+          left: 230px;
+          z-index: 9;
+        " :body-style="{ padding: '5px' }">
+        <div style="line-height: 20px; height: 20px">
+          <div style="
+              width: 70px;
+              height: 8px;
+              background-color: #6eed47;
+              border-radius: 0%;
+              display: inline-block;
+              margin-bottom: 2px;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            道路
+          </div>
         </div>
       </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'"
-        style="width: 70px;height: 28px;line-height: 28px;position: fixed;top: 168px;left: 230px;z-index: 9;background-color: #5A9CF8;border: #5A9CF8;"
-        :body-style="{ padding: '5px' }">
-        <div style="line-height: 16px;height: 16px;">
-          <div style="width: 14px;
-            height: 14px;
-            background-color: #FFFFFF;
-            border-radius: 50%;display:inline-block;"></div>
-          <div style="display:inline-block;font-size: 16px;margin-left: 4px;">水体</div>
+      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'" style="
+          width: 70px;
+          height: 110px;
+          position: fixed;
+          top: 168px;
+          left: 230px;
+          z-index: 9;
+        " :body-style="{ padding: '5px' }">
+        <div style="line-height: 16px; height: 16px; margin-top: 4px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #ea3323;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            建筑
+          </div>
+        </div>
+        <div style="line-height: 16px; height: 16px; margin-top: 4px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #ef8733;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            道路
+          </div>
+        </div>
+        <div style="line-height: 16px; height: 16px; margin-top: 4px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #377e22;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            植被
+          </div>
+        </div>
+        <div style="line-height: 16px; height: 16px; margin-top: 4px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #0000f5;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            水体
+          </div>
+        </div>
+        <div style="line-height: 16px; height: 16px; margin-top: 4px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #75147c;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            港口
+          </div>
         </div>
       </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
-        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '缅甸'"
-        style="width: 100px;height: 100px;position: fixed;top: 168px;left: 230px;z-index: 9;"
-        :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'" style="
+          width: 70px;
+          height: 28px;
+          line-height: 28px;
+          position: fixed;
+          top: 168px;
+          left: 230px;
+          z-index: 9;
+          background-color: #5a9cf8;
+          border: #5a9cf8;
+        " :body-style="{ padding: '5px' }">
+        <div style="line-height: 16px; height: 16px">
+          <div style="
+              width: 14px;
+              height: 14px;
+              background-color: #ffffff;
+              border-radius: 50%;
+              display: inline-block;
+            "></div>
+          <div style="display: inline-block; font-size: 16px; margin-left: 4px">
+            水体
+          </div>
+        </div>
+      </el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'" style="
+          width: 100px;
+          height: 100px;
+          position: fixed;
+          top: 168px;
+          left: 230px;
+          z-index: 9;
+        " :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '缅甸'" style="
+          width: 100px;
+          height: 100px;
+          position: fixed;
+          top: 168px;
+          left: 230px;
+          z-index: 9;
+        " :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
 
-      <div id="fullScreenMap" v-show="isFullScreen" style="height: 100%; width: 100%">
-        <dv-border-box-11 :title="selectedTag" class="zIndex">
-          <el-row style="height: 50px; padding-top: 43px">
-            <el-col :span="9"><dv-decoration-1 style="width: 100%; height: 50px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-            <el-col :span="6"><dv-decoration-5 style="width: 100%; height: 50px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-            <el-col :span="9"><dv-decoration-1 style="width: 100%; height: 50px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-          </el-row>
-          <el-row style="margin-left: 40px; margin-right: 40px">
-            <el-col :span="6"><dv-scroll-board :config="config1" style="width: 100%; height: 180px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-            <el-col :span="6" :offset="12"><dv-decoration-6 style="width: 80%; height: 50px; padding-right: 200px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-          </el-row>
-          <!-- <el-row
-            style="margin-left: 40px; margin-right: 40px; padding-top: 40px"
-          >
-            <el-col :span="6"
-              ><dv-decoration-7
-                style="
-                  width: 100%;
-                  height: 50px;
-                  font-size: 21px;
-                  font-weight: 1000;
-                  color: white;
-                "
-                :color="['#7589CD']"
-                >模型运行次数</dv-decoration-7
-              ></el-col
-            >
-            <el-col :span="6" :offset="12"></el-col>
-          </el-row>
-          <el-row style="margin-left: 40px; margin-right: 40px">
-            <el-col :span="6"
-              ><dv-capsule-chart
-                :config="config2"
-                style="width: 400px; height: 200px; font-size: 16px"
-                :color="['#7589CD', '#7589CD']"
-            /></el-col>
-            <el-col :span="6" :offset="12"></el-col>
-          </el-row> -->
-          <el-row style="margin-left: 30px; margin-right: 40px">
-            <el-col :span="6"><dv-decoration-8 style="position: fixed; width: 46%; height: 50px; bottom: 10px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-            <el-col :span="6" :offset="12"><dv-decoration-8 :reverse="true"
-                style="position: fixed; width: 46%; height: 50px; bottom: 10px"
-                :color="['#7589CD', '#7589CD']" /></el-col>
-          </el-row>
-        </dv-border-box-11>
-      </div>
 
     </el-card>
   </div>
@@ -222,28 +229,31 @@ export default {
   data() {
     return {
       mapState: [
-        ['http://192.168.31.252:8082/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer1',
-          'http://192.168.31.252:8082/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer2',
-          'http://192.168.31.252:8082/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer3',
-          'http://192.168.31.252:8082/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer4',
-          'http://192.168.31.252:8082/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer5',
+        [
+          "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer1",
+          "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer2",
+          "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer3",
+          "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer4",
+          "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer5",
         ],
-        ['http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai1',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai2',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai3',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai4',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai5',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai6',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai7',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai8',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai9',
-          'http://192.168.31.252:8082/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai10',
+        [
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai1",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai2",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai3",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai4",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai5",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai6",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai7",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai8",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai9",
+          "http://10.33.50.74:92/geoserver/mengmai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=mengmai:mengmai10",
         ],
       ],
       map: null,
       fullMap: null,
       resultMap: null,
       tag: null,
+      alltag: [],
       selectedTag: null,
       is3D: false,
       isFixed: true,
@@ -254,12 +264,18 @@ export default {
       frameCount: 5,
       options: [
         {
-          index: 0, name: "孟买", tag: [72.880127, 19.075847], zoom: 15, templateId: 39, message: `<div style="height:100%;width:100%;">
+          index: 0,
+          name: "孟买",
+          tag: [72.880127, 19.075847],
+          zoom: 15,
+          templateId: 39,
+          message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟买</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
               </div>
-              </div>`},
+              </div>`,
+        },
 
         {
           index: 1,
@@ -272,15 +288,12 @@ export default {
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
               </div>
-              </div>`
+              </div>`,
         },
         {
           index: 2,
           name: "缅甸",
-          tag: [
-            96.50560601192916,
-            21.159081597411173
-          ],
+          tag: [96.50560601192916, 21.159081597411173],
           zoom: 15,
           templateId: 38,
           message: `<div style="height:100%;width:100%;">
@@ -288,14 +301,12 @@ export default {
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
               </div>
-              </div>`
+              </div>`,
         },
         {
           index: 3,
           name: "孟加拉国",
-          tag: [
-            89.91287977937156, 23.64362166893602
-          ],
+          tag: [89.91287977937156, 23.64362166893602],
           zoom: 11,
           templateId: 34,
           message: `<div style="height:100%;width:100%;">
@@ -303,15 +314,12 @@ export default {
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟加拉国位于南亚次大陆东北部的恒河和布拉马普特拉河冲积而成的三角洲上。东、西、北三面与印度毗邻，东南部与缅甸接壤，南部濒临孟加拉湾。海岸线长550公里。全境85%的地区为平原，东南部和东北部为丘陵地带，国土大部分地区海拔低于12米。</h5>
               </div>
-              </div>`
+              </div>`,
         },
         {
           index: 4,
           name: "哈萨克斯坦",
-          tag: [
-            67.30603532421415,
-            48.192331189685405
-          ],
+          tag: [67.30603532421415, 48.192331189685405],
           zoom: 15,
           templateId: 36,
           message: `<div style="height:100%;width:100%;">
@@ -319,47 +327,110 @@ export default {
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
               </div>
-              </div>`
+              </div>`,
         },
       ],
-      config1: {
-        header: ["序号", "经纬度"],
-        data: [
-          ["孟买", "[72.830127, 18.975847]"],
-          ["瓜德尔港", "[62.323615, 25.103452]"],
-          ["示范点3", "示范点3"],
-          ["示范点4", "示范点4"],
-          ["示范点5", "示范点5"],
-        ],
-        index: true,
-        columnWidth: [50],
-        align: ["center"],
-        rowNum: 4,
-      },
-      config2: {
-        data: [
-          {
-            name: "示范点1",
-            value: 55,
-          },
-          {
-            name: "示范点2",
-            value: 10,
-          },
-          {
-            name: "示范点3",
-            value: 78,
-          },
-          {
-            name: "示范点4",
-            value: 66,
-          },
-          {
-            name: "示范点5",
-            value: 80,
-          },
-        ],
-      },
+      allOptions: [
+        {
+          value: "道路提取",
+          label: "道路提取",
+          children: [{
+            index: 0,
+            value: "0",
+            label: "孟买",
+            name: "孟买",
+            tag: [72.880127, 19.075847],
+            zoom: 15,
+            templateId: 39,
+            message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>孟买</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
+              </div>
+              </div>`,
+          },]
+        },
+
+        {
+          value: "土地利用分类",
+          label: "土地利用分类",
+          children: [{
+            index: 0,
+            name: "瓜德尔港",
+            value: "0",
+            label: "瓜德尔港",
+            tag: [62.323615, 25.119452],
+            zoom: 15,
+            templateId: 32,
+            message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>瓜德尔港</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
+              </div>
+              </div>`,
+          }]
+        },
+        {
+          value: "水稻长势监测",
+          label: "水稻长势监测",
+          children: [{
+            index: 0,
+            name: "缅甸",
+            value: "0",
+            label: "缅甸",
+            tag: [96.50560601192916, 21.159081597411173],
+            zoom: 15,
+            templateId: 38,
+            message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>缅甸</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
+              </div>
+              </div>`,
+          }]
+
+        },
+        {
+          value: "洪涝灾害监测",
+          label: "洪涝灾害监测",
+          children: [{
+            index: 0,
+            name: "孟加拉国",
+            value: "0",
+            label: "孟加拉国",
+            tag: [89.91287977937156, 23.64362166893602],
+            zoom: 11,
+            templateId: 34,
+            message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>孟加拉国</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟加拉国位于南亚次大陆东北部的恒河和布拉马普特拉河冲积而成的三角洲上。东、西、北三面与印度毗邻，东南部与缅甸接壤，南部濒临孟加拉湾。海岸线长550公里。全境85%的地区为平原，东南部和东北部为丘陵地带，国土大部分地区海拔低于12米。</h5>
+              </div>
+              </div>`,
+          }]
+
+        },
+        {
+          value: "干旱监测",
+          label: "干旱监测",
+          children: [{
+            index: 0,
+            name: "哈萨克斯坦",
+            value: "0",
+            label: "哈萨克斯坦",
+            tag: [67.30603532421415, 48.192331189685405],
+            zoom: 15,
+            templateId: 36,
+            message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
+              </div>
+              </div>`,
+          }]
+
+        },
+      ],
       map_x: null,
       map_y: null,
 
@@ -395,11 +466,10 @@ export default {
         this.resultMap.setPitch(this.map_pitch);
         this.resultMap.setBearing(this.map_bear);
       }
-
     },
     removeMap() {
-      let resultMap = document.getElementById("resultMap")
-      let map = document.getElementById("map")
+      let resultMap = document.getElementById("resultMap");
+      let map = document.getElementById("map");
       while (resultMap.hasChildNodes()) {
         resultMap.removeChild(resultMap.firstChild);
       }
@@ -408,41 +478,43 @@ export default {
       }
     },
     changeSize() {
-      let timer
-      this.getMapIndexInfo()
+      let timer;
+      this.getMapIndexInfo();
       if (!this.showDoubleMap) {
         this.showDoubleMap = true;
-        this.removeMap()
-        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 42) / 2 + 'px'
-        document.getElementById("resultMap").style.width = (document.body.clientWidth - 200 - 42) / 2 + 'px'
-        document.getElementById("resultMap").style.top = 10 + 'px'
-        document.getElementById("resultMap").style.float = 'left'
-        document.getElementById("map").style.float = 'right'
+        this.removeMap();
+        document.getElementById("map").style.width =
+          (document.body.clientWidth - 200 - 42) / 2 + "px";
+        document.getElementById("resultMap").style.width =
+          (document.body.clientWidth - 200 - 42) / 2 + "px";
+        document.getElementById("resultMap").style.top = 10 + "px";
+        document.getElementById("resultMap").style.float = "left";
+        document.getElementById("map").style.float = "right";
 
-        this.initMap(3, true)
-        let _this = this;
-        // timer = setInterval(() => {
-        //   _this.currentImage = (_this.currentImage + 1) % _this.frameCount;
-        //   _this.resultMap.getSource('radar').updateImage({ url: _this.getPath() });
-        // }, 500);
+        this.initMap(3, true);
       } else {
-        this.removeMap()
-        document.getElementById("map").style.width = (document.body.clientWidth - 200 - 40) + 'px'
-        document.getElementById("resultMap").style.top = 200 + 'px'
+        this.removeMap();
+        document.getElementById("map").style.width =
+          document.body.clientWidth - 200 - 40 + "px";
+        document.getElementById("resultMap").style.top = 200 + "px";
 
         this.showDoubleMap = false;
-        this.initMap(3, false)
+        this.initMap(3, false);
         // clearInterval(timer)
       }
-      this.useInfoSetMap()
+      this.useInfoSetMap();
     },
     create() {
-      this.$store.dispatch("Template/getJobTemplate", { templateId: this.templateId })
-      this.$store.dispatch("Template/getTaskTemplate", { templateId: this.templateId })
+      this.$store.dispatch("Template/getJobTemplate", {
+        templateId: this.templateId,
+      });
+      this.$store.dispatch("Template/getTaskTemplate", {
+        templateId: this.templateId,
+      });
       this.$router.push({
         name: "standardjob",
-        query: { templateId: this.templateId }
-      })
+        query: { templateId: this.templateId },
+      });
     },
     addThreeD() {
       this.map.addSource("mapbox-dem", {
@@ -452,12 +524,15 @@ export default {
         maxzoom: 14,
       });
       this.map.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
+      this.resultMap.setTerrain({ source: "mapbox-dem", exaggeration: 1.5 });
       this.is3D = true;
       this.isFixed = false;
     },
     addTwoD() {
       this.map.setTerrain();
+      this.resultMap.setTerrain();
       this.map.removeSource("mapbox-dem");
+      this.resultMap.removeSource("mapbox-dem");
       this.is3D = false;
       this.isFixed = false;
     },
@@ -494,104 +569,75 @@ export default {
       return isFull;
     },
     selectChange(value) {
-      this.fixMap();
-      this.jumpTo(value);
-      // this.initFullScreenMap(value);
-      let z;
-      this.options.forEach((item) => {
-        if (item.tag == value) {
-          z = item;
+      if (this.alltag.length != 0) {
+        let z;
+        this.allOptions.forEach((item) => {
+          if (item.value == value[0]) {
+            z = item.children[value[1]];
+          }
+        });
+        this.templateId = z.templateId;
+        this.jumpTo(z);
+        if (this.showDoubleMap) {
+          this.resultMap.setCenter(z.tag);
+          this.resultMap.setZoom(z.zoom);
         }
-      });
-      this.templateId = z.templateId
+      } else {
+        this.fixMap();
+      }
     },
-    jumpTo(tag) {
-      let z;
-      this.options.forEach((item) => {
-        if (item.tag == tag) {
-          z = item;
-        }
-      });
-      console.log(z);
+    jumpTo(z) {
       this.selectedTag = z.name;
       this.map.jumpTo({
-        center: tag,
+        center: z.tag,
         zoom: z.zoom,
         duration: 3000,
       });
-      this.tag = tag;
+      this.tag = z.tag;
       this.isFixed = false;
     },
     fixMap() {
       this.map.jumpTo({
         zoom: 3,
-        center: [
-          77.08685480625758,
-          35.532881863509374
-        ], duration: 3000,
+        center: [77.08685480625758, 35.532881863509374],
+        duration: 3000,
       });
       this.tag = null;
       this.selectedTag = null;
-
     },
     getPath() {
-      return `https://docs.mapbox.com/mapbox-gl-js/assets/radar` + this.currentImage + `.gif`;
+      return (
+        `https://docs.mapbox.com/mapbox-gl-js/assets/radar` +
+        this.currentImage +
+        `.gif`
+      );
     },
     initMap(zoom, initResult) {
-
       this.map = null;
-      // let mapDiv = document.getElementById('map')
-      // if (mapDiv.childNodes.length != 0) {
-      //   for (let i = 0; i < mapDiv.childNodes.length; i++) {
-      //     mapDiv.removeChild(mapDiv.childNodes[i])
-      //   }
-      // }
-      this.resultMap = null;
-      // let resultMapDiv = document.getElementById('resultMap')
-      // if (resultMapDiv.childNodes.length != 0) {
-      //   for (let i = 0; i < resultMapDiv.childNodes.length; i++) {
-      //     resultMapDiv.removeChild(resultMapDiv.childNodes[i])
-      //   }
-      // }
 
-      // mapboxgl.accessToken =
-      //   "pk.eyJ1IjoicGxheS1pc2FhYyIsImEiOiJjazU0cDkzbWowamd2M2dtemd4bW9mbzRhIn0.cxD4Fw3ZPB_taMkyUSFENA";
+      this.resultMap = null;
       mapboxgl.accessToken =
         "pk.eyJ1IjoibGF3aW5iZWUiLCJhIjoiY2w4OWpoNW5kMDBrdzNwbzNtcTgxaDl1YiJ9.xjTaNpwhQeBpbIFrQaXsKw";
-
       const map = new mapboxgl.Map({
-        container: "map", // container ID
-        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        container: "map",
         style: "mapbox://styles/mapbox/satellite-streets-v11",
-        // style: "mapbox://styles/mapbox/dark-v10",
-        // style: "mapbox://styles/mapbox/streets-v11",
+
         zoom: zoom,
-        center: [
-          77.08685480625758,
-          35.532881863509374
-        ],
-        // projection: "globe",
+        center: [77.08685480625758, 35.532881863509374],
         antialias: false,
         attributionControl: false,
       });
       if (initResult) {
         const resultMap = new mapboxgl.Map({
-          container: "resultMap", // container ID
-          // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-          // style: "mapbox://styles/mapbox/satellite-streets-v11",
+          container: "resultMap",
           style: "mapbox://styles/lawinbee/clg191r9o004o01mmhyrr4hfs",
-          // style: "mapbox://styles/mapbox/streets-v11",
           zoom: zoom,
-          center: [
-            77.08685480625758,
-            35.532881863509374
-          ],
-          // projection: "globe",
+          center: [77.08685480625758, 35.532881863509374],
           antialias: false,
           attributionControl: false,
         });
         resultMap.on("style.load", () => {
-          resultMap.setFog({}); // Set the default atmosphere style
+          resultMap.setFog({});
         });
         var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
         resultMap.doubleClickZoom.disable();
@@ -631,7 +677,6 @@ export default {
           resultMap.setBearing(map_bear);
         });
         this.resultMap = resultMap;
-
       }
       map.on("click", (e) => {
         const { lng, lat } = e.lngLat;
@@ -656,28 +701,8 @@ export default {
       map.addControl(scale);
       scale.setUnit("metric");
       let _this = this;
-      // resultMap.on('load', () => {
-      //   resultMap.addSource('radar', {
-      //     'type': 'image',
-      //     'url': _this.getPath(),
-      //     'coordinates': [
-      //       [62.314543049432984, 25.115354530413],
-      //       [62.314543049432984, 25.095380319320554],
-      //       [62.3365095788937, 25.09550465022575],
-      //       [62.336418051687644, 25.115271656610616]
-      //     ]
-      //   });
-      //   resultMap.addLayer({
-      //     id: 'radar-layer',
-      //     'type': 'raster',
-      //     'source': 'radar',
-      //     'paint': {
-      //       'raster-fade-duration': 0
-      //     }
-      //   });
-      // });
 
-      mengjialaguo_before(map)
+      mengjialaguo_before(map);
       for (let i = 0; i < this.options.length; i++) {
         let marker = new mapboxgl.Marker({
           color: "#BB271A",
@@ -686,65 +711,36 @@ export default {
         })
           .setDraggable(false)
           .setLngLat(this.options[i].tag)
-          .setPopup(
-            new mapboxgl.Popup().setHTML(
-              this.options[i].message
-            )
-          )
+          .setPopup(new mapboxgl.Popup().setHTML(this.options[i].message))
           .addTo(map);
-
       }
-      // for (let i = 0; i < this.options.length; i++) {
-      //   let marker = new mapboxgl.Marker({
-      //     color: "#BB271A",
-      //     clickTolerance: 10,
-      //     draggable: true,
-      //   })
-      //     .setDraggable(false)
-      //     .setLngLat(this.options[i].tag)
-      //     .setPopup(
-      //       new mapboxgl.Popup().setHTML(
-      //         this.options[i].message
-      //       )
-      //     )
-      //     .addTo(resultMap);
-
-      // }
 
       for (let i = 0; i < this.mapState.length; i++) {
         for (let j = 0; j < this.mapState[i].length; j++) {
           console.log(_this.mapState[i][j]);
-          map.on('load', () => {
-            map.addSource(String(i + 'a' + j), {
-              'type': 'raster',
-              'tiles': [
-                _this.mapState[i][j]
-              ],
-              'tileSize': 256
-            }); map.addLayer({
-              'id': String(i + 'a' + j),
-              'type': 'raster',
-              'source': String(i + 'a' + j), // reference the data source
-              'paint': {
-                'raster-opacity': 1
-              }
-            })
-
-          })
+          map.on("load", () => {
+            map.addSource(String(i + "a" + j), {
+              type: "raster",
+              tiles: [_this.mapState[i][j]],
+              tileSize: 256,
+            });
+            map.addLayer({
+              id: String(i + "a" + j),
+              type: "raster",
+              source: String(i + "a" + j), // reference the data source
+              paint: {
+                "raster-opacity": 1,
+              },
+            });
+          });
         }
       }
-
-
-
       this.map = map;
       this.map.on("dblclick", (e) => {
         _this.flyToMarker(e);
       });
-
-
       this.isFixed = true;
       this.is3D = false;
-
     },
     initFullScreenMap(index) {
       let z = {};
@@ -785,22 +781,20 @@ export default {
         })
           .setDraggable(false)
           .setLngLat(this.options[i].tag)
-          .setPopup(
-            new mapboxgl.Popup().setHTML(
-              this.options[i].message
-            )
-          )
+          .setPopup(new mapboxgl.Popup().setHTML(this.options[i].message))
           .addTo(map);
       }
       this.fullMap = map;
     },
     flyToMarker(e) {
-      let flag = true
+      let flag = true;
       for (let i = 0; i < this.options.length; i++) {
-        if (this.options[i].tag[0] - 2 <= e.lngLat.lng &&
+        if (
+          this.options[i].tag[0] - 2 <= e.lngLat.lng &&
           e.lngLat.lng <= this.options[i].tag[0] + 2 &&
           this.options[i].tag[1] - 2 <= e.lngLat.lat &&
-          e.lngLat.lat <= this.options[i].tag[1] + 2) {
+          e.lngLat.lat <= this.options[i].tag[1] + 2
+        ) {
           this.isFixed = false;
           this.tag = this.options[i].name;
 
@@ -813,10 +807,9 @@ export default {
           //   zoom: this.options[i].zoom,
           // });
           this.selectedTag = this.options[i].name;
-          this.templateId = this.options[i].templateId
-          flag = false
+          this.templateId = this.options[i].templateId;
+          flag = false;
         }
-
       }
       if (flag) {
         this.isFixed = false;
@@ -830,7 +823,7 @@ export default {
   mounted() {
     this.initMap(3, true);
     // this.initFullScreenMap([120, 40]);
-    document.getElementById("resultMap").style.top = 200 + 'px'
+    document.getElementById("resultMap").style.top = 200 + "px";
   },
 
   created() {
