@@ -21,6 +21,33 @@ import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 
 import dataV from "@jiaminghi/data-view";
+/**
+ * 解决element-ui的弹窗组件在使用mixins时，会导致弹窗的props属性失效的问题
+ * 主要是版本问题
+ */
+function RepairProps(cmp) {
+  (cmp.mixins || []).forEach((mixin) => {
+    if (mixin.props && mixin.props.placement) {
+      const defaultValue = mixin.props.placement.default;
+      mixin.data = new Proxy(mixin.data, {
+        apply(target, thisArg, argArray) {
+          const res = Reflect.apply(target, thisArg, argArray);
+          return {
+            ...(res || {}),
+            placement: defaultValue,
+          };
+        },
+      });
+      delete mixin.props.placement;
+    }
+    if (mixin.mixins && mixin.mixins.length > 0) {
+      RepairProps(mixin);
+    }
+  });
+}
+RepairProps(ElementUI.DatePicker);
+RepairProps(ElementUI.TimePicker);
+RepairProps(ElementUI.TimeSelect);
 
 Vue.use(dataV);
 Vue.directive("highlight", function (el) {

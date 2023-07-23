@@ -272,7 +272,10 @@
         </div>
       </el-card>
       <el-card
-        v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
+        v-if="
+          showDoubleMap &&
+          (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
+        "
         style="
           width: 100px;
           height: 100px;
@@ -297,15 +300,28 @@
         :body-style="{ padding: '10px' }"
         >我是缅甸图例</el-card
       >
+
+      <el-date-picker
+        v-if="
+          showDoubleMap &&
+          (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
+        "
+        class="date-picker"
+        v-model="imgDate"
+        type="month"
+        value-format="yyyy - M"
+        @change="changeGanHanImage()"
+      ></el-date-picker>
     </el-card>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import { addMengmaiLayer } from "./mengmai";
 import { addGuadaerLayer } from "./guadaer";
-import { mengjialaguo_after, mengjialaguo_before } from "./mengjialaguo";
+import { mengjialaguo_after } from "./mengjialaguo";
+import { addHasakesitanLayer, addXinJiangLayer } from "./ganhan";
+import { trimAll } from "@/utils/string.js";
 // import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
 import {} from "@/api";
@@ -314,6 +330,8 @@ export default {
   name: "DataView",
   data() {
     return {
+      ganhanImagePath: "http://10.33.50.74:81/userInfo/preview/ganhanresult/",
+      imgDate: "2018 - 1",
       mapState: [
         [
           "http://10.33.50.34:8082/geoserver/fulidebuer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=fulidebuer:before_fulidebuer",
@@ -564,11 +582,8 @@ export default {
       ],
       map_x: null,
       map_y: null,
-
       map_zoom: null,
-
       map_pitch: null,
-
       map_bear: null,
     };
   },
@@ -736,13 +751,20 @@ export default {
       this.tag = null;
       this.selectedTag = null;
     },
-    getPath() {
-      return (
-        `https://docs.mapbox.com/mapbox-gl-js/assets/radar` +
-        this.currentImage +
-        `.gif`
-      );
+    changeGanHanImage() {
+      this.resultMap.getSource("ganhan_hasakesitan").updateImage({
+        url:
+          this.ganhanImagePath +
+          "hasakesitan/" +
+          trimAll(this.imgDate) +
+          ".png",
+      });
+      this.resultMap.getSource("ganhan_xinjiang").updateImage({
+        url:
+          this.ganhanImagePath + "xinjiang/" + trimAll(this.imgDate) + ".png",
+      });
     },
+
     initMap(zoom, initResult) {
       this.map = null;
 
@@ -752,7 +774,6 @@ export default {
       const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/satellite-streets-v11",
-
         zoom: zoom,
         center: [77.08685480625758, 35.532881863509374],
         antialias: false,
@@ -773,9 +794,10 @@ export default {
         var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
         resultMap.doubleClickZoom.disable();
         resultMap.addControl(language2);
-        addMengmaiLayer(resultMap);
         addGuadaerLayer(resultMap);
         mengjialaguo_after(resultMap);
+        addHasakesitanLayer(resultMap);
+        addXinJiangLayer(resultMap);
         // 拖拽
         map.on("drag", function () {
           let map_x = map.getCenter().lng;
@@ -832,8 +854,6 @@ export default {
       map.addControl(scale);
       scale.setUnit("metric");
       let _this = this;
-
-      mengjialaguo_before(map);
       for (let i = 0; i < this.allOptions.length; i++) {
         for (let j = 0; j < this.allOptions[i].children.length; j++) {
           let marker = new mapboxgl.Marker({
@@ -1053,5 +1073,20 @@ export default {
 
 #fullScreenMap >>> .mapboxgl-ctrl-logo {
   display: none !important;
+}
+.date-picker {
+  position: fixed;
+  top: 168px;
+  left: calc(50% + 20px);
+  z-index: 9;
+  width: 150px;
+}
+</style>
+<style>
+.el-picker-panel__icon-btn {
+  display: none !important;
+}
+.el-input__inner {
+  text-align: center;
 }
 </style>

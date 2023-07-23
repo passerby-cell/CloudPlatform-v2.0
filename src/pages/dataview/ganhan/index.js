@@ -1,19 +1,42 @@
 export const addHasakesitanLayer = (resultMap) => {
   resultMap.on("load", () => {
-    resultMap.addSource("road", {
+    resultMap.addSource("ganhan_hasakesitan", {
       type: "image",
-      url: require("./guadaer.png"),
+      url: require("./result/hasakesitan/2018-1.png"),
       coordinates: [
-        [72.81897900758375, 18.97891135781917],
-        [72.81811573553242, 18.95836545547479],
-        [72.83931386033453, 18.958184023426412],
-        [72.83931386033453, 18.978820652999744],
+        [-80.425, 46.437],
+        [-71.516, 46.437],
+        [-71.516, 37.936],
+        [-80.425, 37.936],
       ],
     });
     resultMap.addLayer({
-      id: "road-layer",
+      id: "ganhan_hasakesitan_layer",
       type: "raster",
-      source: "road",
+      source: "ganhan_hasakesitan",
+      paint: {
+        "raster-fade-duration": 0,
+      },
+    });
+  });
+};
+
+export const addXinJiangLayer = (resultMap) => {
+  resultMap.on("load", () => {
+    resultMap.addSource("ganhan_xinjiang", {
+      type: "image",
+      url: require("./result/xinjiang/2018-1.png"),
+      coordinates: [
+        [-80.425, 46.437],
+        [-71.516, 46.437],
+        [-71.516, 37.936],
+        [-80.425, 37.936],
+      ],
+    });
+    resultMap.addLayer({
+      id: "ganhan_xingjiang_layer",
+      type: "raster",
+      source: "ganhan_xinjiang",
       paint: {
         "raster-fade-duration": 0,
       },
