@@ -1,33 +1,68 @@
 <template>
   <div>
-    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight">
+    <Transition
+      appear
+      enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight"
+    >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>数据集</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
-    <el-card class="card-style" shadow="hover" :body-style="{ padding: '10px' }" style="height: calc(100vh - 170px)">
+    <el-card
+      class="card-style"
+      shadow="hover"
+      :body-style="{ padding: '10px' }"
+      style="height: calc(100vh - 170px)"
+    >
       <el-row>
         <!-- <el-select class="size" v-model="tag" placeholder="请选择示范点" style="width: 200px" @change="selectChange" clearable
           @clear="fixMap()" size="small">
           <el-option v-for="item in options" :key="item.index" :label="item.name" :value="item.tag">
           </el-option>
         </el-select> -->
-        <el-cascader v-model="alltag" :options="allOptions" :props="{ expandTrigger: 'hover' }" size="small" class="size"
-          clearable @clear="fixMap()" placeholder="请选择示范点" @change="selectChange"></el-cascader>
-        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
-          v-if="!showDoubleMap">结果对比</el-button>
-        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
-          v-if="showDoubleMap">还原</el-button>
+        <el-cascader
+          v-model="alltag"
+          :options="allOptions"
+          :props="{ expandTrigger: 'hover' }"
+          size="small"
+          class="size"
+          clearable
+          @clear="fixMap()"
+          placeholder="请选择示范点"
+          @change="selectChange"
+        ></el-cascader>
+        <el-button
+          @click="changeSize()"
+          size="small"
+          type="primary"
+          style="margin-left: 10px"
+          v-if="!showDoubleMap"
+          >结果对比</el-button
+        >
+        <el-button
+          @click="changeSize()"
+          size="small"
+          type="primary"
+          style="margin-left: 10px"
+          v-if="showDoubleMap"
+          >还原</el-button
+        >
       </el-row>
-      <el-button @click="create()" size="small" v-if="tag" style="
+      <el-button
+        @click="create()"
+        size="small"
+        v-if="tag"
+        style="
           position: fixed;
           bottom: 260px;
           right: 31px;
           z-index: 9999999;
           font-size: 16px;
           padding: 6px;
-        " icon="el-icon-circle-plus-outline"></el-button>
+        "
+        icon="el-icon-circle-plus-outline"
+      ></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
           position: fixed;
@@ -37,30 +72,47 @@
           font-size: 16px;
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
-      <el-button @click="addThreeD()" size="small" style="
+      <el-button
+        @click="addThreeD()"
+        size="small"
+        style="
           position: fixed;
           bottom: 185px;
           right: 31px;
           z-index: 9999999;
           font-size: 14px;
           padding: 5px;
-        " v-if="!is3D">3D</el-button>
-      <el-button @click="addTwoD()" size="small" style="
+        "
+        v-if="!is3D"
+        >3D</el-button
+      >
+      <el-button
+        @click="addTwoD()"
+        size="small"
+        style="
           position: fixed;
           bottom: 185px;
           right: 31px;
           z-index: 9999999;
           font-size: 14px;
           padding: 5px;
-        " v-if="is3D">2D</el-button>
-      <el-button @click="fixMap()" size="small" style="
+        "
+        v-if="is3D"
+        >2D</el-button
+      >
+      <el-button
+        @click="fixMap()"
+        size="small"
+        style="
           position: fixed;
           bottom: 222px;
           right: 31px;
           z-index: 9999999;
           font-size: 16px;
           padding: 6px;
-        " icon="el-icon-view"></el-button>
+        "
+        icon="el-icon-view"
+      ></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -78,98 +130,120 @@
 
       <div id="map" style="float: right"></div>
       <div id="resultMap" style="float: left"></div>
-      <el-card v-if="showDoubleMap && selectedTag == '孟买'" style="
+      <el-card
+        v-if="showDoubleMap && selectedTag == '孟买'"
+        style="
           width: 120px;
           height: 30px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        " :body-style="{ padding: '5px' }">
+        "
+        :body-style="{ padding: '5px' }"
+      >
         <div style="line-height: 20px; height: 20px">
-          <div style="
+          <div
+            style="
               width: 70px;
               height: 8px;
               background-color: #6eed47;
               border-radius: 0%;
               display: inline-block;
               margin-bottom: 2px;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             道路
           </div>
         </div>
       </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'" style="
+      <el-card
+        v-if="showDoubleMap && selectedTag == '瓜德尔港'"
+        style="
           width: 70px;
           height: 110px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        " :body-style="{ padding: '5px' }">
+        "
+        :body-style="{ padding: '5px' }"
+      >
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #ea3323;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             建筑
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #ef8733;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             道路
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #377e22;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             植被
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #0000f5;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             水体
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #75147c;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             港口
           </div>
         </div>
       </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'" style="
+      <el-card
+        v-if="showDoubleMap && selectedTag == '孟加拉国'"
+        style="
           width: 70px;
           height: 28px;
           line-height: 28px;
@@ -179,38 +253,50 @@
           z-index: 9;
           background-color: #5a9cf8;
           border: #5a9cf8;
-        " :body-style="{ padding: '5px' }">
+        "
+        :body-style="{ padding: '5px' }"
+      >
         <div style="line-height: 16px; height: 16px">
-          <div style="
+          <div
+            style="
               width: 14px;
               height: 14px;
               background-color: #ffffff;
               border-radius: 50%;
               display: inline-block;
-            "></div>
+            "
+          ></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             水体
           </div>
         </div>
       </el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '哈萨克斯坦'" style="
+      <el-card
+        v-if="showDoubleMap && selectedTag == '哈萨克斯坦'"
+        style="
           width: 100px;
           height: 100px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        " :body-style="{ padding: '10px' }">我是哈萨克斯坦图例</el-card>
-      <el-card v-if="showDoubleMap && selectedTag == '缅甸'" style="
+        "
+        :body-style="{ padding: '10px' }"
+        >我是哈萨克斯坦图例</el-card
+      >
+      <el-card
+        v-if="showDoubleMap && selectedTag == '缅甸'"
+        style="
           width: 100px;
           height: 100px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        " :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
-
-
+        "
+        :body-style="{ padding: '10px' }"
+        >我是缅甸图例</el-card
+      >
     </el-card>
   </div>
 </template>
@@ -222,13 +308,34 @@ import { addGuadaerLayer } from "./guadaer";
 import { mengjialaguo_after, mengjialaguo_before } from "./mengjialaguo";
 // import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
-import { } from "@/api";
+import {} from "@/api";
 
 export default {
   name: "DataView",
   data() {
     return {
       mapState: [
+        [
+          "http://10.33.50.34:8082/geoserver/fulidebuer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=fulidebuer:before_fulidebuer",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/kangsitannai/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=kangsitannai:all_kangsitannai",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/jiaergeda/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=jiaergeda:all_jiaergeda",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/gaoxionggang/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=gaoxionggang:all_gaoxionggang",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/bogela/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=bogela:all_bogela_before",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/yiluowadi/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=yiluowadi:all_yiluowadi",
+        ],
+        [
+          "http://10.33.50.34:8082/geoserver/xiamengang/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=xiamengang:all_xiamengang",
+        ],
         [
           "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer1",
           "http://10.33.50.74:92/geoserver/guadaer/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&WIDTH=256&HEIGHT=256&layers=guadaer:guadaer2",
@@ -262,173 +369,197 @@ export default {
       showDoubleMap: false,
       currentImage: 0,
       frameCount: 5,
-      options: [
-        {
-          index: 0,
-          name: "孟买",
-          tag: [72.880127, 19.075847],
-          zoom: 15,
-          templateId: 39,
-          message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>孟买</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
-              </div>
-              </div>`,
-        },
-
-        {
-          index: 1,
-          name: "瓜德尔港",
-          tag: [62.323615, 25.119452],
-          zoom: 15,
-          templateId: 32,
-          message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>瓜德尔港</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
-              </div>
-              </div>`,
-        },
-        {
-          index: 2,
-          name: "缅甸",
-          tag: [96.50560601192916, 21.159081597411173],
-          zoom: 15,
-          templateId: 38,
-          message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>缅甸</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
-              </div>
-              </div>`,
-        },
-        {
-          index: 3,
-          name: "孟加拉国",
-          tag: [89.91287977937156, 23.64362166893602],
-          zoom: 11,
-          templateId: 34,
-          message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>孟加拉国</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟加拉国位于南亚次大陆东北部的恒河和布拉马普特拉河冲积而成的三角洲上。东、西、北三面与印度毗邻，东南部与缅甸接壤，南部濒临孟加拉湾。海岸线长550公里。全境85%的地区为平原，东南部和东北部为丘陵地带，国土大部分地区海拔低于12米。</h5>
-              </div>
-              </div>`,
-        },
-        {
-          index: 4,
-          name: "哈萨克斯坦",
-          tag: [67.30603532421415, 48.192331189685405],
-          zoom: 15,
-          templateId: 36,
-          message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
-              </div>
-              </div>`,
-        },
-      ],
       allOptions: [
         {
           value: "道路提取",
           label: "道路提取",
-          children: [{
-            index: 0,
-            value: "0",
-            label: "孟买",
-            name: "孟买",
-            tag: [72.880127, 19.075847],
-            zoom: 15,
-            templateId: 39,
-            message: `<div style="height:100%;width:100%;">
+          children: [
+            {
+              index: 0,
+              value: "0",
+              label: "孟买",
+              name: "孟买",
+              color: "#18f218",
+              tag: [72.880127, 19.075847],
+              zoom: 15,
+              templateId: 39,
+              message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟买</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟买, 是印度西部滨海城市，印度第一大港口，棉纺织业中心，马哈拉施特拉邦首府。孟买是印度重要的贸易中心和港口城市。</h5>
               </div>
               </div>`,
-          },]
+            },
+          ],
         },
 
         {
           value: "土地利用分类",
           label: "土地利用分类",
-          children: [{
-            index: 0,
-            name: "瓜德尔港",
-            value: "0",
-            label: "瓜德尔港",
-            tag: [62.323615, 25.119452],
-            zoom: 15,
-            templateId: 32,
-            message: `<div style="height:100%;width:100%;">
+          children: [
+            {
+              index: 0,
+              name: "瓜德尔港",
+              value: "0",
+              label: "瓜德尔港",
+              tag: [62.323615, 25.119452],
+              color: "#b3c0d1",
+              zoom: 15,
+              templateId: 32,
+              message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>瓜德尔港</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
               </div>
               </div>`,
-          }]
+            },
+            {
+              index: 1,
+              name: "厦门港",
+              value: "1",
+              label: "厦门港",
+              tag: [118.04787047095806, 24.4265100494397],
+              color: "#b3c0d1",
+              zoom: 12,
+              templateId: 32,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>厦门港</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>厦门港，是中国 福建省 厦门市 和 漳州市 港口，位于中国东南沿海、台湾海峡西岸，地处福建省南部、 九龙江 入海口，是中国沿海主要港口、中国对外开放一类口岸，也是福建省主要出海口之一。</h5>
+              </div>
+              </div>`,
+            },
+            {
+              index: 2,
+              name: "高雄港",
+              value: "2",
+              label: "高雄港",
+              tag: [120.32679399057355, 22.552896651715784],
+              color: "#b3c0d1",
+              zoom: 12,
+              templateId: 32,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>高雄港</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>高雄港(Kaohsiung Port)，中国台湾省内最大的海港。位于中国台湾省高雄市。大型综合性港口，有铁路、高速公路作为货物集运与疏运手段。</h5>
+              </div>
+              </div>`,
+            },
+          ],
         },
         {
           value: "水稻长势监测",
           label: "水稻长势监测",
-          children: [{
-            index: 0,
-            name: "缅甸",
-            value: "0",
-            label: "缅甸",
-            tag: [96.50560601192916, 21.159081597411173],
-            zoom: 15,
-            templateId: 38,
-            message: `<div style="height:100%;width:100%;">
+          children: [
+            {
+              index: 0,
+              name: "缅甸",
+              value: "0",
+              label: "缅甸",
+              color: "#BB271A",
+              tag: [95.18500391855429, 17.320208045937093],
+              zoom: 15,
+              templateId: 38,
+              message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>缅甸</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
               </div>
               </div>`,
-          }]
-
+            },
+          ],
         },
         {
           value: "洪涝灾害监测",
           label: "洪涝灾害监测",
-          children: [{
-            index: 0,
-            name: "孟加拉国",
-            value: "0",
-            label: "孟加拉国",
-            tag: [89.91287977937156, 23.64362166893602],
-            zoom: 11,
-            templateId: 34,
-            message: `<div style="height:100%;width:100%;">
+          children: [
+            {
+              index: 0,
+              name: "孟加拉国",
+              value: "0",
+              label: "孟加拉国",
+              tag: [89.91287977937156, 23.64362166893602],
+              color: "#4ea0fd",
+              zoom: 11,
+              templateId: 34,
+              message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟加拉国</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>孟加拉国位于南亚次大陆东北部的恒河和布拉马普特拉河冲积而成的三角洲上。东、西、北三面与印度毗邻，东南部与缅甸接壤，南部濒临孟加拉湾。海岸线长550公里。全境85%的地区为平原，东南部和东北部为丘陵地带，国土大部分地区海拔低于12米。</h5>
               </div>
               </div>`,
-          }]
-
+            },
+            {
+              index: 1,
+              name: "博格拉地区",
+              value: "1",
+              label: "博格拉地区",
+              tag: [89.45129761679254, 24.937121301900987],
+              color: "#4ea0fd",
+              zoom: 11,
+              templateId: 34,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>博格拉地区</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>博格拉（Bogra）于拉杰沙希区，是孟加拉国最古老、最迷人的城镇之一。，孟加拉国古老的历史记载了古代王朝在这里的征服。 这里是孟加拉国北部的中心，有发达的经济和多样的文化。</h5>
+              </div>
+              </div>`,
+            },
+            {
+              index: 2,
+              name: "加尔各答",
+              value: "2",
+              label: "加尔各答",
+              tag: [88.4470964626986, 22.46568144508325],
+              color: "#4ea0fd",
+              zoom: 15,
+              templateId: 34,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>加尔各答</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>加尔各答位于印度东部，紧靠胡格利河，海拔6米，城市结构独特，除本身外，尚包括众多的卫星城市（镇），大市区沿胡格利河岸南北延伸达80千米，宽5-20千米不等，截至2011年，人口达457.29万人。</h5>
+              </div>
+              </div>`,
+            },
+          ],
         },
         {
           value: "干旱监测",
           label: "干旱监测",
-          children: [{
-            index: 0,
-            name: "哈萨克斯坦",
-            value: "0",
-            label: "哈萨克斯坦",
-            tag: [67.30603532421415, 48.192331189685405],
-            zoom: 15,
-            templateId: 36,
-            message: `<div style="height:100%;width:100%;">
+          children: [
+            {
+              index: 0,
+              name: "哈萨克斯坦",
+              value: "0",
+              label: "哈萨克斯坦",
+              color: "#ffdf60",
+              tag: [64.75577203619281, 53.29277096996523],
+              zoom: 12,
+              templateId: 36,
+              message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
               </div>
               </div>`,
-          }]
-
+            },
+            {
+              index: 1,
+              name: "新疆",
+              value: "1",
+              label: "新疆",
+              color: "#ffdf60",
+              tag: [83.80970464725857, 40.39604221906748],
+              zoom: 5,
+              templateId: 36,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>新疆</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>新疆占中国总面积的六分之一，是中国面积最大的省级行政区。 新疆地处亚欧大陆腹地，与俄罗斯、哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦、巴基斯坦、蒙古、印度、阿富汗等八国接壤，在历史上是沟通东西方、闻名于世的“丝绸之路”的要冲，现在又成为第二座“亚欧大陆桥”的必经之地，战略位置十分重要。</h5>
+              </div>
+              </div>`,
+            },
+          ],
         },
       ],
       map_x: null,
@@ -703,16 +834,22 @@ export default {
       let _this = this;
 
       mengjialaguo_before(map);
-      for (let i = 0; i < this.options.length; i++) {
-        let marker = new mapboxgl.Marker({
-          color: "#BB271A",
-          clickTolerance: 10,
-          draggable: true,
-        })
-          .setDraggable(false)
-          .setLngLat(this.options[i].tag)
-          .setPopup(new mapboxgl.Popup().setHTML(this.options[i].message))
-          .addTo(map);
+      for (let i = 0; i < this.allOptions.length; i++) {
+        for (let j = 0; j < this.allOptions[i].children.length; j++) {
+          let marker = new mapboxgl.Marker({
+            color: this.allOptions[i].children[j].color,
+            clickTolerance: 10,
+            draggable: true,
+          })
+            .setDraggable(false)
+            .setLngLat(this.allOptions[i].children[j].tag)
+            .setPopup(
+              new mapboxgl.Popup().setHTML(
+                this.allOptions[i].children[j].message
+              )
+            )
+            .addTo(map);
+        }
       }
 
       for (let i = 0; i < this.mapState.length; i++) {
@@ -788,35 +925,36 @@ export default {
     },
     flyToMarker(e) {
       let flag = true;
-      for (let i = 0; i < this.options.length; i++) {
-        if (
-          this.options[i].tag[0] - 2 <= e.lngLat.lng &&
-          e.lngLat.lng <= this.options[i].tag[0] + 2 &&
-          this.options[i].tag[1] - 2 <= e.lngLat.lat &&
-          e.lngLat.lat <= this.options[i].tag[1] + 2
-        ) {
-          this.isFixed = false;
-          this.tag = this.options[i].name;
-
-          this.map.flyTo({
-            center: this.options[i].tag,
-            zoom: this.options[i].zoom,
-          });
-          // this.fullMap.flyTo({
-          //   center: this.options[i].tag,
-          //   zoom: this.options[i].zoom,
-          // });
-          this.selectedTag = this.options[i].name;
-          this.templateId = this.options[i].templateId;
-          flag = false;
+      for (let i = 0; i < this.allOptions.length; i++) {
+        for (let j = 0; j < this.allOptions[i].children.length; j++) {
+          if (
+            this.allOptions[i].children[j].tag[0] - 2 <= e.lngLat.lng &&
+            e.lngLat.lng <= this.allOptions[i].children[j].tag[0] + 2 &&
+            this.allOptions[i].children[j].tag[1] - 2 <= e.lngLat.lat &&
+            e.lngLat.lat <= this.allOptions[i].children[j].tag[1] + 2
+          ) {
+            this.isFixed = false;
+            this.tag = this.allOptions[i].children[j].name;
+            this.map.flyTo({
+              center: this.allOptions[i].children[j].tag,
+              zoom: this.allOptions[i].children[j].zoom,
+            });
+            this.selectedTag = this.allOptions[i].children[j].name;
+            this.alltag = [
+              this.allOptions[i].value,
+              this.allOptions[i].children[j].value,
+            ];
+            this.templateId = this.allOptions[i].children[j].templateId;
+            flag = false;
+          }
         }
-      }
-      if (flag) {
-        this.isFixed = false;
-        this.map.flyTo({
-          center: e.lngLat,
-          zoom: 10,
-        });
+        if (flag) {
+          this.isFixed = false;
+          this.map.flyTo({
+            center: e.lngLat,
+            zoom: 10,
+          });
+        }
       }
     },
   },
@@ -877,7 +1015,7 @@ export default {
   font-size: 16px;
 }
 
-.el-form-item>>>.el-form-item__error {
+.el-form-item >>> .el-form-item__error {
   padding: 0px;
 }
 
@@ -896,7 +1034,7 @@ export default {
 }
 
 /* 隐藏mapbox商标 */
-#map>>>.mapboxgl-ctrl-logo {
+#map >>> .mapboxgl-ctrl-logo {
   display: none !important;
 }
 
@@ -909,11 +1047,11 @@ export default {
 }
 
 /* 隐藏mapbox商标 */
-#resultMap>>>.mapboxgl-ctrl-logo {
+#resultMap >>> .mapboxgl-ctrl-logo {
   display: none !important;
 }
 
-#fullScreenMap>>>.mapboxgl-ctrl-logo {
+#fullScreenMap >>> .mapboxgl-ctrl-logo {
   display: none !important;
 }
 </style>
