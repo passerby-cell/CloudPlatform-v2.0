@@ -1086,7 +1086,4 @@ export default {
 .el-picker-panel__icon-btn {
   display: none !important;
 }
-.el-input__inner {
-  text-align: center;
-}
 </style>
