@@ -277,15 +277,26 @@
           (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
         "
         style="
-          width: 100px;
-          height: 100px;
+          width: 300px;
+          height: 50px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
         "
         :body-style="{ padding: '10px' }"
-        >我是哈萨克斯坦图例</el-card
+        ><div
+          style="
+            width: 280px;
+            height: 10px;
+            background: linear-gradient(to right, #c2523c, #30e100, #0b2f79);
+            border-radius: 4px;
+          "
+        ></div>
+        <span style="float: left; margin-top: 4px" class="size">干旱</span
+        ><span style="float: right; margin-top: 4px" class="size"
+          >湿润</span
+        ></el-card
       >
       <el-card
         v-if="showDoubleMap && selectedTag == '缅甸'"
