@@ -9,13 +9,23 @@
           </template>
 
           <el-menu-item @click="toJob()" index="/job" key="job">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;作业列表</span>
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;作业列表</span
+            >
           </el-menu-item>
-          <el-menu-item @click="goStandardJob()" index="/standardjob" key="standardjob">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;新建作业</span>
+          <el-menu-item
+            @click="goStandardJob()"
+            index="/standardjob"
+            key="standardjob"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;新建作业</span
+            >
           </el-menu-item>
           <el-menu-item @click="toTemplate()" index="/template" key="template">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;作业模板</span>
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;作业模板</span
+            >
           </el-menu-item>
         </el-submenu>
         <!-- <div @click="toData">
@@ -35,34 +45,67 @@
             <span class="size">模型管理</span>
           </template>
           <el-menu-item @click="toData" index="/data" key="data">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;模型数据上传</span>
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据上传</span
+            >
           </el-menu-item>
-          <el-menu-item @click="toResultData" index="/resultdata" key="resultdata">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;模型结果下载</span>
+          <el-menu-item
+            @click="toResultData"
+            index="/resultdata"
+            key="resultdata"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果下载</span
+            >
           </el-menu-item>
         </el-submenu>
 
-        <div @click="toDataView">
+        <!-- <div @click="toDataView">
           <el-menu-item index="/dataview" key="dataview">
             <template slot="title">
               <i class="el-icon-folder"></i>
               <span class="size">数据集</span>
             </template>
-            <!-- <el-menu-item>
-            <span slot="title" @click="toImages">镜像管理</span>
-          </el-menu-item> -->
           </el-menu-item>
-        </div>
+        </div> -->
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-folder"></i>
+            <span class="size">数据集</span>
+          </template>
+          <el-menu-item index="/dataview" key="dataview" @click="toDataView">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;数据视图</span
+            >
+          </el-menu-item>
+          <el-menu-item
+            index="/database"
+            key="database"
+            @click="toDataBaseManager"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;数据管理</span
+            >
+          </el-menu-item>
+        </el-submenu>
         <el-submenu index="4">
           <template slot="title">
             <i class="el-icon-copy-document"></i>
             <span class="size">镜像仓库</span>
           </template>
           <el-menu-item index="/images" key="images" @click="toImages">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span>
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
+            >
           </el-menu-item>
-          <el-menu-item index="/createimage" key="createimage" @click="toCreateImages">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span>
+          <el-menu-item
+            index="/createimage"
+            key="createimage"
+            @click="toCreateImages"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span
+            >
           </el-menu-item>
         </el-submenu>
         <div @click="toIDE">
@@ -101,6 +144,9 @@ export default {
     return {};
   },
   methods: {
+    toDataBaseManager() {
+      this.$router.push({ name: "database" });
+    },
     toTemplate() {
       this.$router.push({ name: "template" });
     },

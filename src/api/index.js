@@ -2,7 +2,15 @@
 import apirequest from "./apiAjax";
 import iderequest from "./ideAjax";
 import userInforequest from "./userInfoAjax";
+import datarequest from "./dataAjax";
 import qs from "qs";
+export const reqData = (data) =>
+  datarequest({ url: "/api/fs/list", method: "post", data });
+export const reqUserInfoAccessPath = () =>
+  userInforequest({ url: "/datapath/path", method: "get" });
+
+export const reqUserInfoDataAccessLevel = () =>
+  userInforequest({ url: "/datapath/access", method: "get" });
 
 export const reqUserInfoGetCSVView = (path) =>
   userInforequest({
@@ -501,30 +509,36 @@ export const reqJobTemplates = () =>
   apirequest({
     url: "/paas-web/bocapi/volcano/v3.3/vcJobTemplate/list",
     method: "post",
-    data:{currPageNum:1,pageSize:100,vcJobName:null,vcJobType:null,envId:1}
+    data: {
+      currPageNum: 1,
+      pageSize: 100,
+      vcJobName: null,
+      vcJobType: null,
+      envId: 1,
+    },
   });
 
-  export const reqJobTemplate = (data) =>
+export const reqJobTemplate = (data) =>
   apirequest({
     url: "/paas-web/bocapi/volcano/v3.3/vcJob/getById",
     method: "post",
     data,
   });
 
-  export const reqTaskTemplate = (data) =>
+export const reqTaskTemplate = (data) =>
   apirequest({
     url: "/paas-web/bocapi/volcano/v3.3/tasks/getById",
     method: "post",
     data,
   });
-  export const reqDeleteJobTemplate = (data) =>
+export const reqDeleteJobTemplate = (data) =>
   apirequest({
     url: "/paas-web/bocapi/volcano/v3.3/vcJobTemplate/delete",
     method: "post",
     data,
   });
 
-  export const reqSaveJobAsTemplate = (data) =>
+export const reqSaveJobAsTemplate = (data) =>
   apirequest({
     url: "/paas-web/bocapi/volcano/v3.3/vcJob/saveAsTemplate",
     method: "post",

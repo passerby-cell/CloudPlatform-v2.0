@@ -10,7 +10,7 @@ import "nprogress/nprogress.css";
 const request = axios.create({
   // 配置对象
   // 基础路径:发请求时路径中会出现/api
-  baseURL: "/bocloud",
+  baseURL: "/accessdata",
   // 请求超时的时间
   timeout: 50000,
 });
@@ -19,11 +19,6 @@ request.interceptors.request.use((config) => {
   // config:配置对象
   // 进度条开始
   nprogress.start();
-  config.headers["token"] = localStorage.getItem("token");
-  config.headers["refreshToken"] = localStorage.getItem("refreshToken");
-  // TODO: modelId
-  config.headers["modelId"] = 1;
-  config.headers["systemId"] = 1;
   return config;
 });
 // 响应拦截器

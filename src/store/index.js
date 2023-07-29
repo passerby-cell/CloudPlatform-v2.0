@@ -9,6 +9,7 @@ import Image from "./image";
 import CreateJob from "./createjob";
 import ImageProcess from "./imageprocess";
 import Template from "./template";
+import DataAccess from "./dataaccess";
 Vue.use(Vuex);
 
 //创建并暴露store
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     ResultFile,
     CreateJob,
     ImageProcess,
-    Template
+    Template,
+    DataAccess,
   },
 });

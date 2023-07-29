@@ -7,6 +7,7 @@
     >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>数据集</el-breadcrumb-item>
+        <el-breadcrumb-item>数据视图</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
