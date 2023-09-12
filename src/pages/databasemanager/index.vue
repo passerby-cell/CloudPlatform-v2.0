@@ -316,7 +316,7 @@ export default {
             this.getFileList(path + result.data.content[i].name + "/");
           } else {
             this.downloadFileList.push({
-              name: result.data.content[i].name,
+              name: path + result.data.content[i].name,
               url:
                 "https://lhy980916.vip:80/d/阿里云盘/公开/" +
                 this.basePath +

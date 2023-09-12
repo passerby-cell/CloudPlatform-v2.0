@@ -1,14 +1,21 @@
 <template>
   <div>
-    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight">
+    <Transition
+      appear
+      enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight"
+    >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>在线IDE</el-breadcrumb-item>
         <el-breadcrumb-item>IDE列表</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
-    <el-card class="card-style" shadow="hover" :body-style="{ padding: '0px' }"
-      style="height: calc(100vh - 170px); overflow: auto">
+    <el-card
+      class="card-style"
+      shadow="hover"
+      :body-style="{ padding: '0px' }"
+      style="height: calc(100vh - 170px); overflow: auto"
+    >
       <!-- <Transition
         appear
         enter-active-class="animate__animated animate__fadeInLeft"
@@ -31,11 +38,23 @@
           </el-button-group></el-row
         ></Transition
       > -->
-      <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight">
-        <el-table :data="data" highlight-current-row max-height="600" style="font-size: 16px">
-          <el-table-column property="name" :label="type == 1 ? '模型数据' : '模型结果'"></el-table-column>
-          <el-table-column property="catalog" label="路径"></el-table-column><el-table-column label="操作">
+      <Transition
+        appear
+        enter-active-class="animate__animated animate__fadeInLeft"
+        leave-active-class="animate__animated animate__fadeOutRight"
+      >
+        <el-table
+          :data="data"
+          highlight-current-row
+          max-height="600"
+          style="font-size: 16px"
+        >
+          <el-table-column
+            property="name"
+            :label="type == 1 ? '模型数据' : '模型结果'"
+          ></el-table-column>
+          <el-table-column property="catalog" label="路径"></el-table-column
+          ><el-table-column label="操作">
             <template slot-scope="scope">
               <!-- <el-button
                 size="mini"
@@ -43,17 +62,39 @@
                 @click="createIDE(scope.row.catalog)"
                 >创建IDE</el-button
               > -->
-              <el-button size="mini" type="primary" @click="openIDE(scope.row.catalog)">打开IDE</el-button>
+              <el-button
+                size="mini"
+                type="primary"
+                @click="openIDE(scope.row.catalog)"
+                >打开IDE</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
       </Transition>
     </el-card>
-    <el-dialog :visible.sync="dialogVisible" fullscreen class="dialogClass" :show-close="false">
-      <span style="width: 100%; height: 60px; font-size: 16px" slot="title">在线IDE<el-button type="danger" size="mini"
-          @click="handleClose" style="float: right; margin-right: 10px; margin-bottom: 10px">退出</el-button></span>
-      <iframe name="iframe" src="http://10.33.50.74:92/ide/my/?folder=%2Fhome%2Fcoder%2Fworkspace%2F"
-        style="width: 100%; height: calc(100vh - 58px)"></iframe>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      fullscreen
+      class="dialogClass"
+      :show-close="false"
+    >
+      <span style="width: 100%; height: 60px; font-size: 16px" slot="title"
+        >在线IDE<el-button
+          type="danger"
+          size="mini"
+          @click="handleClose"
+          style="float: right; margin-right: 10px; margin-bottom: 10px"
+          >退出</el-button
+        ></span
+      >
+      <iframe
+        name="iframe"
+        :src="
+          sysURL.IPAddress.ide + 'ide/my/?folder=%2Fhome%2Fcoder%2Fworkspace%2F'
+        "
+        style="width: 100%; height: calc(100vh - 58px)"
+      ></iframe>
     </el-dialog>
   </div>
 </template>
@@ -78,6 +119,7 @@ export default {
       type: 1,
       dialogVisible: false,
       name: "",
+      sysURL: require("@/assets/sysconfig/sysconfig.json"),
     };
   },
   computed: {
@@ -105,20 +147,20 @@ export default {
       setTimeout(() => {
         _this
           .axios({
-            url: "http://10.33.50.74:92/node-manager/user/register",
+            url: this.sysURL.IPAddress.ide + "node-manager/user/register",
             method: "post",
             data: qs.stringify({
               name: name,
               password: name,
             }),
           })
-          .then((res) => { });
+          .then((res) => {});
       }, 100);
 
       setTimeout(() => {
         _this
           .axios({
-            url: "http://10.33.50.74:92/node-manager/user/login",
+            url: this.sysURL.IPAddress.ide + "node-manager/user/login",
             method: "post",
             data: qs.stringify({
               name: name,
@@ -156,14 +198,14 @@ export default {
         setTimeout(() => {
           _this
             .axios({
-              url: "http://10.33.50.74:92/node-manager/user/register",
+              url: this.sysURL.IPAddress.ide + "node-manager/user/register",
               method: "post",
               data: qs.stringify({
                 name: _this.data[i].catalog,
                 password: _this.data[i].catalog,
               }),
             })
-            .then((res) => { });
+            .then((res) => {});
         }, (i + 1) * 100);
       }
     },
@@ -175,7 +217,7 @@ export default {
           _this.stopIDE(this.name);
           location.reload();
         })
-        .catch((_) => { });
+        .catch((_) => {});
     },
   },
   mounted() {
@@ -217,7 +259,7 @@ export default {
   font-size: 16px;
 }
 
-.el-form-item>>>.el-form-item__error {
+.el-form-item >>> .el-form-item__error {
   padding: 0px;
 }
 

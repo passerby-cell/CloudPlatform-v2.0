@@ -451,6 +451,7 @@ export default {
       newParentFileId: "",
       viewData: null,
       viewDialogVisible: false,
+      sysURL: require("@/assets/sysconfig/sysconfig.json"),
     };
   },
   directives: {
@@ -621,12 +622,12 @@ export default {
       if (result.code == "200") {
         let result = await reqQueryZipChildFileStatus(urlPath);
         if (result.data == true) {
-          window.open("http://202.195.239.146:91/" + strs[3] + "/" + strs[4]);
+          window.open(this.sysURL.IPAddress.bocloud + strs[3] + "/" + strs[4]);
         } else {
           let timer = setInterval(async function () {
             let result = await reqQueryZipChildFileStatus(urlPath);
             if (result.data == true) {
-              window.open("http://202.195.239.146:91" + strs[0]);
+              window.open(this.sysURL.IPAddress.bocloud + strs[0]);
               clearInterval(timer);
             }
           }, 20000);
