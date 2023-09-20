@@ -78,6 +78,21 @@
               >&nbsp;&nbsp;&nbsp;&nbsp;数据视图</span
             >
           </el-menu-item>
+          <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;卫星视图</span
+            >
+          </el-menu-item>
+          <el-menu-item index="/date" key="date" @click="toDate">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span
+            >
+          </el-menu-item>
+          <el-menu-item index="/area" key="area" @click="toArea">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span
+            >
+          </el-menu-item>
           <el-menu-item
             index="/database"
             key="database"
@@ -144,6 +159,15 @@ export default {
     return {};
   },
   methods: {
+    toSatelite() {
+      this.$router.push({ name: "satelite" });
+    },
+    toDate() {
+      this.$router.push({ name: "date" });
+    },
+    toArea() {
+      this.$router.push({ name: "area" });
+    },
     toDataBaseManager() {
       this.$router.push({ name: "database" });
     },

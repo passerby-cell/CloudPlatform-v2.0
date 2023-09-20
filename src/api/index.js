@@ -3,9 +3,21 @@ import apirequest from "./apiAjax";
 import iderequest from "./ideAjax";
 import userInforequest from "./userInfoAjax";
 import datarequest from "./dataAjax";
+import sateliterequest from "./sateliteAjax";
 import qs from "qs";
+
+export const reqSateliteList = (data) =>
+  sateliterequest({ url: "/picture/list", method: "get", params: data });
+
+export const reqSateliteInfo = (id) =>
+  sateliterequest({
+    url: `/picture/${id}`,
+    method: "get",
+  });
+
 export const reqData = (data) =>
   datarequest({ url: "/api/fs/list", method: "post", data });
+
 export const reqUserInfoAccessPath = () =>
   userInforequest({ url: "/datapath/path", method: "get" });
 

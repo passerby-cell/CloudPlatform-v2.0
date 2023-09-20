@@ -13,7 +13,7 @@
     <el-card
       class="card-style"
       shadow="hover"
-      :body-style="{ padding: '0px' }"
+      :body-style="{ padding: '10px' }"
       style="height: calc(100vh - 170px); overflow: auto"
     >
       <!-- <Transition
@@ -234,7 +234,6 @@ export default {
 
 .card-style {
   margin: 10px;
-  height: 650px;
 }
 
 .el-row {

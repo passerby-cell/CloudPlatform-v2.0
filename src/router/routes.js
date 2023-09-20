@@ -14,8 +14,48 @@ import ProcessView from "@/pages/processview";
 import CreateImage from "@/pages/createimage";
 import Template from "@/pages/template";
 import DataBaseManager from "@/pages/databasemanager";
+import Area from "@/pages/satelite/area/area.vue";
+import Date from "@/pages/satelite/date/date.vue";
+import Satelite from "@/pages/satelite/gf/satellite.vue";
+import SateliteData from "@/pages/satelite/data.vue";
 export default [
   // ?:用于指定params参数可传可不传,没有问号时,不传params参数时路径会出现丢失的情况
+  {
+    name: "satelitedata",
+    path: "/satelitedata",
+    component: SateliteData,
+    meta: {
+      show: true,
+      requireAuth: true, // 配置此条，进入页面前判断是否需要登陆
+    },
+  },
+  {
+    name: "satelite",
+    path: "/satelite",
+    component: Satelite,
+    meta: {
+      show: true,
+      requireAuth: true, // 配置此条，进入页面前判断是否需要登陆
+    },
+  },
+  {
+    name: "date",
+    path: "/date",
+    component: Date,
+    meta: {
+      show: true,
+      requireAuth: true, // 配置此条，进入页面前判断是否需要登陆
+    },
+  },
+  {
+    name: "area",
+    path: "/area",
+    component: Area,
+    meta: {
+      show: true,
+      requireAuth: true, // 配置此条，进入页面前判断是否需要登陆
+    },
+  },
   {
     name: "login",
     path: "/login",
