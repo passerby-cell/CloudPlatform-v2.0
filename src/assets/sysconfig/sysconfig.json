@@ -4,6 +4,6 @@
     "ide": "http://10.33.50.5:92/",
     "bocloud": "http://10.33.50.5:91/",
     "userInfo": "http://10.33.50.5:81/",
-    "satelite": "http://127.0.0.1:8080"
+    "satelite": "http://10.33.50.5:81/satelite"
   }
 }
