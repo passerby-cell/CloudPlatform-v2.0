@@ -18,6 +18,7 @@ import Area from "@/pages/satelite/area/area.vue";
 import Date from "@/pages/satelite/date/date.vue";
 import Satelite from "@/pages/satelite/gf/satellite.vue";
 import SateliteData from "@/pages/satelite/data.vue";
+
 export default [
   // ?:用于指定params参数可传可不传,没有问号时,不传params参数时路径会出现丢失的情况
   {

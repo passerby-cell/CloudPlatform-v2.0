@@ -9,17 +9,17 @@
     </Transition>
     <el-card class="card-style" shadow="hover" :body-style="{ padding: '10px' }" style="height: calc(100vh - 170px)">
       <el-row>
-        <!-- <el-button @click="showzhuanye = true" size="small" type="primary">
+        <el-button @click="showzhuanye = true" size="small" type="primary">
           专业模式</el-button>
         <el-dialog :visible.sync="showzhuanye" fullscreen class="dialogClass" :show-close="false">
           <span style="width: 100%; height: 60px; font-size: 16px" slot="title">专业模式<el-button type="danger" size="mini"
               @click="showzhuanye = false"
               style="float: right; margin-right: 10px; margin-bottom: 10px">退出</el-button></span>
-          <iframe style="width: 100%; height: calc(100vh - 30px); overflow: hidden"
-            src="https://data.cresda.cn/#/mapSearch"></iframe>
-        </el-dialog> -->
+          <iframe style="width: 100%; height: calc(100vh - 30px); overflow: hidden" :src="dataurl"></iframe>
+        </el-dialog>
         <el-cascader v-model="alltag" :options="allOptions" :props="{ expandTrigger: 'hover' }" size="small" class="size"
-          clearable @clear="fixMap()" placeholder="请选择示范点" @change="selectChange"></el-cascader>
+          style="margin-left: 10px;" clearable @clear="fixMap()" placeholder="请选择示范点"
+          @change="selectChange"></el-cascader>
         <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
           v-if="!showDoubleMap">结果对比</el-button>
         <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
@@ -507,7 +507,11 @@ export default {
       map_bear: null,
     };
   },
-  computed: {},
+  computed: {
+    dataurl() {
+      return 'https://data.cresda.cn/#/mapSearch?time=' + new Date().getTime()
+    }
+  },
   methods: {
     getMapIndexInfo() {
       // 拖拽
