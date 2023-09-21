@@ -1,69 +1,38 @@
 <template>
   <div>
-    <Transition
-      appear
-      enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight"
-    >
+    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight">
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>数据集</el-breadcrumb-item>
         <el-breadcrumb-item>数据视图</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
-    <el-card
-      class="card-style"
-      shadow="hover"
-      :body-style="{ padding: '10px' }"
-      style="height: calc(100vh - 170px)"
-    >
+    <el-card class="card-style" shadow="hover" :body-style="{ padding: '10px' }" style="height: calc(100vh - 170px)">
       <el-row>
-        <!-- <el-select class="size" v-model="tag" placeholder="请选择示范点" style="width: 200px" @change="selectChange" clearable
-          @clear="fixMap()" size="small">
-          <el-option v-for="item in options" :key="item.index" :label="item.name" :value="item.tag">
-          </el-option>
-        </el-select> -->
-        <el-cascader
-          v-model="alltag"
-          :options="allOptions"
-          :props="{ expandTrigger: 'hover' }"
-          size="small"
-          class="size"
-          clearable
-          @clear="fixMap()"
-          placeholder="请选择示范点"
-          @change="selectChange"
-        ></el-cascader>
-        <el-button
-          @click="changeSize()"
-          size="small"
-          type="primary"
-          style="margin-left: 10px"
-          v-if="!showDoubleMap"
-          >结果对比</el-button
-        >
-        <el-button
-          @click="changeSize()"
-          size="small"
-          type="primary"
-          style="margin-left: 10px"
-          v-if="showDoubleMap"
-          >还原</el-button
-        >
+        <!-- <el-button @click="showzhuanye = true" size="small" type="primary">
+          专业模式</el-button>
+        <el-dialog :visible.sync="showzhuanye" fullscreen class="dialogClass" :show-close="false">
+          <span style="width: 100%; height: 60px; font-size: 16px" slot="title">专业模式<el-button type="danger" size="mini"
+              @click="showzhuanye = false"
+              style="float: right; margin-right: 10px; margin-bottom: 10px">退出</el-button></span>
+          <iframe style="width: 100%; height: calc(100vh - 30px); overflow: hidden"
+            src="https://data.cresda.cn/#/mapSearch"></iframe>
+        </el-dialog> -->
+        <el-cascader v-model="alltag" :options="allOptions" :props="{ expandTrigger: 'hover' }" size="small" class="size"
+          clearable @clear="fixMap()" placeholder="请选择示范点" @change="selectChange"></el-cascader>
+        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
+          v-if="!showDoubleMap">结果对比</el-button>
+        <el-button @click="changeSize()" size="small" type="primary" style="margin-left: 10px"
+          v-if="showDoubleMap">还原</el-button>
       </el-row>
-      <el-button
-        @click="create()"
-        size="small"
-        v-if="tag"
-        style="
+      <el-button @click="create()" size="small" v-if="tag" style="
           position: fixed;
           bottom: 260px;
           right: 31px;
           z-index: 9999999;
           font-size: 16px;
           padding: 6px;
-        "
-        icon="el-icon-circle-plus-outline"
-      ></el-button>
+        " icon="el-icon-circle-plus-outline"></el-button>
 
       <!-- <el-button @click="full()" size="small" v-if="tag" style="
           position: fixed;
@@ -73,47 +42,30 @@
           font-size: 16px;
           padding: 6px;
         " icon="el-icon-full-screen"></el-button> -->
-      <el-button
-        @click="addThreeD()"
-        size="small"
-        style="
+      <el-button @click="addThreeD()" size="small" style="
           position: fixed;
           bottom: 185px;
           right: 31px;
           z-index: 9999999;
           font-size: 14px;
           padding: 5px;
-        "
-        v-if="!is3D"
-        >3D</el-button
-      >
-      <el-button
-        @click="addTwoD()"
-        size="small"
-        style="
+        " v-if="!is3D">3D</el-button>
+      <el-button @click="addTwoD()" size="small" style="
           position: fixed;
           bottom: 185px;
           right: 31px;
           z-index: 9999999;
           font-size: 14px;
           padding: 5px;
-        "
-        v-if="is3D"
-        >2D</el-button
-      >
-      <el-button
-        @click="fixMap()"
-        size="small"
-        style="
+        " v-if="is3D">2D</el-button>
+      <el-button @click="fixMap()" size="small" style="
           position: fixed;
           bottom: 222px;
           right: 31px;
           z-index: 9999999;
           font-size: 16px;
           padding: 6px;
-        "
-        icon="el-icon-view"
-      ></el-button>
+        " icon="el-icon-view"></el-button>
       <!-- <el-button
         @click="initMap(3)"
         size="small"
@@ -131,120 +83,98 @@
 
       <div id="map" style="float: right"></div>
       <div id="resultMap" style="float: left"></div>
-      <el-card
-        v-if="showDoubleMap && selectedTag == '孟买'"
-        style="
+      <el-card v-if="showDoubleMap && selectedTag == '孟买'" style="
           width: 120px;
           height: 30px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        "
-        :body-style="{ padding: '5px' }"
-      >
+        " :body-style="{ padding: '5px' }">
         <div style="line-height: 20px; height: 20px">
-          <div
-            style="
+          <div style="
               width: 70px;
               height: 8px;
               background-color: #6eed47;
               border-radius: 0%;
               display: inline-block;
               margin-bottom: 2px;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             道路
           </div>
         </div>
       </el-card>
-      <el-card
-        v-if="showDoubleMap && selectedTag == '瓜德尔港'"
-        style="
+      <el-card v-if="showDoubleMap && selectedTag == '瓜德尔港'" style="
           width: 70px;
           height: 110px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        "
-        :body-style="{ padding: '5px' }"
-      >
+        " :body-style="{ padding: '5px' }">
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #ea3323;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             建筑
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #ef8733;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             道路
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #377e22;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             植被
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #0000f5;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             水体
           </div>
         </div>
         <div style="line-height: 16px; height: 16px; margin-top: 4px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #75147c;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             港口
           </div>
         </div>
       </el-card>
-      <el-card
-        v-if="showDoubleMap && selectedTag == '孟加拉国'"
-        style="
+      <el-card v-if="showDoubleMap && selectedTag == '孟加拉国'" style="
           width: 70px;
           height: 28px;
           line-height: 28px;
@@ -254,76 +184,52 @@
           z-index: 9;
           background-color: #5a9cf8;
           border: #5a9cf8;
-        "
-        :body-style="{ padding: '5px' }"
-      >
+        " :body-style="{ padding: '5px' }">
         <div style="line-height: 16px; height: 16px">
-          <div
-            style="
+          <div style="
               width: 14px;
               height: 14px;
               background-color: #ffffff;
               border-radius: 50%;
               display: inline-block;
-            "
-          ></div>
+            "></div>
           <div style="display: inline-block; font-size: 16px; margin-left: 4px">
             水体
           </div>
         </div>
       </el-card>
-      <el-card
-        v-if="
-          showDoubleMap &&
-          (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
-        "
-        style="
+      <el-card v-if="showDoubleMap &&
+        (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
+        " style="
           width: 300px;
           height: 50px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        "
-        :body-style="{ padding: '10px' }"
-        ><div
-          style="
+        " :body-style="{ padding: '10px' }">
+        <div style="
             width: 280px;
             height: 10px;
             background: linear-gradient(to right, #c2523c, #30e100, #0b2f79);
             border-radius: 4px;
-          "
-        ></div>
-        <span style="float: left; margin-top: 4px" class="size">干旱</span
-        ><span style="float: right; margin-top: 4px" class="size"
-          >湿润</span
-        ></el-card
-      >
-      <el-card
-        v-if="showDoubleMap && selectedTag == '缅甸'"
-        style="
+          "></div>
+        <span style="float: left; margin-top: 4px" class="size">干旱</span><span style="float: right; margin-top: 4px"
+          class="size">湿润</span>
+      </el-card>
+      <el-card v-if="showDoubleMap && selectedTag == '缅甸'" style="
           width: 100px;
           height: 100px;
           position: fixed;
           top: 168px;
           left: 230px;
           z-index: 9;
-        "
-        :body-style="{ padding: '10px' }"
-        >我是缅甸图例</el-card
-      >
+        " :body-style="{ padding: '10px' }">我是缅甸图例</el-card>
 
-      <el-date-picker
-        v-if="
-          showDoubleMap &&
-          (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
-        "
-        class="date-picker"
-        v-model="imgDate"
-        type="month"
-        value-format="yyyy - M"
-        @change="changeGanHanImage()"
-      ></el-date-picker>
+      <el-date-picker v-if="showDoubleMap &&
+        (selectedTag == '新疆' || selectedTag == '哈萨克斯坦')
+        " class="date-picker" v-model="imgDate" type="month" value-format="yyyy - M"
+        @change="changeGanHanImage()"></el-date-picker>
     </el-card>
   </div>
 </template>
@@ -336,12 +242,13 @@ import { addHasakesitanLayer, addXinJiangLayer } from "./ganhan";
 import { trimAll } from "@/utils/string.js";
 // import mapboxgl from "mapbox-gl";
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
-import {} from "@/api";
+import { } from "@/api";
 
 export default {
   name: "DataView",
   data() {
     return {
+      showzhuanye: false,
       sysURL: require("@/assets/sysconfig/sysconfig.json"),
       ganhanImagePath: "userInfo/preview/ganhanresult/",
       imgDate: "2018 - 1",
@@ -1053,7 +960,7 @@ export default {
   font-size: 16px;
 }
 
-.el-form-item >>> .el-form-item__error {
+.el-form-item>>>.el-form-item__error {
   padding: 0px;
 }
 
@@ -1072,7 +979,7 @@ export default {
 }
 
 /* 隐藏mapbox商标 */
-#map >>> .mapboxgl-ctrl-logo {
+#map>>>.mapboxgl-ctrl-logo {
   display: none !important;
 }
 
@@ -1085,13 +992,14 @@ export default {
 }
 
 /* 隐藏mapbox商标 */
-#resultMap >>> .mapboxgl-ctrl-logo {
+#resultMap>>>.mapboxgl-ctrl-logo {
   display: none !important;
 }
 
-#fullScreenMap >>> .mapboxgl-ctrl-logo {
+#fullScreenMap>>>.mapboxgl-ctrl-logo {
   display: none !important;
 }
+
 .date-picker {
   position: fixed;
   top: 168px;
