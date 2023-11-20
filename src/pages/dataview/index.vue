@@ -17,7 +17,7 @@
       style="height: calc(100vh - 170px)"
     >
       <el-row>
-        <el-button @click="showzhuanye = true" size="small" type="primary">
+        <!-- <el-button @click="openZhuanye()" size="small" type="primary">
           专业模式</el-button
         >
         <el-dialog
@@ -39,7 +39,7 @@
             style="width: 100%; height: calc(100vh - 30px); overflow: hidden"
             :src="dataurl"
           ></iframe>
-        </el-dialog>
+        </el-dialog> -->
         <el-cascader
           v-model="alltag"
           :options="allOptions"
@@ -625,6 +625,9 @@ export default {
     },
   },
   methods: {
+    openZhuanye() {
+      window.open("https://data.cresda.cn/#/mapSearch");
+    },
     getMapIndexInfo() {
       // 拖拽
       this.map_x = this.map.getCenter().lng;

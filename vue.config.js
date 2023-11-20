@@ -11,7 +11,7 @@ module.exports = defineConfig({
     // 代理服务器可以将路由中的指定前缀转发到指定的后端服务器中
     proxy: {
       "/bocloud": {
-        target: "http://10.33.50.5:91",
+        target: "http://10.33.112.2:91",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         pathRewrite: {
@@ -19,7 +19,7 @@ module.exports = defineConfig({
         },
       },
       "/ide": {
-        target: "http://10.33.50.5:92",
+        target: "http://10.33.112.2:92",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         pathRewrite: {
@@ -27,7 +27,7 @@ module.exports = defineConfig({
         },
       },
       "/userInfo": {
-        target: "http://10.33.50.5:81",
+        target: "http://10.33.112.2:81",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         // pathRewrite: {
@@ -50,7 +50,7 @@ module.exports = defineConfig({
         },
       },
       "/satelite": {
-        target: "http://10.33.50.5:81",
+        target: "http://10.33.112.2:81",
         secure: false,
         changeOrigin: true, // 代理时是否更改host
         // pathRewrite: {

@@ -1,10 +1,10 @@
 {
   "IPAddress": {
-    "mapbox": "http://10.33.50.5:8082/",
-    "ide": "http://10.33.50.5:92/",
-    "bocloud": "http://10.33.50.5:91/",
-    "userInfo": "http://10.33.50.5:81/",
-    "satelite": "http://10.33.50.5:81/satelite",
+    "mapbox": "http://10.33.112.2:8082/",
+    "ide": "http://10.33.112.2:92/",
+    "bocloud": "http://10.33.112.2:91/",
+    "userInfo": "http://10.33.112.2:81/",
+    "satelite": "http://10.33.112.2:81/satelite",
     "remotesatelite": "https://data.cresda.cn/#/mapSearch?time="
   }
 }

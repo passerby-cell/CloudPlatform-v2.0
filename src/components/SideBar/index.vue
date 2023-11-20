@@ -79,12 +79,16 @@
               >&nbsp;&nbsp;&nbsp;&nbsp;卫星视图</span
             >
           </el-menu-item>
-          <!-- <el-menu-item index="/date" key="date" @click="toDate">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span>
+          <el-menu-item index="/date" key="date" @click="toDate">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span
+            >
           </el-menu-item>
           <el-menu-item index="/area" key="area" @click="toArea">
-            <span slot="title" class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span>
-          </el-menu-item> -->
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span
+            >
+          </el-menu-item>
           <el-menu-item
             index="/database"
             key="database"
