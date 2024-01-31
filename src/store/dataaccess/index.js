@@ -16,8 +16,13 @@ const actions = {
   async getData({ commit }, data) {
     let result = await reqData(data);
     if (result.code == 200) {
-      commit("DATA", result.data.content);
-      commit("TOTALPAGE", result.data.total);
+      if (result.data.content == null) {
+        commit("DATA", []);
+        commit("TOTALPAGE", 0);
+      } else {
+        commit("DATA", result.data.content);
+        commit("TOTALPAGE", result.data.total);
+      }
     }
   },
 };

@@ -2,6 +2,77 @@
   <el-row>
     <el-col :span="24">
       <el-menu :default-active="$route.path" :unique-opened="true">
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-folder"></i>
+            <span class="size">数据集</span>
+          </template>
+
+          <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;卫星视图</span
+            >
+          </el-menu-item>
+          <el-menu-item index="/date" key="date" @click="toDate">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span
+            >
+          </el-menu-item>
+          <el-menu-item index="/area" key="area" @click="toArea">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span
+            >
+          </el-menu-item>
+          <el-menu-item
+            index="/database"
+            key="database"
+            @click="toDataBaseManager"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;数据管理</span
+            >
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-takeaway-box"></i>
+            <span class="size">模型管理</span>
+          </template>
+          <el-menu-item @click="toData" index="/data" key="data">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据上传</span
+            >
+          </el-menu-item>
+          <el-menu-item
+            @click="toResultData"
+            index="/resultdata"
+            key="resultdata"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果下载</span
+            >
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="4">
+          <template slot="title">
+            <i class="el-icon-copy-document"></i>
+            <span class="size">镜像仓库</span>
+          </template>
+          <el-menu-item index="/images" key="images" @click="toImages">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
+            >
+          </el-menu-item>
+          <el-menu-item
+            index="/createimage"
+            key="createimage"
+            @click="toCreateImages"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span
+            >
+          </el-menu-item>
+        </el-submenu>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-cpu"></i>
@@ -39,26 +110,6 @@
           </el-menu-item> -->
         <!-- </el-menu-item>
         </div> -->
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-takeaway-box"></i>
-            <span class="size">模型管理</span>
-          </template>
-          <el-menu-item @click="toData" index="/data" key="data">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据上传</span
-            >
-          </el-menu-item>
-          <el-menu-item
-            @click="toResultData"
-            index="/resultdata"
-            key="resultdata"
-          >
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果下载</span
-            >
-          </el-menu-item>
-        </el-submenu>
 
         <!-- <div @click="toDataView">
           <el-menu-item index="/dataview" key="dataview">
@@ -68,62 +119,12 @@
             </template>
           </el-menu-item>
         </div> -->
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-folder"></i>
-            <span class="size">数据集</span>
-          </template>
 
-          <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;卫星视图</span
-            >
-          </el-menu-item>
-          <el-menu-item index="/date" key="date" @click="toDate">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span
-            >
-          </el-menu-item>
-          <el-menu-item index="/area" key="area" @click="toArea">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span
-            >
-          </el-menu-item>
-          <el-menu-item
-            index="/database"
-            key="database"
-            @click="toDataBaseManager"
-          >
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;数据管理</span
-            >
-          </el-menu-item>
-        </el-submenu>
-        <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-copy-document"></i>
-            <span class="size">镜像仓库</span>
-          </template>
-          <el-menu-item index="/images" key="images" @click="toImages">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
-            >
-          </el-menu-item>
-          <el-menu-item
-            index="/createimage"
-            key="createimage"
-            @click="toCreateImages"
-          >
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span
-            >
-          </el-menu-item>
-        </el-submenu>
         <div @click="toDataView">
           <el-menu-item index="/dataview" key="dataview">
             <template slot="title"
               ><i class="el-icon-view"></i>
-              <span slot="title" class="subsize">GIS可视化</span></template
+              <span slot="title" class="subsize">在线GIS</span></template
             >
           </el-menu-item>
         </div>

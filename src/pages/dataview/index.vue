@@ -46,7 +46,7 @@
           :props="{ expandTrigger: 'hover' }"
           size="small"
           class="size"
-          style="margin-left: 10px"
+          style="margin-left: 0px"
           clearable
           @clear="fixMap()"
           placeholder="请选择示范点"
