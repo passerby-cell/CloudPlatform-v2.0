@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>数据集</el-breadcrumb-item>
-        <el-breadcrumb-item>数据视图</el-breadcrumb-item>
+        <el-breadcrumb-item>结果可视化</el-breadcrumb-item>
+        <!-- <el-breadcrumb-item>数据视图</el-breadcrumb-item> -->
       </el-breadcrumb>
     </Transition>
     <el-card

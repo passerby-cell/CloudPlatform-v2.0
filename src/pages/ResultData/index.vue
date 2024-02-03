@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>模型管理</el-breadcrumb-item>
-        <el-breadcrumb-item>模型结果下载</el-breadcrumb-item>
+        <el-breadcrumb-item>我的作业</el-breadcrumb-item>
+        <el-breadcrumb-item>模型结果</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>

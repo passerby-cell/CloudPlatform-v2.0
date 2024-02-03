@@ -7,7 +7,7 @@
     >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>模型管理</el-breadcrumb-item>
-        <el-breadcrumb-item>模型数据上传</el-breadcrumb-item>
+        <el-breadcrumb-item>模型数据</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>
@@ -21,7 +21,7 @@
             <el-row>
               <el-col :span="16" style="margin-top: 12px">
                 <h3 style="margin-left: 5px" class="size">
-                  <span style="color: #409eff">|</span>&nbsp;模型列表
+                  <span style="color: #409eff">|</span>&nbsp;模型示范
                 </h3>
               </el-col>
               <el-col :span="8"
@@ -50,9 +50,10 @@
             :before-close="handleClose"
           >
             <el-input
-              placeholder="请输入新建的模型数据名称"
+              placeholder="请输入新建的模型数据名称,只能输入英文字符"
               size="small"
               v-model="newParentFileName"
+              oninput="value=value.replace(/[^\a-\z\A-\Z]/g,'')"
             ></el-input>
             <span slot="footer" class="dialog-footer">
               <el-button @click="parentFileDialogVisible = false" size="small"
@@ -121,15 +122,16 @@
                   </template>
                 </el-table-column> </el-table
               ><el-dialog
-                title="重命名数据集"
+                title="重命名模型数据"
                 :visible.sync="parentFileNameDialogVisible"
                 width="30%"
                 :before-close="handleClose"
               >
                 <el-input
-                  placeholder="请输入重命名的数据集名称"
+                  placeholder="请输入重命名的模型数据名称,只能输入英文字符"
                   size="small"
                   v-model="newParentFileName"
+                  oninput="value=value.replace(/[^\a-\z\A-\Z]/g,'')"
                 ></el-input>
                 <span slot="footer" class="dialog-footer">
                   <el-button
@@ -613,10 +615,14 @@ export default {
     },
     updateParentFileNameDialogVisible(row) {
       this.parentFileNameDialogVisible = true;
-      this.newParentFileName = row.name;
+      // this.newParentFileName = row.name;
       this.newParentFileId = row.id;
     },
     async updateParentFileName() {
+      if (this.newParentFileName == "") {
+        this.$message.error("请输入模型数据名称");
+        return;
+      }
       let result = await reqUpdateParentFileName(
         this.newParentFileId,
         this.newParentFileName,
@@ -651,6 +657,10 @@ export default {
     },
     async createParentFile() {
       //TODO:storageId type
+      if (this.newParentFileName == "") {
+        this.$message.error("请输入模型数据名称");
+        return;
+      }
       let result1 = await reqCreateParentFile(this.newParentFileName, "", 6, 1);
       // let result2 = await reqCreateParentFile(this.newParentFileName, "", 6, 2);
       if (result1.code == "200") {
@@ -740,7 +750,7 @@ export default {
         files.file.name.split(".")[files.file.name.split(".").length - 1];
       let _this = this;
       this.axios({
-        url: "api/paas-web/bocapi/fileBcc/upload",
+        url: "bocloud/paas-web/bocapi/fileBcc/upload",
         method: "post",
         headers: {
           "Content-Type": "multipart/form-data",

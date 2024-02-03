@@ -309,6 +309,7 @@
                 >
                   <el-option
                     v-for="(item, index) in imageCatalogList"
+                    :key="index"
                     :label="
                       item.envName == 'cluster-default-default'
                         ? 'private'
@@ -475,7 +476,7 @@ export default {
       showlogs: false,
       repositoryDir: "",
       imageName: "",
-      imageVersion: "",
+      // imageVersion: "",
       path: "",
       createDialogVisible: false,
       newImageName: "",
@@ -487,6 +488,16 @@ export default {
   computed: {
     ...mapState("ImageProcess", ["imageProcessList"]),
     ...mapState("CreateJob", ["data", "imageCatalogList", "warehouseList"]),
+    imageVersion() {
+      var d = new Date();
+      return (
+        "v" +
+        (d.getMonth() + 1) +
+        d.getHours() +
+        d.getMinutes() +
+        d.getSeconds()
+      );
+    },
     imageNameAndVersion() {
       return this.imageName + ":" + this.imageVersion;
     },
@@ -644,6 +655,8 @@ export default {
     },
     updatePath(row, event, column) {
       this.path = row.catalog;
+      // console.log(row.name);
+      this.imageName = row.name.toLowerCase();
     },
     async getDataSet() {
       let result = await reqDataSet(1);

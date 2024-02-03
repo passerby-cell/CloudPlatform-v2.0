@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>数据集</el-breadcrumb-item>
-        <el-breadcrumb-item>数据服务</el-breadcrumb-item>
+        <el-breadcrumb-item>数据集管理</el-breadcrumb-item>
+        <el-breadcrumb-item>数据文件</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>

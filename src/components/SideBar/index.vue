@@ -5,7 +5,7 @@
         <el-submenu index="3">
           <template slot="title">
             <i class="el-icon-folder"></i>
-            <span class="size">数据集</span>
+            <span class="size">数据集管理</span>
           </template>
 
           <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
@@ -29,7 +29,7 @@
             @click="toDataBaseManager"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;数据管理</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;数据文件</span
             >
           </el-menu-item>
         </el-submenu>
@@ -40,17 +40,14 @@
           </template>
           <el-menu-item @click="toData" index="/data" key="data">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据上传</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据</span
             >
           </el-menu-item>
-          <el-menu-item
-            @click="toResultData"
-            index="/resultdata"
-            key="resultdata"
-          >
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果下载</span
-            >
+          <el-menu-item @click="toIDE" index="/ide" key="ide">
+            <template slot="title">
+              <!-- <i class="el-icon-edit-outline"></i> -->
+              <span class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;在线IDE</span>
+            </template>
           </el-menu-item>
         </el-submenu>
         <el-submenu index="4">
@@ -58,11 +55,7 @@
             <i class="el-icon-copy-document"></i>
             <span class="size">镜像仓库</span>
           </template>
-          <el-menu-item index="/images" key="images" @click="toImages">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
-            >
-          </el-menu-item>
+
           <el-menu-item
             index="/createimage"
             key="createimage"
@@ -70,6 +63,10 @@
           >
             <span slot="title" class="subsize"
               >&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span
+            > </el-menu-item
+          ><el-menu-item index="/images" key="images" @click="toImages">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
             >
           </el-menu-item>
         </el-submenu>
@@ -82,6 +79,14 @@
           <el-menu-item @click="toJob()" index="/job" key="job">
             <span slot="title" class="subsize"
               >&nbsp;&nbsp;&nbsp;&nbsp;作业列表</span
+            > </el-menu-item
+          ><el-menu-item
+            @click="toResultData"
+            index="/resultdata"
+            key="resultdata"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果</span
             >
           </el-menu-item>
           <el-menu-item
@@ -124,19 +129,8 @@
           <el-menu-item index="/dataview" key="dataview">
             <template slot="title"
               ><i class="el-icon-view"></i>
-              <span slot="title" class="subsize">在线GIS</span></template
+              <span slot="title" class="size">结果可视化</span></template
             >
-          </el-menu-item>
-        </div>
-        <div @click="toIDE">
-          <el-menu-item index="/ide" key="ide">
-            <template slot="title">
-              <i class="el-icon-edit-outline"></i>
-              <span class="size">在线IDE</span>
-            </template>
-            <!-- <el-menu-item>
-            <span slot="title" @click="toImages">镜像管理</span>
-          </el-menu-item> -->
           </el-menu-item>
         </div>
         <div @click="toUserInfo">

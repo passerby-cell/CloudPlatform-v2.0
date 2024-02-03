@@ -7,7 +7,7 @@
     >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>镜像仓库</el-breadcrumb-item>
-        <el-breadcrumb-item>镜像管理</el-breadcrumb-item>
+        <el-breadcrumb-item>镜像概览</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
