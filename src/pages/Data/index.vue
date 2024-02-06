@@ -64,7 +64,7 @@
               >
             </span>
           </el-dialog>
-          <!-- <el-divider></el-divider> -->
+
           <Transition
             appear
             enter-active-class="animate__animated animate__fadeInLeft"
@@ -320,24 +320,8 @@
                 >删除选中</el-button
               ></Transition
             >
-            <!-- <Transition
-              appear
-              enter-active-class="animate__animated animate__fadeInLeft"
-              leave-active-class="animate__animated animate__fadeOutRight"
-            >
-              <el-button
-                style="margin-top: 10px; margin-left: 10px"
-                type="warning"
-                class="iconfont icon-zhongduanguanlibeifen"
-                size="small"
-                @click="openTerminal"
-                ><span style="margin-left: 8px; font-weight: bolder"
-                  >终端</span
-                ></el-button
-              ></Transition
-            > -->
           </el-row>
-          <el-dialog
+          <!-- <el-dialog
             :visible.sync="terminalDialogVisible"
             fullscreen
             class="dialogClass"
@@ -367,7 +351,7 @@
               :src="iframeSrc"
               style="width: 100%; height: calc(100vh - 58px)"
             ></iframe>
-          </el-dialog>
+          </el-dialog> -->
           <el-row>
             <Transition
               appear
@@ -383,11 +367,7 @@
                 @select-all="selectTableAll"
                 @select="selectFile"
               >
-                <el-table-column width="80" type="selection">
-                  <!-- <template slot-scope="scope">
-            <el-checkbox @change="selectFile(scope.row)"></el-checkbox>
-          </template>-->
-                </el-table-column>
+                <el-table-column width="80" type="selection"> </el-table-column>
                 <el-table-column
                   prop="fileName"
                   label="文件名"
@@ -439,35 +419,6 @@
                 ></el-table-column>
                 <el-table-column label="操作" width="200" show-overflow-tooltip>
                   <template slot-scope="scope">
-                    <!-- <el-button
-                      style="margin-left: 10px"
-                      type="primary"
-                      icon="el-icon-view"
-                      size="small"
-                      v-if="scope.row.fileType != 1"
-                      @click="previewFile(scope.row.name)"
-                      >预览</el-button
-                    > -->
-                    <!-- <a
-                      :href="
-                        'http://localhost:8080/file/downloadfile?token=' +
-                        localtoken +
-                        '&name=' +
-                        scope.row.name +
-                        '&dirpath=' +
-                        dirpath
-                      "
-                    > -->
-                    <!-- <el-button
-                        style="margin-left: 10px"
-                        type="warning"
-                        icon="el-icon-download"
-                        size="small"
-                        v-if="scope.row.fileType != 1"
-                        >下载</el-button
-                      > -->
-                    <!-- </a> -->
-                    <!-- @click="downloadFile(scope.row.name)" -->
                     <el-button
                       style="margin-left: 10px"
                       type="success"
@@ -880,6 +831,7 @@ export default {
       if (result.code == "200") {
         this.$store.dispatch("File/getParentFileList", result.data);
         this.parentFileName = result.data[0].name;
+        this.parentId = this.parentFileList[0].id;
       }
       if (this.parentFileList != null) {
         this.updateFileList(this.parentFileList[0].id, this.pageNum, null);

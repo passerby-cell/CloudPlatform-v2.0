@@ -119,13 +119,13 @@
                   </template>
                 </el-table-column> </el-table
               ><el-dialog
-                title="重命名数据集"
+                title="重命名模型结果"
                 :visible.sync="parentFileNameDialogVisible"
                 width="30%"
                 :before-close="handleClose"
               >
                 <el-input
-                  placeholder="请输入重命名的数据集名称"
+                  placeholder="请输入重命名的模型结果名称"
                   size="small"
                   v-model="newParentFileName"
                 ></el-input>
@@ -666,7 +666,7 @@ export default {
       }
     },
     async deleteParentFile(id) {
-      alert("是否确认删除?");
+      // alert("是否确认删除?");
       let result = await reqDeleteParentFile(id);
       if (result.code == "200") {
         this.$message({
@@ -872,6 +872,7 @@ export default {
       if (result.code == "200") {
         this.$store.dispatch("ResultFile/getParentFileList", result.data);
         this.parentFileName = result.data[0].name;
+        this.parentId = this.parentFileList[0].id;
       }
       if (this.parentFileList != null) {
         this.updateFileList(this.parentFileList[0].id, this.pageNum, null);

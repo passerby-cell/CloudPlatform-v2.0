@@ -421,8 +421,8 @@ export default {
       frameCount: 5,
       allOptions: [
         {
-          value: "道路提取",
-          label: "道路提取",
+          value: "城市路网提取",
+          label: "城市路网提取",
           children: [
             {
               index: 0,
@@ -444,8 +444,8 @@ export default {
         },
 
         {
-          value: "土地利用分类",
-          label: "土地利用分类",
+          value: "基础设施识别",
+          label: "基础设施识别",
           children: [
             {
               index: 0,
@@ -574,8 +574,8 @@ export default {
           ],
         },
         {
-          value: "干旱监测",
-          label: "干旱监测",
+          value: "旱情监测",
+          label: "旱情监测",
           children: [
             {
               index: 0,
