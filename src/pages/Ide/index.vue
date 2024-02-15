@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>模型管理</el-breadcrumb-item>
-        <el-breadcrumb-item>在线IDE</el-breadcrumb-item>
+        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
+        <el-breadcrumb-item>在线编程环境</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card

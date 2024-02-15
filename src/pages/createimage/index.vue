@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>镜像仓库</el-breadcrumb-item>
-        <el-breadcrumb-item>镜像制作</el-breadcrumb-item>
+        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item>制作模型镜像</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
 
@@ -489,14 +489,8 @@ export default {
     ...mapState("ImageProcess", ["imageProcessList"]),
     ...mapState("CreateJob", ["data", "imageCatalogList", "warehouseList"]),
     imageVersion() {
-      var d = new Date();
-      return (
-        "v" +
-        (d.getMonth() + 1) +
-        d.getHours() +
-        d.getMinutes() +
-        d.getSeconds()
-      );
+      // var d = new Date();
+      return "v" + Date.parse(new Date()) / 1000;
     },
     imageNameAndVersion() {
       return this.imageName + ":" + this.imageVersion;

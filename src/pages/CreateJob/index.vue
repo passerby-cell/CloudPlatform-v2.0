@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>我的作业</el-breadcrumb-item>
-        <el-breadcrumb-item>新建作业</el-breadcrumb-item>
+        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item>新建作业任务</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -1023,7 +1023,7 @@ export default {
         taskCnName: "",
         podReplicas: 1,
         podMinReplicas: 1,
-        requestCpu: 4,
+        requestCpu: 8,
         requestMemory: 16,
         gpuCalPower: 100,
         gpuVideoMem: 88,
@@ -1200,7 +1200,10 @@ export default {
           _this.dialogFormVisible = false;
           let taskInfo = _this.formatTaskInfo();
           _this.tasks.push(taskInfo);
-          _this.vcJob.vcJobName = "work-" + _this.tasks[0].taskCnName;
+          _this.vcJob.vcJobName =
+            _this.imageName({ imageName: _this.taskInfo.imagePrefix }) +
+            "-" +
+            Date.parse(new Date()) / 1000;
           _this.vcJob.vcJobCnName = _this.vcJob.vcJobName;
           _this.cancleTask();
         }
@@ -1294,8 +1297,8 @@ export default {
         taskCnName: "",
         podReplicas: 1,
         podMinReplicas: 1,
-        requestCpu: 1,
-        requestMemory: 4,
+        requestCpu: 8,
+        requestMemory: 16,
         gpuCalPower: 100,
         gpuVideoMem: 88,
         command: null,

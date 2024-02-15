@@ -1,82 +1,201 @@
 <template>
   <div>
-    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight">
+    <Transition
+      appear
+      enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight"
+    >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>我的作业</el-breadcrumb-item>
-        <el-breadcrumb-item>作业列表</el-breadcrumb-item>
+        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item>实时作业列表</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
-    <el-card class="card-style" shadow="hover" :body-style="{ padding: '0px' }"
-      style="height: calc(100vh - 170px); overflow: auto">
-      <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight">
-        <el-button style="
-          margin-top: 10px;
-          margin-left: 10px;
-          padding-right: 8px;
-          padding-top: 8px;
-          padding-bottom: 8px;
-          padding-left: 8px;
-        " class="el-icon-circle-plus-outline" size="mini" type="primary" @click="toCreateJob">新建作业</el-button>
+    <el-card
+      class="card-style"
+      shadow="hover"
+      :body-style="{ padding: '0px' }"
+      style="height: calc(100vh - 170px); overflow: auto"
+    >
+      <Transition
+        appear
+        enter-active-class="animate__animated animate__fadeInLeft"
+        leave-active-class="animate__animated animate__fadeOutRight"
+      >
+        <el-button
+          style="
+            margin-top: 10px;
+            margin-left: 10px;
+            padding-right: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 8px;
+          "
+          class="el-icon-circle-plus-outline"
+          size="mini"
+          type="primary"
+          @click="toCreateJob"
+          >新建作业</el-button
+        >
       </Transition>
-      <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight">
-        <el-table :row-style="{ height: 40 + 'px' }" :cell-style="{ padding: 0 + 'px' }"
-          style="width: 98.5%; margin-top: 10px; margin-left: 10px" :data="formatedJobList" :border="true"
-          :row-class-name="tableRowClassName" max-height="700">
-          <el-table-column prop="vcJobCnName" label="任务名" show-overflow-tooltip>
+      <Transition
+        appear
+        enter-active-class="animate__animated animate__fadeInLeft"
+        leave-active-class="animate__animated animate__fadeOutRight"
+      >
+        <el-table
+          :row-style="{ height: 40 + 'px' }"
+          :cell-style="{ padding: 0 + 'px' }"
+          style="width: 98.5%; margin-top: 10px; margin-left: 10px"
+          :data="formatedJobList"
+          :border="true"
+          :row-class-name="tableRowClassName"
+          max-height="700"
+        >
+          <el-table-column
+            prop="vcJobCnName"
+            label="任务名"
+            show-overflow-tooltip
+          >
             <template slot-scope="scope">
               <span style="cursor: pointer" @click="toJobInfo(scope.$index)">{{
-    scope.row.vcJobCnName
-}}</span>
+                scope.row.vcJobCnName
+              }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="startTime" label="开始时间" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="endTime" label="结束时间" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="taskTotal" label="总任务数" width="100" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="taskCompleted" label="运行完成数" width="120" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="taskPending" label="排队中" width="80" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="cpuUsed" label="cpu使用量" width="120" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="memUsed" label="内存使用量" width="120"></el-table-column>
+          <el-table-column
+            prop="startTime"
+            label="开始时间"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="endTime"
+            label="结束时间"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="taskTotal"
+            label="总任务数"
+            width="100"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="taskCompleted"
+            label="运行完成数"
+            width="120"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="taskPending"
+            label="排队中"
+            width="80"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="cpuUsed"
+            label="cpu使用量"
+            width="120"
+            show-overflow-tooltip
+          ></el-table-column>
+          <el-table-column
+            prop="memUsed"
+            label="内存使用量"
+            width="120"
+          ></el-table-column>
           <el-table-column prop="status" label="状态" width="80" align="center">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.status == 'Terminated'" size="small" type="danger">已终止</el-tag>
-              <el-tag v-if="scope.row.status == 'Pending'" size="small" type="warning">排队中</el-tag>
+              <el-tag
+                v-if="scope.row.status == 'Terminated'"
+                size="small"
+                type="danger"
+                >已终止</el-tag
+              >
+              <el-tag
+                v-if="scope.row.status == 'Pending'"
+                size="small"
+                type="warning"
+                >排队中</el-tag
+              >
               <!-- TODO: 任务运行状态 -->
-              <el-tag size="small" v-if="scope.row.status == 'Completed'" type="success">已完成</el-tag>
-              <el-tag size="small" type="warning" v-if="scope.row.status == 'No_Running'">未开始</el-tag>
-              <el-tag size="small" v-if="scope.row.status == 'Running'">运行中</el-tag>
+              <el-tag
+                size="small"
+                v-if="scope.row.status == 'Completed'"
+                type="success"
+                >已完成</el-tag
+              >
+              <el-tag
+                size="small"
+                type="warning"
+                v-if="scope.row.status == 'No_Running'"
+                >未开始</el-tag
+              >
+              <el-tag size="small" v-if="scope.row.status == 'Running'"
+                >运行中</el-tag
+              >
             </template>
           </el-table-column>
           <!-- TODO: 对任务的操作 -->
           <el-table-column label="操作" width="210" align="center">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" v-if="scope.row.status == 'No_Running'"
-                @click="startJob(scope.row.clusterId, scope.row.vcJobId)">启动</el-button>
-              <el-button size="mini" type="success" @click="openTemplateDialog(scope.row)">保存</el-button>
-              <el-button size="mini" type="danger"
-                @click="deleteJob(scope.row.clusterId, scope.row.vcJobId)">删除</el-button>
+              <el-button
+                size="mini"
+                type="primary"
+                v-if="scope.row.status == 'No_Running'"
+                @click="startJob(scope.row.clusterId, scope.row.vcJobId)"
+                >启动</el-button
+              >
+              <el-button
+                size="mini"
+                type="success"
+                @click="openTemplateDialog(scope.row)"
+                >保存</el-button
+              >
+              <el-button
+                size="mini"
+                type="danger"
+                @click="deleteJob(scope.row.clusterId, scope.row.vcJobId)"
+                >删除</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
       </Transition>
       <el-col style="text-align: center">
-        <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-          leave-active-class="animate__animated animate__fadeOutRight">
-          <el-pagination :background="true" :page-sizes="[10, 20, 30]" :page-size="page"
-            layout="prev, pager, next,sizes" :page-count="Number(totalpage)" @current-change="handleCurrentChange"
-            @size-change="handleSizeChange"></el-pagination>
+        <Transition
+          appear
+          enter-active-class="animate__animated animate__fadeInLeft"
+          leave-active-class="animate__animated animate__fadeOutRight"
+        >
+          <el-pagination
+            :background="true"
+            :page-sizes="[10, 20, 30]"
+            :page-size="page"
+            layout="prev, pager, next,sizes"
+            :page-count="Number(totalpage)"
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+          ></el-pagination>
         </Transition>
       </el-col>
     </el-card>
-    <el-dialog title="保存为模板" :visible.sync="dialogFormVisible" width="500px">
+    <el-dialog
+      title="保存为模板"
+      :visible.sync="dialogFormVisible"
+      width="500px"
+    >
       <el-form :model="template" :rules="templateRules" ref="templateForm">
         <el-form-item label="中文名称" label-width="80px" prop="cnName">
-          <el-input v-model="template.cnName" autocomplete="off" style="width: 250px;"></el-input>
+          <el-input
+            v-model="template.cnName"
+            autocomplete="off"
+            style="width: 250px"
+          ></el-input>
         </el-form-item>
         <el-form-item label="英文名称" label-width="80px" prop="enName">
-          <el-input v-model="template.enName" autocomplete="off" style="width: 250px;"></el-input>
+          <el-input
+            v-model="template.enName"
+            autocomplete="off"
+            style="width: 250px"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -96,7 +215,7 @@ export default {
   data() {
     return {
       secondBread: "标准作业",
-      page: 8,
+      page: 10,
       dialogFormVisible: false,
       template: {
         cnName: null,
@@ -104,15 +223,28 @@ export default {
       },
       templateRules: {
         cnName: [
-          { required: true, message: '请输入作业模板中文名称', trigger: 'blur' },
-          { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+          {
+            required: true,
+            message: "请输入作业模板中文名称",
+            trigger: "blur",
+          },
+          {
+            min: 3,
+            max: 15,
+            message: "长度在 3 到 15 个字符",
+            trigger: "blur",
+          },
         ],
         enName: [
-          { required: true, message: '请输入作业模板英文名称', trigger: 'blur' },
-          { min: 3, max: 15, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          {
+            required: true,
+            message: "请输入作业模板英文名称",
+            trigger: "blur",
+          },
+          { min: 3, max: 15, message: "长度在 3 到 5 个字符", trigger: "blur" },
         ],
       },
-      vcJob: {}
+      vcJob: {},
     };
   },
   computed: {
@@ -136,34 +268,39 @@ export default {
   },
   methods: {
     openTemplateDialog(vcJob) {
-      this.dialogFormVisible = true
-      this.vcJob = vcJob
+      this.dialogFormVisible = true;
+      this.vcJob = vcJob;
     },
     cancleSaveTemplate() {
-      this.vcJob = {}
-      this.dialogFormVisible = false
+      this.vcJob = {};
+      this.dialogFormVisible = false;
       this.$refs["templateForm"].resetFields();
     },
     saveTemplate() {
-      let _this = this
+      let _this = this;
       this.$refs["templateForm"].validate(async (valid) => {
         if (valid) {
           //TODO:发送保存模板的请求
-          let result = await reqSaveJobAsTemplate({ "tvcJobName": _this.template.enName, "tvcJobCnName": _this.template.cnName, "vcJobId": _this.vcJob.vcJobId, "envId": 1 })
+          let result = await reqSaveJobAsTemplate({
+            tvcJobName: _this.template.enName,
+            tvcJobCnName: _this.template.cnName,
+            vcJobId: _this.vcJob.vcJobId,
+            envId: 1,
+          });
           if (result.code == 200) {
             this.$message({
               type: "success",
-              message: result.message
-            })
+              message: result.message,
+            });
           } else {
-            this.$message.error("添加失败")
+            this.$message.error(result.message);
           }
         } else {
-          console.log('error submit!!');
+          console.log("error submit!!");
           return false;
         }
       });
-      this.dialogFormVisible = false
+      this.dialogFormVisible = false;
     },
     async startJob(clusterId, vcJobId) {
       let result = await reqStartJob(clusterId, vcJobId);

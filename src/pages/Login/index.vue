@@ -84,6 +84,7 @@ import {
   reqUserToken,
   reqUserInfoRegist,
   reqUserInfoLogin,
+  reqCreateParentFile,
   //从api模块中引入请求
 } from "@/api";
 import AES from "@/utils/crypto";
@@ -159,6 +160,17 @@ export default {
               });
               localStorage.setItem("user", this.user.username);
               this.$router.push({ name: "job" });
+              //TODO:storageId type
+              let dict = [
+                "CityRoadNetworkExtraction",
+                "RiceGrowthMonitoring",
+                "DroughtMonitoring",
+                "FloodMonitoring",
+                "InfrastructureIdentification",
+              ];
+              for (let i = 0; i < 5; i++) {
+                reqCreateParentFile(dict[i], "", 6, 1);
+              }
             }
           } else {
             this.$message.error("登录失败");

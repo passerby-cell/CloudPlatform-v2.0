@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>镜像仓库</el-breadcrumb-item>
-        <el-breadcrumb-item>镜像概览</el-breadcrumb-item>
+        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
+        <el-breadcrumb-item>模型镜像列表</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card

@@ -10,10 +10,10 @@
 
           <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;卫星视图</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;数据检索</span
             >
           </el-menu-item>
-          <el-menu-item index="/date" key="date" @click="toDate">
+          <!-- <el-menu-item index="/date" key="date" @click="toDate">
             <span slot="title" class="subsize"
               >&nbsp;&nbsp;&nbsp;&nbsp;日期视图</span
             >
@@ -22,7 +22,7 @@
             <span slot="title" class="subsize"
               >&nbsp;&nbsp;&nbsp;&nbsp;地区视图</span
             >
-          </el-menu-item>
+          </el-menu-item> -->
           <el-menu-item
             index="/database"
             key="database"
@@ -33,60 +33,23 @@
             >
           </el-menu-item>
         </el-submenu>
-        <el-submenu index="2">
+        <el-submenu index="1">
           <template slot="title">
-            <i class="el-icon-takeaway-box"></i>
-            <span class="size">模型管理</span>
+            <i class="el-icon-cpu"></i>
+            <span class="size">作业执行</span>
           </template>
           <el-menu-item @click="toData" index="/data" key="data">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型数据</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;上传模型数据</span
             >
           </el-menu-item>
-          <el-menu-item @click="toIDE" index="/ide" key="ide">
-            <template slot="title">
-              <!-- <i class="el-icon-edit-outline"></i> -->
-              <span class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;在线IDE</span>
-            </template>
-          </el-menu-item>
-        </el-submenu>
-        <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-copy-document"></i>
-            <span class="size">镜像仓库</span>
-          </template>
-
           <el-menu-item
             index="/createimage"
             key="createimage"
             @click="toCreateImages"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;镜像制作</span
-            > </el-menu-item
-          ><el-menu-item index="/images" key="images" @click="toImages">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;镜像概览</span
-            >
-          </el-menu-item>
-        </el-submenu>
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-cpu"></i>
-            <span class="size">我的作业</span>
-          </template>
-
-          <el-menu-item @click="toJob()" index="/job" key="job">
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;作业列表</span
-            > </el-menu-item
-          ><el-menu-item
-            @click="toResultData"
-            index="/resultdata"
-            key="resultdata"
-          >
-            <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型结果</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;制作模型镜像</span
             >
           </el-menu-item>
           <el-menu-item
@@ -95,15 +58,59 @@
             key="standardjob"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;新建作业</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;新建作业任务</span
+            >
+          </el-menu-item>
+          <el-menu-item @click="toJob()" index="/job" key="job">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;实时作业列表</span
+            >
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-takeaway-box"></i>
+            <span class="size">过程管理</span>
+          </template>
+          <el-menu-item @click="toIDE" index="/ide" key="ide">
+            <template slot="title">
+              <!-- <i class="el-icon-edit-outline"></i> -->
+              <span class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;在线编程环境</span>
+            </template>
+          </el-menu-item>
+          <el-menu-item index="/images" key="images" @click="toImages">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;模型镜像列表</span
+            >
+          </el-menu-item>
+
+          <el-menu-item
+            @click="toResultData"
+            index="/resultdata"
+            key="resultdata"
+          >
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;输出环境管理</span
             >
           </el-menu-item>
           <el-menu-item @click="toTemplate()" index="/template" key="template">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;作业模板</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;系统作业模板</span
+            >
+          </el-menu-item>
+          <el-menu-item index="/dataview" key="dataview" @click="toDataView">
+            <span slot="title" class="subsize"
+              >&nbsp;&nbsp;&nbsp;&nbsp;可视化展示</span
             >
           </el-menu-item>
         </el-submenu>
+        <!-- <el-submenu index="4">
+          <template slot="title">
+            <i class="el-icon-copy-document"></i>
+            <span class="size">镜像仓库</span>
+          </template>
+        </el-submenu> -->
+
         <!-- <div @click="toData">
           <el-menu-item index="2">
             <template slot="title">
@@ -125,23 +132,12 @@
           </el-menu-item>
         </div> -->
 
-        <div @click="toDataView">
-          <el-menu-item index="/dataview" key="dataview">
-            <template slot="title"
-              ><i class="el-icon-view"></i>
-              <span slot="title" class="size">结果可视化</span></template
-            >
-          </el-menu-item>
-        </div>
         <div @click="toUserInfo">
           <el-menu-item index="/userinfo" key="userinfo">
             <template slot="title">
               <i class="el-icon-user"></i>
               <span class="size">个人中心</span>
             </template>
-            <!-- <el-menu-item>
-            <span slot="title" @click="toImages">镜像管理</span>
-          </el-menu-item> -->
           </el-menu-item>
         </div>
       </el-menu>

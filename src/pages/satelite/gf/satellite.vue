@@ -7,14 +7,15 @@
     >
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>数据集管理</el-breadcrumb-item>
-        <el-breadcrumb-item>卫星视图</el-breadcrumb-item>
+        <el-breadcrumb-item>数据检索</el-breadcrumb-item>
       </el-breadcrumb> </Transition
     ><el-card
       class="card-style"
       shadow="hover"
       :body-style="{ padding: '10px' }"
       style="height: calc(100vh - 170px); overflow: auto"
-      ><Transition
+    >
+      <!-- <Transition
         appear
         enter-active-class="animate__animated animate__fadeInLeft"
         leave-active-class="animate__animated animate__fadeOutRight"
@@ -82,8 +83,8 @@
             </tr>
           </table>
         </div></Transition
-      ></el-card
-    >
+      > -->
+    </el-card>
   </div>
 </template>
 

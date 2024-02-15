@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>模型管理</el-breadcrumb-item>
-        <el-breadcrumb-item>模型数据</el-breadcrumb-item>
+        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item>上传模型数据</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>
@@ -21,7 +21,7 @@
             <el-row>
               <el-col :span="16" style="margin-top: 12px">
                 <h3 style="margin-left: 5px" class="size">
-                  <span style="color: #409eff">|</span>&nbsp;模型示范
+                  <span style="color: #409eff">|</span>&nbsp;模型数据列表
                 </h3>
               </el-col>
               <el-col :span="8"

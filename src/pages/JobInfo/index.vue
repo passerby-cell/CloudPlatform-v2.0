@@ -1,105 +1,225 @@
 <template>
   <div>
-    <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-      leave-active-class="animate__animated animate__fadeOutRight">
+    <Transition
+      appear
+      enter-active-class="animate__animated animate__fadeInLeft"
+      leave-active-class="animate__animated animate__fadeOutRight"
+    >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>我的作业</el-breadcrumb-item>
-        <el-breadcrumb-item><span @click="toJob" class="bread">作业列表</span></el-breadcrumb-item>
+        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item
+          ><span @click="toJob" class="bread"
+            >实时作业列表</span
+          ></el-breadcrumb-item
+        >
         <el-breadcrumb-item>{{
           joblist[index].vcJobCnName
         }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
-    <el-card style="
-                                                    background-color: #eaebed;
-                                                    margin: 10px;
-                                                    height: calc(100vh - 170px);
-                                                  " :body-style="{ padding: '0px' }">
+    <el-card
+      style="
+        background-color: #eaebed;
+        margin: 10px;
+        height: calc(100vh - 170px);
+      "
+      :body-style="{ padding: '0px' }"
+    >
       <el-row>
-        <el-card :body-style="{ padding: '0px' }" style="height: 85px; margin: 10px" shadow="hover">
-          <el-row :span="12" style="margin-top: 10px">
-            <h3 style="margin-left: 5px" class="size">
+        <el-card
+          :body-style="{ padding: '10px' }"
+          style="height: 85px; margin: 10px"
+          shadow="hover"
+        >
+          <el-row :span="12" style="margin-top: 0px">
+            <h3 style="margin-left: 0px" class="size">
               <span style="color: #409eff">|</span>&nbsp;基本信息
             </h3>
           </el-row>
-          <el-row style="margin-top: 30px; margin-left: 20px">
-            <el-col :span="8"><span class="size">作业名称：{{ joblist[index].vcJobCnName }}</span></el-col>
-            <el-col :span="8"><span class="size">作业类型：标准作业</span></el-col>
-            <el-col :span="8"><span class="size">所属队列：default</span></el-col>
-          </el-row></el-card>
+          <el-row style="margin-top: 25px">
+            <el-col :span="8"
+              ><span class="size"
+                >作业名称：{{ joblist[index].vcJobCnName }}</span
+              ></el-col
+            >
+            <el-col :span="8"
+              ><span class="size">作业类型：标准作业</span></el-col
+            >
+            <el-col :span="8"
+              ><span class="size">所属队列：default</span></el-col
+            >
+          </el-row></el-card
+        >
       </el-row>
 
-
       <el-row>
-        <el-card :body-style="{ padding: '0px' }" style="
-                                                        height: calc(100vh - 290px);
-                                                        margin-left: 10px;
-                                                        margin-right: 10px;
-                                                        margin-buttom: 10px;
-                                                      " shadow="hover">
-          <el-row :span="12" style="margin-top: 10px">
+        <el-card
+          :body-style="{ padding: '10px' }"
+          style="
+            height: calc(100vh - 290px);
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-buttom: 10px;
+          "
+          shadow="hover"
+        >
+          <el-row :span="12" style="">
             <h3 style="margin-left: 5px" class="size">
               <span style="color: #409eff">|</span>&nbsp;计算实例列表
             </h3>
           </el-row>
-          <el-row style="margin-top: 10px; margin-left: 20px">
-            <el-col :span="4" style="margin: 10px">
-              <el-input size="small" placeholder="请输入节点名称" v-model="hostName" prefix-icon="el-icon-search"></el-input>
+          <el-row style="margin-top: 10px">
+            <el-col :span="4" style="">
+              <el-input
+                size="small"
+                placeholder="请输入节点名称"
+                v-model="hostName"
+                prefix-icon="el-icon-search"
+              ></el-input>
             </el-col>
             <el-col :span="4" style="margin: 10px">
-              <el-input size="small" prefix-icon="el-icon-search" placeholder="请输入计算实例名称" v-model="podName"></el-input>
+              <el-input
+                size="small"
+                prefix-icon="el-icon-search"
+                placeholder="请输入计算实例名称"
+                v-model="podName"
+              ></el-input>
             </el-col>
             <el-col :span="1" style="margin-top: 10px">
-              <el-button type="primary" size="small" class="el-icon-search" @click="searchList()">搜索</el-button>
+              <el-button
+                type="primary"
+                size="small"
+                class="el-icon-search"
+                @click="searchList()"
+                >搜索</el-button
+              >
             </el-col>
             <el-col :span="8" style="margin-left: 10px">
-              <el-tag v-if="showHostName" style="margin-top: 10px; height: 32px" closable @close="clearHostSearch">节点:{{
-                hostName
-              }}</el-tag>
-              <el-tag v-if="showPodName" style="margin-top: 10px; height: 32px; margin-left: 10px" closable
-                @close="clearPodSearch">计算实例:{{ podName }}</el-tag>
+              <el-tag
+                v-if="showHostName"
+                style="margin-top: 10px; height: 32px"
+                closable
+                @close="clearHostSearch"
+                >节点:{{ hostName }}</el-tag
+              >
+              <el-tag
+                v-if="showPodName"
+                style="margin-top: 10px; height: 32px; margin-left: 10px"
+                closable
+                @close="clearPodSearch"
+                >计算实例:{{ podName }}</el-tag
+              >
             </el-col>
           </el-row>
-          <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-            leave-active-class="animate__animated animate__fadeOutRight">
-            <el-table class="size" :row-style="{ height: 20 + 'px' }" :cell-style="{ padding: 8 + 'px' }" style="
-                                                            width: 100%;
-                                                            margin-top: 10px;
-                                                            margin-left: 10px;
-                                                            margin-rigth: 10px;
-                                                          " :data="formatedJobInfoList" :border="true"
-              max-height="360">
-              <el-table-column prop="hostName" label="节点名称" show-overflow-tooltip>
+          <Transition
+            appear
+            enter-active-class="animate__animated animate__fadeInLeft"
+            leave-active-class="animate__animated animate__fadeOutRight"
+          >
+            <el-table
+              class="size"
+              :row-style="{ height: 20 + 'px' }"
+              :cell-style="{ padding: 8 + 'px' }"
+              style="width: 100%"
+              :data="formatedJobInfoList"
+              :border="true"
+              max-height="360"
+            >
+              <el-table-column
+                prop="hostName"
+                label="节点名称"
+                show-overflow-tooltip
+              >
               </el-table-column>
-              <el-table-column prop="hostIp" label="节点IP" show-overflow-tooltip></el-table-column>
-              <el-table-column prop="podName" label="计算实例" show-overflow-tooltip></el-table-column>
+              <el-table-column
+                prop="hostIp"
+                label="节点IP"
+                show-overflow-tooltip
+              ></el-table-column>
+              <el-table-column
+                prop="podName"
+                label="计算实例"
+                show-overflow-tooltip
+              ></el-table-column>
               <!-- <el-table-column
                 prop="podIp"
                 label="实例IP"
                 show-overflow-tooltip
               ></el-table-column> -->
-              <el-table-column prop="status" label="实例状态" show-overflow-tooltip></el-table-column>
-              <el-table-column prop="taskName" label="所属任务" show-overflow-tooltip></el-table-column>
-              <el-table-column prop="startTime" label="开始运行时间" show-overflow-tooltip></el-table-column>
-              <el-table-column prop="endTime" label="运行结束时间" show-overflow-tooltip></el-table-column>
+              <el-table-column
+                prop="status"
+                label="实例状态"
+                show-overflow-tooltip
+              ></el-table-column>
+              <el-table-column
+                prop="taskName"
+                label="所属任务"
+                show-overflow-tooltip
+              ></el-table-column>
+              <el-table-column
+                prop="startTime"
+                label="开始运行时间"
+                show-overflow-tooltip
+              ></el-table-column>
+              <el-table-column
+                prop="endTime"
+                label="运行结束时间"
+                show-overflow-tooltip
+              ></el-table-column>
               <!-- TODO:日志-->
-              <el-table-column label="操作" width="200">
+              <el-table-column label="操作" width="300">
                 <template slot-scope="scope">
-                  <el-button size="mini" type="warning" icon="el-icon-chat-dot-round"
-                    @click="getJobLogs(scope.$index, scope.row)">日志</el-button>
-                  <el-button size="mini" type="success" icon="el-icon-view"
-                    @click="ConvertViewLogs(scope.$index, scope.row)">可视化</el-button>
+                  <el-button
+                    size="mini"
+                    type="warning"
+                    icon="el-icon-chat-dot-round"
+                    @click="getJobLogs(scope.$index, scope.row)"
+                    >日志</el-button
+                  >
+
+                  <el-button
+                    size="mini"
+                    type="success"
+                    icon="el-icon-view"
+                    @click="ConvertViewLogs(scope.$index, scope.row)"
+                    >过程展示</el-button
+                  >
+                  <el-button
+                    v-if="
+                      scope.row.taskName == 'cityroadnetworkextraction' ||
+                      scope.row.taskName == 'ricegrowthmonitoring' ||
+                      scope.row.taskName == 'droughtmonitoring' ||
+                      scope.row.taskName == 'floodmonitoring' ||
+                      scope.row.taskName == 'infrastructureidentification'
+                    "
+                    size="mini"
+                    icon="el-icon-view"
+                    type="primary"
+                    @click="toGIS(scope.row)"
+                    >结果展示</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
           </Transition>
-          <el-dialog :visible.sync="rizhiDialogVisible" :before-close="handleClose" width="1000px" title="日志">
-            <pre v-highlight style="
-                                                            height: 500px;
-                                                            overflow: auto;
-                                                            padding-left: 20px;
-                                                            padding-right: 20px;
-                                                          ">
+          <el-dialog
+            :visible.sync="rizhiDialogVisible"
+            :before-close="handleClose"
+            width="1000px"
+            title="日志"
+          >
+            <pre
+              v-loading="loading"
+              element-loading-text="拼命加载中"
+              element-loading-spinner="el-icon-loading"
+              v-highlight
+              style="
+                height: 500px;
+                overflow: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+              "
+            >
                                                               <code
                                                               class="json"
                                                               style="font-size: 16px; background-color: #20211d;height:440px;padding: 0px;margin: 0px;"
@@ -108,21 +228,41 @@
                                                             ></code>
                                                             </pre>
           </el-dialog>
-          <el-dialog title="可视化" class="dialog" :visible.sync="viewDialogVisible" width="60%"
-            :before-close="handleViewClose">
-            <el-cascader :options="options" v-model="selected" @change="changeSelected"></el-cascader>
+          <el-dialog
+            title="可视化"
+            class="dialog"
+            :visible.sync="viewDialogVisible"
+            width="60%"
+            :before-close="handleViewClose"
+          >
+            <el-cascader
+              :options="options"
+              v-model="selected"
+              @change="changeSelected"
+            ></el-cascader>
             <div id="chart" style="height: 400px; width: 100%"></div>
             <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="handleViewClose">关 闭</el-button>
+              <el-button type="primary" @click="handleViewClose"
+                >关 闭</el-button
+              >
             </span>
           </el-dialog>
 
           <el-col style="text-align: center">
-            <Transition appear enter-active-class="animate__animated animate__fadeInLeft"
-              leave-active-class="animate__animated animate__fadeOutRight">
-              <el-pagination :background="true" :page-sizes="[10, 20, 30]" :page-size="10"
-                layout="prev, pager, next,sizes" :page-count="Number(jobInfoPageCount)"
-                @current-change="handleCurrentChange" @size-change="handleSizeChange"></el-pagination>
+            <Transition
+              appear
+              enter-active-class="animate__animated animate__fadeInLeft"
+              leave-active-class="animate__animated animate__fadeOutRight"
+            >
+              <el-pagination
+                :background="true"
+                :page-sizes="[10, 20, 30]"
+                :page-size="10"
+                layout="prev, pager, next,sizes"
+                :page-count="Number(jobInfoPageCount)"
+                @current-change="handleCurrentChange"
+                @size-change="handleSizeChange"
+              ></el-pagination>
             </Transition>
           </el-col>
         </el-card>
@@ -141,6 +281,7 @@ export default {
   name: "JobInfo",
   data() {
     return {
+      loading: false,
       index: 0,
       hostName: "",
       podName: "",
@@ -188,6 +329,13 @@ export default {
     },
   },
   methods: {
+    toGIS(data) {
+      // console.log("data", data);
+      this.$router.push({
+        name: "dataview",
+        query: { prefix: data.taskName },
+      });
+    },
     changeSelected() {
       this.initEcharts();
     },
@@ -199,33 +347,64 @@ export default {
         xdata = this.train.epoch;
         if (this.selected[1] == "loss") {
           if (xdata != [] && xdata.length < xdata[xdata.length - 1]) {
-            var length = xdata[xdata.length - 1]
+            var length = xdata[xdata.length - 1];
             xdata = [];
             for (var i = 0; i < length; i++) {
               xdata.push(i + 1);
             }
-            let ynumb = this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0])
+            let ynumb =
+              this.train.loss[this.train.loss.length - 1] * this.train.epoch[0];
             for (var i = 1; i < this.train.epoch[0]; i++) {
-              ydata.push(ynumb)
-              if (i < 10 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 2) {
-                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 5)
-              }
-              else if (i < 20 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 4) {
-                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 2)
-              } else if (i < 30 && ynumb > this.train.loss[this.train.loss.length - 1] * (this.train.epoch[0]) / 5) {
-                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 1) / 2
-              } else if (i < 40 && ynumb > this.train.loss[this.train.loss.length - 1]) {
-                ynumb -= this.train.loss[this.train.loss.length - 1] * (Math.random() + 0.5) / 2
+              ydata.push(ynumb);
+              if (
+                i < 10 &&
+                ynumb >
+                  (this.train.loss[this.train.loss.length - 1] *
+                    this.train.epoch[0]) /
+                    2
+              ) {
+                ynumb -=
+                  this.train.loss[this.train.loss.length - 1] *
+                  (Math.random() + 5);
+              } else if (
+                i < 20 &&
+                ynumb >
+                  (this.train.loss[this.train.loss.length - 1] *
+                    this.train.epoch[0]) /
+                    4
+              ) {
+                ynumb -=
+                  this.train.loss[this.train.loss.length - 1] *
+                  (Math.random() + 2);
+              } else if (
+                i < 30 &&
+                ynumb >
+                  (this.train.loss[this.train.loss.length - 1] *
+                    this.train.epoch[0]) /
+                    5
+              ) {
+                ynumb -=
+                  (this.train.loss[this.train.loss.length - 1] *
+                    (Math.random() + 1)) /
+                  2;
+              } else if (
+                i < 40 &&
+                ynumb > this.train.loss[this.train.loss.length - 1]
+              ) {
+                ynumb -=
+                  (this.train.loss[this.train.loss.length - 1] *
+                    (Math.random() + 0.5)) /
+                  2;
               } else {
                 if (ynumb < this.train.loss[this.train.loss.length - 1]) {
-                  ynumb = this.train.loss[this.train.loss.length - i]
+                  ynumb = this.train.loss[this.train.loss.length - i];
                 } else {
-                  ynumb -= ynumb / (this.train.epoch[0] - i)
+                  ynumb -= ynumb / (this.train.epoch[0] - i);
                 }
               }
             }
           }
-          ydata.push(...this.train.loss)
+          ydata.push(...this.train.loss);
           // console.log(ydata)
         } else {
           ydata = this.train.epochtime;
@@ -238,10 +417,15 @@ export default {
         name = this.test[0][this.selected[1] - 1];
         ydata = this.test[this.selected[1]];
       }
-      let distance = Math.floor(Math.abs((ydata[0] - ydata[ydata.length - 1]) / 4))
-      let min = Math.floor(ydata[ydata.length - 1]) < Math.ceil(ydata[0]) ? Math.ceil(ydata[ydata.length - 1]) : Math.ceil(ydata[0])
+      let distance = Math.floor(
+        Math.abs((ydata[0] - ydata[ydata.length - 1]) / 4)
+      );
+      let min =
+        Math.floor(ydata[ydata.length - 1]) < Math.ceil(ydata[0])
+          ? Math.ceil(ydata[ydata.length - 1])
+          : Math.ceil(ydata[0]);
       if (distance == 0) {
-        distance = 1
+        distance = 1;
       }
       console.log(distance);
       let option = {
@@ -284,7 +468,6 @@ export default {
               gt: distance * 3 + min,
               color: "#FD0100",
             },
-
           ],
           outOfRange: {
             color: "#999",
@@ -433,40 +616,56 @@ export default {
 
     async getJobLogs(index, row) {
       this.rizhiDialogVisible = true;
+      this.logs = "";
+
+      this.loading = true;
       let result = await reqJobLogs({
         clusterId: this.joblist[this.index].clusterId,
         containerName: this.jobInfoList[index].containerName,
         follow: false,
         namespace: this.jobInfoList[index].projectName,
         podName: this.jobInfoList[index].podName,
-        tailLines: 300,
+        tailLines: 1000,
       });
-      this.logs += result.data;
-      this.logs.replace(/\n/g, "<br/>");
+      let middleresult = result.data.split("\n").reverse();
+      // console.log("middleresult", middleresult);
+      for (let i = 0; i < middleresult.length; i++) {
+        if (i == middleresult.length - 1) {
+          this.logs += middleresult[i];
+        } else {
+          this.logs += middleresult[i] + "\n";
+        }
+      }
+      // this.logs += result.data;
 
+      // this.logs.replace(/\n/g, "<br/>");
       var statusLog = document.getElementById("statusLog"); //statusLog 即是页面需要展示内容的div
+      // console.log("statusLog", statusLog);
       statusLog.innerHTML = this.logs;
 
-      let _this = this;
-      this.timer = setInterval(async () => {
-        let result2 = await reqJobLogs({
-          clusterId: this.joblist[this.index].clusterId,
-          containerName: this.jobInfoList[index].containerName,
-          follow: false,
-          podName: this.jobInfoList[index].podName,
-          tailLines: 300,
-        });
-        if (result2.data) {
-          _this.logs += result2.data;
-        }
-        _this.logs.replace(/\n/g, "<br/>");
-        // var statusLog = document.getElementById("statusLog"); //statusLog 即是页面需要展示内容的div
-        // statusLog.innerHTML = _this.logs;
-      }, 10000);
+      this.loading = false;
+
+      // let _this = this;
+      // this.timer = setInterval(async () => {
+      //   let result2 = await reqJobLogs({
+      //     clusterId: this.joblist[this.index].clusterId,
+      //     containerName: this.jobInfoList[index].containerName,
+      //     follow: false,
+      //     podName: this.jobInfoList[index].podName,
+      //     tailLines: 300,
+      //   });
+      //   if (result2.data) {
+      //     _this.logs += result2.data;
+      //   }
+      //   _this.logs.replace(/\n/g, "<br/>");
+      //   // var statusLog = document.getElementById("statusLog"); //statusLog 即是页面需要展示内容的div
+      //   // statusLog.innerHTML = _this.logs;
+      // }, 100000);
     },
 
     handleClose() {
-      clearInterval(this.timer);
+      var statusLog = document.getElementById("statusLog"); //statusLog 即是页面需要展示内容的div
+      statusLog.innerHTML = "";
       this.logs = "";
       this.rizhiDialogVisible = false;
     },
@@ -600,7 +799,7 @@ pre code.hljs {
   padding: 0px;
 }
 
-.dialog>>>.el-dialog__body {
+.dialog >>> .el-dialog__body {
   padding: 10px;
 }
 </style>

@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>我的作业</el-breadcrumb-item>
-        <el-breadcrumb-item>模型结果</el-breadcrumb-item>
+        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
+        <el-breadcrumb-item>输出环境管理</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>
@@ -21,7 +21,7 @@
             <el-row>
               <el-col :span="16" style="margin-top: 12px">
                 <h3 style="margin-left: 5px" class="size">
-                  <span style="color: #409eff">|</span>&nbsp;模型结果列表
+                  <span style="color: #409eff">|</span>&nbsp;输出环境列表
                 </h3>
               </el-col>
               <el-col :span="8"
@@ -161,12 +161,12 @@
             <el-col :span="4">
               <h3 class="size" style="margin-left: 5px; margin-top: 3px">
                 <span class="size" style="color: #409eff">|</span
-                >&nbsp;模型结果文件列表
+                >&nbsp;输出环境文件列表
               </h3>
             </el-col>
             <el-col :span="20"
               ><h3 class="size" v-if="parentFileName" style="margin-top: 3px">
-                当前模型结果: <el-tag size="small">{{ parentFileName }}</el-tag>
+                当前输出环境: <el-tag size="small">{{ parentFileName }}</el-tag>
               </h3></el-col
             >
           </el-row>

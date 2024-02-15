@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>结果可视化</el-breadcrumb-item>
-        <!-- <el-breadcrumb-item>数据视图</el-breadcrumb-item> -->
+        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
+        <el-breadcrumb-item>可视化展示</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -442,61 +442,6 @@ export default {
             },
           ],
         },
-
-        {
-          value: "基础设施识别",
-          label: "基础设施识别",
-          children: [
-            {
-              index: 0,
-              name: "瓜德尔港",
-              value: "0",
-              label: "瓜德尔港",
-              tag: [62.323615, 25.119452],
-              color: "#b3c0d1",
-              zoom: 15,
-              templateId: 32,
-              message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>瓜德尔港</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
-              </div>
-              </div>`,
-            },
-            {
-              index: 1,
-              name: "厦门港",
-              value: "1",
-              label: "厦门港",
-              tag: [118.04787047095806, 24.4265100494397],
-              color: "#b3c0d1",
-              zoom: 12,
-              templateId: 32,
-              message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>厦门港</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>厦门港，是中国 福建省 厦门市 和 漳州市 港口，位于中国东南沿海、台湾海峡西岸，地处福建省南部、 九龙江 入海口，是中国沿海主要港口、中国对外开放一类口岸，也是福建省主要出海口之一。</h5>
-              </div>
-              </div>`,
-            },
-            {
-              index: 2,
-              name: "高雄港",
-              value: "2",
-              label: "高雄港",
-              tag: [120.32679399057355, 22.552896651715784],
-              color: "#b3c0d1",
-              zoom: 12,
-              templateId: 32,
-              message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>高雄港</h1></div>
-              <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>高雄港(Kaohsiung Port)，中国台湾省内最大的海港。位于中国台湾省高雄市。大型综合性港口，有铁路、高速公路作为货物集运与疏运手段。</h5>
-              </div>
-              </div>`,
-            },
-          ],
-        },
         {
           value: "水稻长势监测",
           label: "水稻长势监测",
@@ -514,6 +459,44 @@ export default {
               <div style="text-align:center"><h1>缅甸</h1></div>
               <div>
                 <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>缅甸联邦共和国（The Republic of the Union of Myanmar）。面积：676578平方公里。人口：5458万（2020年4月），共有135个民族，主要有缅族、克伦族、掸族、克钦族、钦族、克耶族、孟族和若开族等，缅族约占总人口的65%。</h5>
+              </div>
+              </div>`,
+            },
+          ],
+        },
+        {
+          value: "旱情监测",
+          label: "旱情监测",
+          children: [
+            {
+              index: 0,
+              name: "哈萨克斯坦",
+              value: "0",
+              label: "哈萨克斯坦",
+              color: "#ffdf60",
+              tag: [64.75577203619281, 53.29277096996523],
+              zoom: 7,
+              templateId: 36,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
+              </div>
+              </div>`,
+            },
+            {
+              index: 1,
+              name: "新疆",
+              value: "1",
+              label: "新疆",
+              color: "#ffdf60",
+              tag: [83.80970464725857, 40.39604221906748],
+              zoom: 5,
+              templateId: 36,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>新疆</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>新疆占中国总面积的六分之一，是中国面积最大的省级行政区。 新疆地处亚欧大陆腹地，与俄罗斯、哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦、巴基斯坦、蒙古、印度、阿富汗等八国接壤，在历史上是沟通东西方、闻名于世的“丝绸之路”的要冲，现在又成为第二座“亚欧大陆桥”的必经之地，战略位置十分重要。</h5>
               </div>
               </div>`,
             },
@@ -574,38 +557,54 @@ export default {
           ],
         },
         {
-          value: "旱情监测",
-          label: "旱情监测",
+          value: "基础设施识别",
+          label: "基础设施识别",
           children: [
             {
               index: 0,
-              name: "哈萨克斯坦",
+              name: "瓜德尔港",
               value: "0",
-              label: "哈萨克斯坦",
-              color: "#ffdf60",
-              tag: [64.75577203619281, 53.29277096996523],
-              zoom: 12,
-              templateId: 36,
+              label: "瓜德尔港",
+              tag: [62.323615, 25.119452],
+              color: "#b3c0d1",
+              zoom: 15,
+              templateId: 32,
               message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
+              <div style="text-align:center"><h1>瓜德尔港</h1></div>
               <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>哈萨克斯坦共和国位于中亚北部，与我国的新疆维吾尔自治区接壤。哈萨克斯坦是一个横跨亚洲、欧洲两大陆的国家，其在乌拉尔河以西的一小部分领土位于欧洲。</h5>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>瓜德尔港是巴基斯坦的重要港口。瓜德尔港位于巴基斯坦俾路支省西南部瓜德尔城南部，为深水良港。中国政府应穆沙拉夫总统的请求为该港口建设提供资金和技术援助。该港口于2002年3月开工兴建，2015年2月瓜德尔港基本竣工，4月中旬全面投入运营。中国部分石油的运输路程将缩短85%。</h5>
               </div>
               </div>`,
             },
             {
               index: 1,
-              name: "新疆",
+              name: "厦门港",
               value: "1",
-              label: "新疆",
-              color: "#ffdf60",
-              tag: [83.80970464725857, 40.39604221906748],
-              zoom: 5,
-              templateId: 36,
+              label: "厦门港",
+              tag: [118.04787047095806, 24.4265100494397],
+              color: "#b3c0d1",
+              zoom: 12,
+              templateId: 32,
               message: `<div style="height:100%;width:100%;">
-              <div style="text-align:center"><h1>新疆</h1></div>
+              <div style="text-align:center"><h1>厦门港</h1></div>
               <div>
-                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>新疆占中国总面积的六分之一，是中国面积最大的省级行政区。 新疆地处亚欧大陆腹地，与俄罗斯、哈萨克斯坦、吉尔吉斯斯坦、塔吉克斯坦、巴基斯坦、蒙古、印度、阿富汗等八国接壤，在历史上是沟通东西方、闻名于世的“丝绸之路”的要冲，现在又成为第二座“亚欧大陆桥”的必经之地，战略位置十分重要。</h5>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>厦门港，是中国 福建省 厦门市 和 漳州市 港口，位于中国东南沿海、台湾海峡西岸，地处福建省南部、 九龙江 入海口，是中国沿海主要港口、中国对外开放一类口岸，也是福建省主要出海口之一。</h5>
+              </div>
+              </div>`,
+            },
+            {
+              index: 2,
+              name: "高雄港",
+              value: "2",
+              label: "高雄港",
+              tag: [120.32679399057355, 22.552896651715784],
+              color: "#b3c0d1",
+              zoom: 12,
+              templateId: 32,
+              message: `<div style="height:100%;width:100%;">
+              <div style="text-align:center"><h1>高雄港</h1></div>
+              <div>
+                <h5 style="font-size:16px"><span style="font-weight:800;">简介:</span>高雄港(Kaohsiung Port)，中国台湾省内最大的海港。位于中国台湾省高雄市。大型综合性港口，有铁路、高速公路作为货物集运与疏运手段。</h5>
               </div>
               </div>`,
             },
@@ -754,6 +753,7 @@ export default {
       return isFull;
     },
     selectChange(value) {
+      // console.log("value", value);
       if (this.alltag.length != 0) {
         let z;
         this.allOptions.forEach((item) => {
@@ -768,6 +768,7 @@ export default {
           this.resultMap.setZoom(z.zoom);
         }
       } else {
+        console.log("fixmap");
         this.fixMap();
       }
     },
@@ -877,7 +878,7 @@ export default {
       }
       map.on("click", (e) => {
         const { lng, lat } = e.lngLat;
-        console.log(lng, lat);
+        // console.log(lng, lat);
       });
       map.on("style.load", () => {
         map.setFog({}); // Set the default atmosphere style
@@ -918,7 +919,7 @@ export default {
 
       for (let i = 0; i < this.mapState.length; i++) {
         for (let j = 0; j < this.mapState[i].length; j++) {
-          console.log(_this.mapState[i][j]);
+          // console.log(_this.mapState[i][j]);
           map.on("load", () => {
             map.addSource(String(i + "a" + j), {
               type: "raster",
@@ -1026,6 +1027,29 @@ export default {
     this.initMap(3, true);
     // this.initFullScreenMap([120, 40]);
     document.getElementById("resultMap").style.top = 200 + "px";
+    if (this.$route.query.prefix != undefined) {
+      this.changeSize();
+      if (this.$route.query.prefix == "infrastructureidentification") {
+        this.alltag = ["基础设施识别", "0"];
+        this.selectChange(["基础设施识别", "0"]);
+      }
+      if (this.$route.query.prefix == "cityroadnetworkextraction") {
+        this.alltag = ["城市路网提取", "0"];
+        this.selectChange(["城市路网提取", "0"]);
+      }
+      if (this.$route.query.prefix == "ricegrowthmonitoring") {
+        this.alltag = ["水稻长势监测", "0"];
+        this.selectChange(["水稻长势监测", "0"]);
+      }
+      if (this.$route.query.prefix == "floodmonitoring") {
+        this.alltag = ["洪涝灾害监测", "0"];
+        this.selectChange(["洪涝灾害监测", "0"]);
+      }
+      if (this.$route.query.prefix == "droughtmonitoring") {
+        this.alltag = ["旱情监测", "0"];
+        this.selectChange(["旱情监测", "0"]);
+      }
+    }
   },
 
   created() {
