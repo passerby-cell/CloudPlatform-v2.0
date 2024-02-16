@@ -116,7 +116,10 @@
                   align="center"
                 >
                   <template slot-scope="scope">
-                    <el-tag size="mini" v-if="scope.row.step3" type="success"
+                    <el-tag
+                      size="mini"
+                      v-if="scope.row.step3logs"
+                      type="success"
                       >成功</el-tag
                     >
                     <el-tag
@@ -429,6 +432,21 @@
                 >
               </el-col>
             </el-row>
+            <el-row v-if="showloading">
+              <h3 class="size">
+                <span style="color: #409eff">|</span>&nbsp;系统识别
+              </h3>
+            </el-row>
+            <el-row
+              v-if="showloading"
+              v-loading="reloading"
+              element-loading-text="识别中"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="rgba(255, 255, 255)"
+              ><div class="size">
+                <el-tag type="success">识别成功</el-tag>
+              </div></el-row
+            >
             <div
               v-show="showlogs && imageProcessList[processIndex].step3logs"
               style="margin-top: 10px"
@@ -456,6 +474,7 @@
 import { mapState } from "vuex";
 
 import {
+  reqImageOverview,
   reqUserInfoCreateImageProcess,
   reqUserInfoDeleteImageProcess,
   reqUserInfoGetImageProcessList,
@@ -466,12 +485,14 @@ import {
   reqQueueList,
   reqWareHouseList,
   reqWareHouseImageList,
+  reqImagelIST,
 } from "@/api";
 import { Loading } from "element-ui";
 export default {
   name: "CreateImage",
   data() {
     return {
+      reloading: true,
       catalog: "",
       showlogs: false,
       repositoryDir: "",
@@ -488,6 +509,14 @@ export default {
   computed: {
     ...mapState("ImageProcess", ["imageProcessList"]),
     ...mapState("CreateJob", ["data", "imageCatalogList", "warehouseList"]),
+    ...mapState("Image", [
+      "warehouseId",
+      "warehouseName",
+      "imageCatalogs",
+      "imageList",
+      "totalCount",
+      "currPageNum",
+    ]),
     imageVersion() {
       // var d = new Date();
       return "v" + Date.parse(new Date()) / 1000;
@@ -497,6 +526,9 @@ export default {
     },
     imageNamed() {
       return this.imageProcessList[this.processIndex].step1.split(":")[0];
+    },
+    showloading() {
+      return this.imageProcessList[this.processIndex].step3logs != null;
     },
     imageVersioned() {
       return this.imageProcessList[this.processIndex].step1.split(":")[1];
@@ -511,6 +543,30 @@ export default {
     },
   },
   methods: {
+    async handleCurrentChange(index, name) {
+      console.log("index", index);
+      console.log("name", name);
+      let result = await reqImagelIST(
+        1,
+        this.imageCatalogs[index].catalogId,
+        this.imageCatalogs[index].catalogType,
+        name,
+        100,
+        this.warehouseId
+      );
+      if (result.success == true && result.rows != null) {
+        this.$store.dispatch("Image/getImageList", {
+          imageList: result.rows,
+          totalCount: result.totalCount,
+          currPageNum: result.currPageNum,
+        });
+      }
+      for (let i = 0; i < this.imageList.length; i++) {
+        if (this.imageList[i].imageTag == this.imageVersioned) {
+          this.reloading = false;
+        }
+      }
+    },
     async imagePush() {
       if (this.catalog) {
         let loading = Loading.service({
@@ -535,6 +591,7 @@ export default {
             type: "success",
             message: "推送成功",
           });
+          this.handleAsync();
         }
       } else {
         this.$message.error("请选择镜像所属的分类");
@@ -665,6 +722,32 @@ export default {
       this.getDataSet();
       this.getWareHouseList();
       this.showlogs = false;
+      if (this.imageProcessList[index].step3logs) {
+        this.handleAsync(index);
+      }
+    },
+    handleAsync() {
+      this.reloading = true;
+      let name =
+        this.repositoryDired == "private"
+          ? "cluster-default-default"
+          : "public";
+      let tag = 0;
+      for (let i = 0; i < this.imageCatalogList.length; i++) {
+        if (this.imageCatalogList[i].pushCatalog == name) {
+          tag = i;
+        }
+      }
+      this.handleCurrentChange(tag, this.imageNamed);
+      if (this.reloading) {
+        let timer = setInterval(() => {
+          if (this.reloading) {
+            this.handleCurrentChange(tag, this.imageNamed);
+          } else {
+            clearInterval(timer);
+          }
+        }, 60000);
+      }
     },
     async deleteImageProcess(id) {
       let result = await reqUserInfoDeleteImageProcess(id);
@@ -731,8 +814,17 @@ export default {
         .catch((_) => {});
     },
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch("ImageProcess/getImageProcessList");
+    let result = await reqImageOverview(1);
+    if (result.code == "200") {
+      this.$store.dispatch("Image/getImageOverview", {
+        warehouseId: result.data.warehouseInfo[0].warehouseId,
+        warehouseName: result.data.warehouseInfo[0].warehouseName,
+        imageCatalogs: result.data.warehouseInfo[0].imageCatalogs,
+      });
+    }
+    // this.handleCurrentChange(1, "d");
   },
 };
 </script>

@@ -1423,8 +1423,28 @@ export default {
     if (this.$route.query.templateId) {
       var d = new Date();
       this.tasks.push(...this.TaskTemplate);
+      let dict = [
+        "旱情监测",
+        "基础设施识别",
+        "洪涝灾害监测",
+        "水稻长势监测",
+        "城市路网提取",
+      ];
+      let target = [
+        "droughtmonitoring",
+        "infrastructureidentification",
+        "floodmonitoring",
+        "ricegrowthmonitoring",
+        "cityroadnetworkextraction",
+      ];
+      for (let i = 0; i < dict.length; i++) {
+        if (this.JobTemplate.tvcJobCnName == dict[i]) {
+          this.JobTemplate.tvcJobCnName = target[i];
+        }
+      }
       this.vcJob.vcJobCnName =
         this.JobTemplate.tvcJobCnName +
+        "-" +
         (d.getMonth() + 1) +
         d.getDate() +
         d.getHours() +

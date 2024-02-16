@@ -186,11 +186,12 @@
                   >
                   <el-button
                     v-if="
-                      scope.row.taskName == 'cityroadnetworkextraction' ||
-                      scope.row.taskName == 'ricegrowthmonitoring' ||
-                      scope.row.taskName == 'droughtmonitoring' ||
-                      scope.row.taskName == 'floodmonitoring' ||
-                      scope.row.taskName == 'infrastructureidentification'
+                      scope.row.status == 'Completed' &&
+                      (scope.row.taskName == 'cityroadnetworkextraction' ||
+                        scope.row.taskName == 'ricegrowthmonitoring' ||
+                        scope.row.taskName == 'droughtmonitoring' ||
+                        scope.row.taskName == 'floodmonitoring' ||
+                        scope.row.taskName == 'infrastructureidentification')
                     "
                     size="mini"
                     icon="el-icon-view"
@@ -527,7 +528,7 @@ export default {
         follow: false,
         namespace: this.jobInfoList[index].projectName,
         podName: this.jobInfoList[index].podName,
-        tailLines: 300,
+        tailLines: 1000,
       });
       let myStrTrain = result.data;
       let regTrain = /{"train":(.*)/;

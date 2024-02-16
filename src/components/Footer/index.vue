@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center; font-size: 16px">
-    Copyright&copy;2023 南京信息工程大学
+    Copyright&copy;{{ year }} 南京信息工程大学
   </div>
 </template>
 
@@ -9,6 +9,11 @@ export default {
   name: "Footer",
   data() {
     return {};
+  },
+  computed: {
+    year() {
+      return new Date().getFullYear();
+    },
   },
   methods: {},
 };

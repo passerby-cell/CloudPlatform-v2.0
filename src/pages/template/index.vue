@@ -41,19 +41,19 @@
           ></el-table-column>
           <el-table-column label="备注" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span class="size" v-if="scope.row.tvcJobCnName == '道路提取'"
+              <span class="size" v-if="scope.row.tvcJobCnName == '城市路网提取'"
                 >针对孟买地区卫星影像开展道路提取工作</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '洪涝监测'"
+              <span class="size" v-if="scope.row.tvcJobCnName == '洪涝灾害监测'"
                 >针对孟加拉国地区卫星影像开展洪涝监测工作</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '干旱监测'"
+              <span class="size" v-if="scope.row.tvcJobCnName == '旱情监测'"
                 >针对哈萨克斯坦地区卫星影像开展干旱监测工作</span
               >
               <span class="size" v-if="scope.row.tvcJobCnName == '水稻长势监测'"
                 >针对缅甸地区卫星影像开展水稻长势监测工作</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '土地利用分类'"
+              <span class="size" v-if="scope.row.tvcJobCnName == '基础设施识别'"
                 >针对瓜德尔港地区卫星影像开展土地利用分类工作</span
               >
               <!-- <span class="size" v-if="scope.row.tvcJobCnName == '可视化模板'"
@@ -74,21 +74,21 @@
                 type="danger"
                 @click="deleteTemplate(scope.row)"
                 v-if="
-                  scope.row.templateId != 36 &&
-                  scope.row.templateId != 32 &&
-                  scope.row.templateId != 38 &&
-                  scope.row.templateId != 34 &&
-                  scope.row.templateId != 39
+                  scope.row.templateId != 45 &&
+                  scope.row.templateId != 44 &&
+                  scope.row.templateId != 43 &&
+                  scope.row.templateId != 42 &&
+                  scope.row.templateId != 41
                 "
                 >删除</el-button
               >
               <el-tag
                 v-if="
-                  scope.row.templateId == 36 ||
-                  scope.row.templateId == 32 ||
-                  scope.row.templateId == 38 ||
-                  scope.row.templateId == 34 ||
-                  scope.row.templateId == 39
+                  scope.row.templateId == 45 ||
+                  scope.row.templateId == 44 ||
+                  scope.row.templateId == 43 ||
+                  scope.row.templateId == 42 ||
+                  scope.row.templateId == 41
                 "
                 type="success"
                 style="margin-left: 10px"
