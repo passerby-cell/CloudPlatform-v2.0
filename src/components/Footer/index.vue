@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center; font-size: 16px">
-    Copyright&copy;{{ year }} 南京信息工程大学
+    Copyright&copy;{{ year }} {{ $t("footer.nuist") }}
   </div>
 </template>
 

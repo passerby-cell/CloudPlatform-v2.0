@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
-        <el-breadcrumb-item>新建作业任务</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2_3") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -23,7 +23,9 @@
       >
         <el-row>
           <h3 style="margin-left: 10px" class="size">
-            <span style="color: #409eff">|</span>&nbsp;作业属性
+            <span style="color: #409eff">|</span>&nbsp;{{
+              $t("createjob.jobinfo")
+            }}
           </h3>
         </el-row>
       </Transition>
@@ -43,14 +45,14 @@
           <el-row>
             <el-col :span="11">
               <el-form-item
-                label="作业中文名"
+                :label="$t('createjob.jobname')"
                 prop="vcJobCnName"
                 style="margin-left: 50px"
               >
                 <el-col>
                   <el-input
                     size="small"
-                    placeholder="请输入作业中文名"
+                    :placeholder="$t('createjob.job1')"
                     style="width: 340px; margin-left: 0px"
                     v-model="vcJob.vcJobCnName"
                   />
@@ -58,10 +60,10 @@
               </el-form-item>
             </el-col>
             <el-col :span="11">
-              <el-form-item label="作业英文名" prop="vcJobName">
+              <el-form-item :label="$t('createjob.jobenname')" prop="vcJobName">
                 <el-col>
                   <el-input
-                    placeholder="请输入作业英文名"
+                    :placeholder="$t('createjob.job2')"
                     size="small"
                     style="width: 340px"
                     v-model="vcJob.vcJobName"
@@ -75,41 +77,56 @@
                 size="small"
                 @click="jobDialogVisible = true"
                 style="margin-top: 4px"
-                >高级配置</el-button
+                >{{ $t("createjob.highconfig") }}</el-button
               >
             </el-col>
           </el-row>
           <el-dialog
-            title="作业高级配置"
+            :title="$t('createjob.highconfig')"
             :visible.sync="jobDialogVisible"
             width="800px"
           >
             <el-row>
               <el-col :span="11">
-                <el-form-item label="作业优先级" prop="priorityClassName">
+                <el-form-item
+                  :label="$t('createjob.youxianji')"
+                  prop="priorityClassName"
+                >
                   <el-col>
                     <el-select
                       size="small"
-                      placeholder="请选择作业的优先级"
+                      :placeholder="$t('createjob.youxianji1')"
                       v-model="vcJob.priorityClassName"
                       style="width: 250px"
                     >
-                      <el-option label="高" value="high-priority"></el-option>
-                      <el-option label="中" value="middle-priority"></el-option>
-                      <el-option label="低" value="low-priority"></el-option>
+                      <el-option
+                        :label="$t('createjob.high')"
+                        value="high-priority"
+                      ></el-option>
+                      <el-option
+                        :label="$t('createjob.middle')"
+                        value="middle-priority"
+                      ></el-option>
+                      <el-option
+                        :label="$t('createjob.low')"
+                        value="low-priority"
+                      ></el-option>
                     </el-select>
                   </el-col>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
-                <el-form-item label="所属集群">
+                <el-form-item :label="$t('createjob.jiqun')">
                   <el-col>
                     <el-select
                       v-model="vcJob.queueName"
                       size="small"
                       style="width: 250px"
                     >
-                      <el-option label="default" value="default"></el-option>
+                      <el-option
+                        :label="$t('createjob.default')"
+                        value="default"
+                      ></el-option>
                     </el-select>
                   </el-col>
                 </el-form-item>
@@ -117,14 +134,17 @@
             </el-row>
             <el-row>
               <el-col :span="11">
-                <el-form-item label="并行运行">
+                <el-form-item :label="$t('createjob.bingxing')">
                   <el-col>
                     <el-switch v-model="vcJob.parallelExecution"></el-switch>
                   </el-col>
                 </el-form-item>
               </el-col>
               <el-col :span="11">
-                <el-form-item label="重启次数" prop="maxRetry">
+                <el-form-item
+                  :label="$t('createjob.restarttry')"
+                  prop="maxRetry"
+                >
                   <el-col>
                     <el-input-number
                       size="small"
@@ -141,13 +161,15 @@
           <el-row>
             <el-col :span="2">
               <h3 style="margin-top: 8px; margin-left: 10px" class="size">
-                <span style="color: #409eff">|</span>&nbsp;任务属性
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createjob.taskinfo")
+                }}
               </h3>
             </el-col>
             <el-col :span="1">
-              <el-button type="primary" size="small" @click="getImage"
-                >添加</el-button
-              >
+              <el-button type="primary" size="small" @click="getImage">{{
+                $t("createjob.add")
+              }}</el-button>
             </el-col>
           </el-row>
 
@@ -166,11 +188,11 @@
           >
             <el-table-column
               prop="taskCnName"
-              label="任务中文名称"
+              :label="$t('createjob.taskCnName')"
             ></el-table-column>
             <el-table-column
               prop="taskName"
-              label="任务英文名称"
+              :label="$t('createjob.taskName')"
             ></el-table-column>
             <!-- <el-table-column
               prop="podReplicas"
@@ -182,19 +204,19 @@
             ></el-table-column> -->
             <el-table-column
               prop="requestCpu"
-              label="CPU核心数(核)"
+              :label="$t('createjob.requestCpu')"
             ></el-table-column>
             <el-table-column
               prop="requestMemory"
-              label="内存使用量(GB)"
+              :label="$t('createjob.requestMemory')"
             ></el-table-column>
-            <el-table-column label="操作" width="160">
+            <el-table-column :label="$t('all.caozuo')" width="160">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
                   type="danger"
                   @click="deleteTask(scope.$index)"
-                  >删除</el-button
+                  >{{ $t("createjob.delete") }}</el-button
                 >
               </template>
             </el-table-column>
@@ -202,9 +224,9 @@
           <el-form-item style="width: 100%">
             <el-row>
               <el-col :span="2" :offset="22"
-                ><el-button type="primary" size="small" @click="createJob"
-                  >创建</el-button
-                ></el-col
+                ><el-button type="primary" size="small" @click="createJob">{{
+                  $t("createjob.create")
+                }}</el-button></el-col
               >
               <!-- <el-col :span="2"
                 ><el-button
@@ -220,7 +242,7 @@
       </Transition>
     </el-card>
     <el-dialog
-      title="新建任务"
+      :title="$t('createjob.createjob')"
       :visible.sync="dialogFormVisible"
       width="1000px"
     >
@@ -235,7 +257,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item
-              label="任务英文名"
+              :label="$t('createjob.taskName')"
               :label-width="formLabelWidth"
               prop="taskName"
             >
@@ -248,7 +270,7 @@
           ></el-col>
           <el-col :span="12">
             <el-form-item
-              label="任务中文名"
+              :label="$t('createjob.taskCnName')"
               :label-width="formLabelWidth"
               prop="taskCnName"
             >
@@ -263,7 +285,7 @@
         <el-row>
           <el-col :span="9"
             ><el-form-item
-              label="选择仓库"
+              :label="$t('createjob.cangku')"
               :label-width="formLabelWidth"
               prop="repositoryDir"
             >
@@ -286,7 +308,7 @@
           ></el-col>
           <el-col :span="7">
             <el-form-item
-              label="选择镜像"
+              :label="$t('createjob.imageprefix')"
               :label-width="formLabelWidth"
               prop="imagePrefix"
             >
@@ -306,7 +328,7 @@
           ></el-col>
           <el-col :span="8">
             <el-form-item
-              label="选择版本"
+              :label="$t('createjob.imageversion')"
               :label-width="formLabelWidth"
               prop="imageVersion"
             >
@@ -383,7 +405,7 @@
           </el-col>
         </el-row> -->
         <el-form-item
-          label="GPU算力"
+          :label="$t('createjob.gpupower')"
           :label-width="formLabelWidth"
           style="width: 900px"
         >
@@ -415,16 +437,15 @@
               <el-tooltip class="item" effect="dark" placement="top">
                 <div slot="content">
                   <p>
-                    1、输入1-100内的整数，例如50，是指将50%的cuda
-                    core分配给该服务。
+                    {{ $t("createjob.info1") }}
                   </p>
                   <p>
-                    2、输入大于100的整数，只能是100的倍数，如200，是指将2张GPU卡都分给该服务。
+                    {{ $t("createjob.info2") }}
                   </p>
                   <p>
-                    3、如果输入大于等于100的整数，GPU显存不用再填写，默认使用GPU的全部显存。
+                    {{ $t("createjob.info3") }}
                   </p>
-                  <p>4、如果值为空或0时，默认不使用GPU算力"</p>
+                  <p>{{ $t("createjob.info4") }}</p>
                 </div>
                 <i
                   class="el-icon-question"
@@ -434,7 +455,7 @@
           </el-row>
         </el-form-item>
         <el-form-item
-          label="GPU显存"
+          :label="$t('createjob.gpumem')"
           :label-width="formLabelWidth"
           style="width: 900px"
         >
@@ -455,7 +476,7 @@
               <el-tooltip class="item" effect="dark" placement="top">
                 <div slot="content">
                   <p>
-                    注：拖动一格显示1，为0.25GB，拖动2格显示2，为0.5GB，以此类推；最大能拖动88格显示88，为22GB。
+                    {{ $t("createjob.info5") }}
                   </p>
                 </div>
                 <i
@@ -499,9 +520,12 @@
         </el-form-item> -->
         <el-row>
           <el-col :span="12">
-            <el-form-item label="故障响应" :label-width="formLabelWidth">
+            <el-form-item
+              :label="$t('createjob.guzhang')"
+              :label-width="formLabelWidth"
+            >
               <el-select
-                placeholder="请选择当前任务状态"
+                :placeholder="$t('createjob.guzhang1')"
                 style="width: 340px"
                 v-model="taskInfo.policiesEvent"
                 @change="changeTaskpoliciesEvent"
@@ -510,22 +534,34 @@
               >
                 <!-- <el-option label="运行完成" value="TaskCompleted"></el-option> -->
                 <!-- TODO:TaskFailed -->
-                <el-option label="运行失败" value="PodFailed"></el-option>
+                <el-option
+                  :label="$t('createjob.guzhang2')"
+                  value="PodFailed"
+                ></el-option>
               </el-select> </el-form-item
           ></el-col>
           <el-col :span="12">
-            <el-form-item label="响应方式" :label-width="formLabelWidth">
+            <el-form-item
+              :label="$t('createjob.fangshi')"
+              :label-width="formLabelWidth"
+            >
               <el-select
-                placeholder="请选择变更任务状态"
+                :placeholder="$t('createjob.fangshi1')"
                 style="width: 340px"
                 v-model="taskInfo.policiesAction"
                 clearable
                 @change="changeTaskpoliciesAction"
                 @clear="taskInfo.policiesEvent = ''"
               >
-                <el-option label="任务完成" value="CompleteJob"></el-option>
+                <el-option
+                  :label="$t('createjob.fangshi2')"
+                  value="CompleteJob"
+                ></el-option>
                 <!-- TODO: failureJob-->
-                <el-option label="任务重启" value="RestartJob"></el-option>
+                <el-option
+                  :label="$t('createjob.fangshi3')"
+                  value="RestartJob"
+                ></el-option>
               </el-select> </el-form-item
           ></el-col>
         </el-row>
@@ -536,12 +572,12 @@
             type="primary"
             @click="show = !show"
             style="cursor: pointer"
-            >高级配置</el-button
+            >{{ $t("createjob.highconfig") }}</el-button
           >
           <el-tooltip class="item" effect="dark" placement="top" v-if="!show">
             <div slot="content">
               <p>
-                注：通过点击高级配置,可在此选择添加存储变量,管理存储变量等高级配置。
+                {{ $t("createjob.info6") }}
               </p>
             </div>
             <i
@@ -618,11 +654,13 @@
                 </el-row>
               </el-card>
             </el-tab-pane> -->
-            <el-tab-pane label="存储变量">
+            <el-tab-pane :label="$t('createjob.store')">
               <el-card :body-style="{ padding: '0px' }">
                 <el-row>
                   <h3 style="margin-left: 10px">
-                    <span style="color: #409eff">|</span>&nbsp;添加变量
+                    <span style="color: #409eff">|</span>&nbsp;{{
+                      $t("createjob.store1")
+                    }}
                   </h3>
                 </el-row>
                 <el-row>
@@ -647,7 +685,10 @@
                   ref="storageForm"
                 >
                   <el-row>
-                    <el-form-item label="路径地址" prop="hostPath">
+                    <el-form-item
+                      :label="$t('createjob.store2')"
+                      prop="hostPath"
+                    >
                       <el-col :span="24" :offset="1" style="margin-left: 0px">
                         <el-input
                           size="small"
@@ -655,7 +696,7 @@
                           v-model="mount.hostPath"
                           ><template slot="append"
                             ><span style="cursor: pointer" @click="initData">
-                              选择数据服务</span
+                              {{ $t("createjob.store3") }}</span
                             ></template
                           >
                         </el-input>
@@ -663,7 +704,7 @@
                     </el-form-item>
                   </el-row>
                   <el-dialog
-                    title="目录挂载"
+                    :title="$t('createjob.store4')"
                     :visible.sync="childDialogTableVisible"
                     append-to-body
                     width="600px"
@@ -672,7 +713,7 @@
                       <el-col :span="12">
                         <el-input
                           size="small"
-                          placeholder="搜索"
+                          :placeholder="$t('createjob.store5')"
                           v-model="dataName"
                         ></el-input>
                       </el-col>
@@ -682,13 +723,13 @@
                             :type="type == 1 ? 'success' : 'primary'"
                             size="small"
                             @click="getDataSet(1)"
-                            >模型数据</el-button
+                            >{{ $t("createjob.store6") }}</el-button
                           >
                           <el-button
                             @click="getDataSet(2)"
                             :type="type != 1 ? 'success' : 'primary'"
                             size="small"
-                            >模型结果</el-button
+                            >{{ $t("createjob.store7") }}</el-button
                           >
                         </el-button-group></el-col
                       >
@@ -701,28 +742,35 @@
                     >
                       <el-table-column
                         property="name"
-                        :label="type == 1 ? '模型数据' : '模型结果'"
+                        :label="
+                          type == 1
+                            ? $t('createjob.store6')
+                            : $t('createjob.store7')
+                        "
                         width="275"
                       ></el-table-column>
                       <el-table-column
                         property="catalog"
-                        label="路径"
+                        :label="$t('createjob.store8')"
                         width="275"
                       ></el-table-column>
                     </el-table>
                     <div slot="footer" class="dialog-footer">
-                      <el-button @click="childDialogTableVisible = false"
-                        >取 消</el-button
-                      >
+                      <el-button @click="childDialogTableVisible = false">{{
+                        $t("all.cancle")
+                      }}</el-button>
                       <el-button
                         type="primary"
                         @click="childDialogTableVisible = false"
-                        >确 定</el-button
+                        >{{ $t("all.confirm") }}</el-button
                       >
                     </div>
                   </el-dialog>
                   <el-row style="margin-top: 10px">
-                    <el-form-item label="容器内路径" prop="mountPath">
+                    <el-form-item
+                      :label="$t('createjob.store9')"
+                      prop="mountPath"
+                    >
                       <el-col :span="24" :offset="1" style="margin-left: 0px">
                         <el-input
                           size="small"
@@ -739,13 +787,15 @@
                       size="small"
                       style="margin-top: 15px"
                       @click="addMountData()"
-                      >添加</el-button
+                      >{{ $t("createjob.add") }}</el-button
                     ></el-form-item
                   >
                 </el-form>
                 <el-row>
                   <h3 style="margin-left: 10px">
-                    <span style="color: #409eff">|</span>&nbsp;管理变量
+                    <span style="color: #409eff">|</span>&nbsp;{{
+                      $t("createjob.store10")
+                    }}
                   </h3>
                 </el-row>
                 <el-row>
@@ -756,7 +806,7 @@
                       max-height="200"
                     >
                       <el-table-column
-                        label="路径地址"
+                        :label="$t('createjob.store2')"
                         prop="hostPath"
                         show-overflow-tooltip
                       >
@@ -774,7 +824,7 @@
                         </template>
                       </el-table-column>
                       <el-table-column
-                        label="容器内路径"
+                        :label="$t('createjob.store9')"
                         prop="mountPath"
                         show-overflow-tooltip
                       >
@@ -791,7 +841,7 @@
                           }}</span>
                         </template>
                       </el-table-column>
-                      <el-table-column label="操作">
+                      <el-table-column :label="$t('all.caozuo')">
                         <template slot-scope="scope">
                           <el-button
                             v-if="!isShow[scope.$index]"
@@ -799,7 +849,7 @@
                             size="mini"
                             style="margin-buttom: 3px"
                             @click="updateIsShow(scope.$index)"
-                            >修改</el-button
+                            >{{ $t("createjob.xiugai") }}</el-button
                           >
                           <!-- <el-button
                             v-if="isShow[scope.$index]"
@@ -814,7 +864,7 @@
                             size="mini"
                             style="margin-buttom: 3px"
                             @click="deleteMountData(scope.$index)"
-                            >删除</el-button
+                            >{{ $t("createjob.delete") }}</el-button
                           >
                         </template>
                       </el-table-column>
@@ -923,10 +973,13 @@
             </el-tab-pane> -->
           </el-tabs>
         </el-form-item>
-        <el-form-item label="备注" :label-width="formLabelWidth">
+        <el-form-item
+          :label="$t('createjob.beizhu')"
+          :label-width="formLabelWidth"
+        >
           <el-input
             type="textarea"
-            placeholder="请输入内容"
+            :placeholder="$t('createjob.beizhu1')"
             maxlength="30"
             show-word-limit
             style="width: 820px"
@@ -934,10 +987,12 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="cancleTask()" style="margin-left: 725px"
-            >取 消</el-button
-          >
-          <el-button type="primary" @click="createTask()">确 定</el-button>
+          <el-button @click="cancleTask()" style="margin-left: 725px">{{
+            $t("all.cancle")
+          }}</el-button>
+          <el-button type="primary" @click="createTask()">{{
+            $t("all.confirm")
+          }}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>

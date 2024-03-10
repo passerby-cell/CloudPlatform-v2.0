@@ -5,12 +5,12 @@
         <el-submenu index="3">
           <template slot="title">
             <i class="el-icon-folder"></i>
-            <span class="size">数据集管理</span>
+            <span class="size">{{ $t("sidebar.n1") }}</span>
           </template>
 
           <el-menu-item index="/satelite" key="satelite" @click="toSatelite">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;数据检索</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n1_1") }}</span
             >
           </el-menu-item>
           <!-- <el-menu-item index="/date" key="date" @click="toDate">
@@ -29,18 +29,18 @@
             @click="toDataBaseManager"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;数据文件</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n1_2") }}</span
             >
           </el-menu-item>
         </el-submenu>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-cpu"></i>
-            <span class="size">作业执行</span>
+            <span class="size">{{ $t("sidebar.n2") }}</span>
           </template>
           <el-menu-item @click="toData" index="/data" key="data">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;上传模型数据</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n2_1") }}</span
             >
           </el-menu-item>
           <el-menu-item
@@ -49,7 +49,7 @@
             @click="toCreateImages"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;制作模型镜像</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n2_2") }}</span
             >
           </el-menu-item>
           <el-menu-item
@@ -58,29 +58,31 @@
             key="standardjob"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;新建作业任务</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n2_3") }}</span
             >
           </el-menu-item>
           <el-menu-item @click="toJob()" index="/job" key="job">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;实时作业列表</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n2_4") }}</span
             >
           </el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-takeaway-box"></i>
-            <span class="size">过程管理</span>
+            <span class="size">{{ $t("sidebar.n3") }}</span>
           </template>
           <el-menu-item @click="toIDE" index="/ide" key="ide">
             <template slot="title">
               <!-- <i class="el-icon-edit-outline"></i> -->
-              <span class="subsize">&nbsp;&nbsp;&nbsp;&nbsp;在线编程环境</span>
+              <span class="subsize"
+                >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n3_1") }}</span
+              >
             </template>
           </el-menu-item>
           <el-menu-item index="/images" key="images" @click="toImages">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;模型镜像列表</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n3_2") }}</span
             >
           </el-menu-item>
 
@@ -90,17 +92,17 @@
             key="resultdata"
           >
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;输出环境管理</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n3_3") }}</span
             >
           </el-menu-item>
           <el-menu-item @click="toTemplate()" index="/template" key="template">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;系统作业模板</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n3_4") }}</span
             >
           </el-menu-item>
           <el-menu-item index="/dataview" key="dataview" @click="toDataView">
             <span slot="title" class="subsize"
-              >&nbsp;&nbsp;&nbsp;&nbsp;可视化展示</span
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ $t("sidebar.n3_5") }}</span
             >
           </el-menu-item>
         </el-submenu>
@@ -136,7 +138,7 @@
           <el-menu-item index="/userinfo" key="userinfo">
             <template slot="title">
               <i class="el-icon-user"></i>
-              <span class="size">个人中心</span>
+              <span class="size">{{ $t("sidebar.n4") }}</span>
             </template>
           </el-menu-item>
         </div>

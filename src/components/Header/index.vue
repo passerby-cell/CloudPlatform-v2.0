@@ -7,8 +7,7 @@
             src="@/assets/images/titleicon.jpg"
             style="height: 60px; width: 210px; margin-left: 10px; float: left"
           />
-          <span class="font">米级国产卫星数据存算共享云平台 </span>
-          <!-- <span class="font">电力负荷高性能容器云平台 </span> -->
+          <span class="font">{{ $t("header.title") }}</span>
         </div>
       </el-col>
       <el-col :span="1">
@@ -21,16 +20,38 @@
           <el-menu-item
             index="1"
             style="padding: 0px"
-            @click="passwordDialogVisible = true"
+            @click="handleLang('zh')"
           >
-            <i class="el-icon-edit" style="color: black">修改密码</i>
+            <i class="el-icon-refresh" style="color: black">{{
+              $t("header.zh")
+            }}</i>
           </el-menu-item>
           <el-menu-item
             index="2"
             style="padding: 0px"
+            @click="handleLang('en')"
+          >
+            <i class="el-icon-refresh" style="color: black">{{
+              $t("header.en")
+            }}</i>
+          </el-menu-item>
+          <el-menu-item
+            index="2"
+            style="padding: 0px"
+            @click="passwordDialogVisible = true"
+          >
+            <i class="el-icon-edit" style="color: black">{{
+              $t("header.password1")
+            }}</i>
+          </el-menu-item>
+          <el-menu-item
+            index="3"
+            style="padding: 0px"
             @click="uploadDialogVisible = true"
           >
-            <i class="el-icon-upload" style="color: black">上传头像</i>
+            <i class="el-icon-upload" style="color: black">{{
+              $t("header.touxiang")
+            }}</i>
           </el-menu-item>
           <template slot="title">
             <el-avatar :src="iconurl"></el-avatar>
@@ -48,7 +69,7 @@
       </el-col>
     </el-menu>
     <el-dialog
-      title="修改密码"
+      :title="$t('header.password1')"
       :visible.sync="passwordDialogVisible"
       width="400px"
       :before-close="handleClose"
@@ -63,9 +84,9 @@
         :model="passwd"
       >
         <el-row>
-          <el-form-item label="当前密码" prop="oldPassword">
+          <el-form-item :label="$t('header.password2')" prop="oldPassword">
             <el-input
-              placeholder="请输入当前密码"
+              :placeholder="$t('header.password3')"
               size="small"
               v-model="passwd.oldPassword"
               style="width: 270px"
@@ -74,34 +95,36 @@
             ></el-input> </el-form-item
         ></el-row>
         <el-row>
-          <el-form-item label="新密码" prop="newPassword1">
+          <el-form-item :label="$t('header.password4')" prop="newPassword1">
             <el-input
               show-password
-              placeholder="请输入新密码"
+              :placeholder="$t('header.password5')"
               size="small"
               v-model="passwd.newPassword1"
               style="width: 270px"
             ></el-input></el-form-item
         ></el-row>
         <el-row>
-          <el-form-item label="二次确认" prop="newPassword2">
+          <el-form-item :label="$t('header.password6')" prop="newPassword2">
             <el-input
               show-password
-              placeholder="请再次输入新密码"
+              :placeholder="$t('header.password7')"
               size="small"
               v-model="passwd.newPassword2"
               style="width: 270px"
             ></el-input></el-form-item></el-row
       ></el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="closePasswd()" size="small">取 消</el-button>
-        <el-button type="primary" @click="updatePasswd()" size="small"
-          >确 定</el-button
-        >
+        <el-button @click="closePasswd()" size="small">{{
+          $t("header.cancle")
+        }}</el-button>
+        <el-button type="primary" @click="updatePasswd()" size="small">{{
+          $t("header.confirm")
+        }}</el-button>
       </span>
     </el-dialog>
     <el-dialog
-      title="上传头像"
+      :title="$t('header.touxiang')"
       :visible.sync="uploadDialogVisible"
       width="400px"
       :before-close="handleClose"
@@ -119,8 +142,8 @@
       >
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">
-          将图片拖到此处，或
-          <em>点击上传</em>
+          {{ $t("header.touxiang1") }}
+          <em>{{ $t("header.touxiang2") }}</em>
         </div>
         <div class="el-upload__tip" slot="tip"></div> </el-upload
       ><el-row
@@ -129,7 +152,7 @@
           size="small"
           style="margin-left: 320px"
           @click="submitUpload"
-          >上 传</el-button
+          >{{ $t("header.upload") }}</el-button
         ></el-row
       >
     </el-dialog>
@@ -181,6 +204,10 @@ export default {
     },
   },
   methods: {
+    handleLang(type) {
+      localStorage.setItem("locale", JSON.stringify(type));
+      this.$i18n.locale = type;
+    },
     submitUpload() {
       this.$refs.upload.submit();
     },

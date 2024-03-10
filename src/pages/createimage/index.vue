@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
-        <el-breadcrumb-item>制作模型镜像</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2_2") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
 
@@ -20,7 +20,9 @@
         >
           <el-row style="padding-top: 0px; margin-top: 0px">
             <h3 class="size">
-              <span style="color: #409eff">|</span>&nbsp;新建镜像制作流程
+              <span style="color: #409eff">|</span>&nbsp;{{
+                $t("createimage.createflow")
+              }}
             </h3>
           </el-row>
           <el-row>
@@ -30,10 +32,10 @@
               type="primary"
               @click="createDialogVisible = true"
             >
-              新建流程
+              {{ $t("createimage.createnew") }}
             </el-button>
             <el-dialog
-              title="新建流程"
+              :title="$t('createimage.createnew')"
               :visible.sync="createDialogVisible"
               width="400px"
               :before-close="handleClose"
@@ -43,24 +45,28 @@
                 <el-input
                   size="mini"
                   v-model="newImageName"
-                  placeholder="请输入新建的流程名称"
+                  :placeholder="$t('createimage.createnewname')"
                 ></el-input>
               </el-row>
 
               <span slot="footer" class="dialog-footer">
-                <el-button @click="handleClose" size="small">取 消</el-button>
+                <el-button @click="handleClose" size="small">{{
+                  $t("all.cancle")
+                }}</el-button>
                 <el-button
                   type="primary"
                   @click="createNewImageProcess()"
                   size="small"
-                  >确 定</el-button
+                  >{{ $t("all.confirm") }}</el-button
                 >
               </span>
             </el-dialog>
           </el-row>
           <el-row>
             <h3 class="size">
-              <span style="color: #409eff">|</span>&nbsp;镜像制作流程列表
+              <span style="color: #409eff">|</span>&nbsp;{{
+                $t("createimage.createflowbiao")
+              }}
             </h3>
           </el-row>
           <Transition
@@ -79,23 +85,23 @@
               >
                 <el-table-column
                   prop="name"
-                  label="流程名"
+                  :label="$t('createimage.flowname')"
                   show-overflow-tooltip
                 >
                 </el-table-column>
                 <el-table-column
                   prop="step1"
-                  label="选择镜像文件"
+                  :label="$t('createimage.file')"
                   show-overflow-tooltip
                 ></el-table-column>
                 <el-table-column
                   prop="step2"
-                  label="选择镜像仓库"
+                  :label="$t('createimage.cangku')"
                   show-overflow-tooltip
                 ></el-table-column>
                 <el-table-column
                   prop="step3"
-                  label="推送远程仓库"
+                  :label="$t('createimage.push')"
                   show-overflow-tooltip
                 >
                   <!-- <template slot-scope="scope">
@@ -111,7 +117,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="step3"
-                  label="流程状态"
+                  :label="$t('createimage.status')"
                   width="80"
                   align="center"
                 >
@@ -120,7 +126,7 @@
                       size="mini"
                       v-if="scope.row.step3logs"
                       type="success"
-                      >成功</el-tag
+                      >{{ $t("createimage.success") }}</el-tag
                     >
                     <el-tag
                       size="mini"
@@ -131,24 +137,28 @@
                         scope.row.step2 &&
                         scope.row.step3logs
                       "
-                      >失败</el-tag
+                      >{{ $t("createimage.fail") }}</el-tag
                     >
                     <el-tag
                       size="mini"
                       type="success"
                       v-if="scope.row.path != null && !scope.row.step3logs"
-                      >进行中</el-tag
+                      >{{ $t("createimage.pending") }}</el-tag
                     >
                     <el-tag
                       size="mini"
                       type="warning"
                       v-if="!scope.row.step1 && !scope.row.path"
-                      >未开始</el-tag
+                      >{{ $t("createimage.notstart") }}</el-tag
                     >
                   </template>
                 </el-table-column>
 
-                <el-table-column label="操作" width="80" align="center">
+                <el-table-column
+                  :label="$t('createimage.caozuo')"
+                  width="80"
+                  align="center"
+                >
                   <template slot-scope="scope">
                     <i
                       class="el-icon-edit"
@@ -181,12 +191,14 @@
           <el-row>
             <el-col :span="6"
               ><h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;镜像制作流程
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.flow")
+                }}
               </h3></el-col
             >
             <el-col :span="6" v-if="showSteps"
               ><h3 style="margin-left: 10px" class="size">
-                当前流程:
+                {{ $t("createimage.nowflow") }}
                 <el-tag size="mini" type="primary">{{
                   imageProcessList[processIndex].name
                 }}</el-tag>
@@ -206,15 +218,26 @@
             style="margin-top: 10px"
             v-if="showSteps"
           >
-            <el-step title="选择镜像文件" icon="el-icon-folder-checked">
+            <el-step
+              :title="$t('createimage.file')"
+              icon="el-icon-folder-checked"
+            >
             </el-step>
-            <el-step title="选择镜像仓库" icon="el-icon-edit-outline"></el-step>
-            <el-step title="推送远程仓库" icon="el-icon-upload2"></el-step>
+            <el-step
+              :title="$t('createimage.cangku')"
+              icon="el-icon-edit-outline"
+            ></el-step>
+            <el-step
+              :title="$t('createimage.push')"
+              icon="el-icon-upload2"
+            ></el-step>
           </el-steps>
           <template v-if="activeIndex == 1">
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;模型列表
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createImageBitmap.modelbiao")
+                }}
               </h3>
             </el-row>
             <el-table
@@ -228,22 +251,26 @@
             >
               <el-table-column
                 property="name"
-                label="模型名称"
+                :label="$t('createimage.modelname')"
               ></el-table-column>
               <el-table-column
                 property="catalog"
-                label="路径"
+                :label="$t('createimage.path')"
               ></el-table-column>
             </el-table>
             <el-row style="margin-top: 10px; font-size: 20px">
               <el-input v-model="path" size="small" style="width: 100%">
-                <template slot="prepend">文件路径:</template>
+                <template slot="prepend">{{
+                  $t("createimage.filepath")
+                }}</template>
               </el-input>
             </el-row>
             <el-row style="margin-top: 10px; font-size: 16px">
               <el-col :span="11">
                 <el-input v-model="imageName" size="small" style="width: 100%">
-                  <template slot="prepend">镜像名称:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imagename")
+                  }}</template>
                 </el-input>
               </el-col>
               <el-col :span="11" :offset="2">
@@ -252,7 +279,9 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">镜像版本:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imageversion")
+                  }}</template>
                 </el-input>
               </el-col>
             </el-row>
@@ -263,7 +292,7 @@
                   type="primary"
                   style="float: right"
                   @click="buildImage()"
-                  >构建镜像</el-button
+                  >{{ $t("createimage.build") }}</el-button
                 >
               </el-col>
             </el-row>
@@ -271,7 +300,9 @@
           <template v-if="activeIndex == 2">
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;镜像信息
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.imageinfo")
+                }}
               </h3>
             </el-row>
 
@@ -283,7 +314,9 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">镜像名称:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imagename")
+                  }}</template>
                 </el-input>
               </el-col>
               <el-col :span="11" :offset="2">
@@ -293,14 +326,18 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">镜像版本:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imageversion")
+                  }}</template>
                 </el-input>
               </el-col>
             </el-row>
 
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;镜像仓库
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.imagecangku")
+                }}
               </h3>
             </el-row>
             <el-row>
@@ -324,16 +361,18 @@
                 </el-select>
               </el-col>
               <el-col :span="11" :offset="2">
-                <el-button size="small" type="primary" @click="TagImage()"
-                  >确定</el-button
-                >
+                <el-button size="small" type="primary" @click="TagImage()">{{
+                  $t("all.confirm")
+                }}</el-button>
               </el-col>
             </el-row>
           </template>
           <template v-if="activeIndex == 3">
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;镜像信息
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.imageinfo")
+                }}
               </h3>
             </el-row>
 
@@ -345,7 +384,9 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">镜像名称:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imagename")
+                  }}</template>
                 </el-input>
               </el-col>
               <el-col :span="11" :offset="2">
@@ -355,13 +396,17 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">镜像版本:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.imageversion")
+                  }}</template>
                 </el-input>
               </el-col>
             </el-row>
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;目标仓库
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.mubiaocangku")
+                }}
               </h3>
             </el-row>
             <el-row style="margin-top: 10px; font-size: 16px">
@@ -372,14 +417,18 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">仓库名称:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.cangkuname")
+                  }}</template>
                 </el-input>
               </el-col>
             </el-row>
 
             <el-row>
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;所属类别
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.leibie")
+                }}
               </h3>
             </el-row>
             <el-row style="margin-top: 10px; font-size: 16px">
@@ -388,16 +437,17 @@
                 v-if="!imageProcessList[processIndex].imageCatalog"
               >
                 <el-select v-model="catalog" size="small" style="width: 100%">
-                  <el-option label="城市路网提取" value="城市路网提取">
+                  <el-option :label="$t('all.road')" value="城市路网提取">
                   </el-option>
-                  <el-option label="水稻长势监测" value="水稻长势监测">
+                  <el-option :label="$t('all.rice')" value="水稻长势监测">
                   </el-option>
-                  <el-option label="洪涝灾害监测" value="洪涝灾害监测">
+                  <el-option :label="$t('all.flood')" value="洪涝灾害监测">
                   </el-option>
-                  <el-option label="基础设施识别" value="基础设施识别">
+                  <el-option :label="$t('all.building')" value="基础设施识别">
                   </el-option>
-                  <el-option label="旱情监测" value="旱情监测"> </el-option>
-                  <el-option label="其他" value="其他"> </el-option>
+                  <el-option :label="$t('all.drought')" value="旱情监测">
+                  </el-option>
+                  <el-option :label="$t('all.other')" value="其他"> </el-option>
                 </el-select>
               </el-col>
               <el-col
@@ -410,7 +460,9 @@
                   size="small"
                   style="width: 100%"
                 >
-                  <template slot="prepend">类别名称:</template>
+                  <template slot="prepend">{{
+                    $t("createimage.leibiename")
+                  }}</template>
                 </el-input>
               </el-col>
               <el-col :span="3" :offset="2">
@@ -419,7 +471,7 @@
                   size="small"
                   type="primary"
                   @click="imagePush"
-                  >推送</el-button
+                  >{{ $t("createimage.dopush") }}</el-button
                 >
               </el-col>
               <el-col :span="3" :offset="1">
@@ -428,23 +480,27 @@
                   size="small"
                   type="primary"
                   @click="showLogs"
-                  >日志</el-button
+                  >{{ $t("createimage.log") }}</el-button
                 >
               </el-col>
             </el-row>
             <el-row v-if="showloading">
               <h3 class="size">
-                <span style="color: #409eff">|</span>&nbsp;系统识别
+                <span style="color: #409eff">|</span>&nbsp;{{
+                  $t("createimage.shibie")
+                }}
               </h3>
             </el-row>
             <el-row
               v-if="showloading"
               v-loading="reloading"
-              element-loading-text="识别中"
+              :element-loading-text="$t('createimage.shibieing')"
               element-loading-spinner="el-icon-loading"
               element-loading-background="rgba(255, 255, 255)"
               ><div class="size">
-                <el-tag type="success">识别成功</el-tag>
+                <el-tag type="success">{{
+                  $t("createimage.shibie_success")
+                }}</el-tag>
               </div></el-row
             >
             <div

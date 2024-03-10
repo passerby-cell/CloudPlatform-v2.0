@@ -8,7 +8,14 @@ import "animate.css";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import * as echarts from "echarts";
-
+// import lang from "element-ui/lib/locale/lang/en";
+// import locale from "element-ui/lib/locale";
+import i18n from "@/assets/lang";
+Vue.use(ElementUI, {
+  i18n: (key, value) => i18n.t(key, value),
+});
+// // 设置语言
+// locale.use(lang);
 // import "default-passive-events";
 
 //引入swiper样式
@@ -89,6 +96,7 @@ new Vue({
   render: (h) => h(App),
   router,
   store,
+  i18n,
   beforeCreate() {
     Vue.prototype.$bus = this;
   },

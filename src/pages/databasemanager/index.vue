@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>数据集管理</el-breadcrumb-item>
-        <el-breadcrumb-item>数据文件</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n1") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n1_2") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>
@@ -19,8 +19,9 @@
           <el-row>
             <el-col :span="4">
               <h3 class="size" style="margin-left: 5px; margin-top: 3px">
-                <span class="size" style="color: #409eff">|</span
-                >&nbsp;数据文件列表
+                <span class="size" style="color: #409eff">|</span>&nbsp;{{
+                  $t("datamanager.filebiao")
+                }}
               </h3>
             </el-col>
           </el-row>
@@ -33,7 +34,7 @@
                 line-height: 32px;
                 margin-left: 10px;
               "
-              >当前路径：</span
+              >{{ $t("datamanager.path") }}</span
             >
             <el-breadcrumb separator=">">
               <el-breadcrumb-item v-for="(item, index) in path" :key="index"
@@ -58,7 +59,7 @@
               >
                 <el-table-column
                   prop="fileName"
-                  label="文件名"
+                  :label="$t('all.filename')"
                   show-overflow-tooltip
                   width="600"
                 >
@@ -87,10 +88,10 @@
                 <el-table-column
                   show-overflow-tooltip
                   prop="modified"
-                  label="修改时间"
+                  :label="$t('all.time')"
                   width="320"
                 ></el-table-column>
-                <el-table-column label="大小" show-overflow-tooltip>
+                <el-table-column :label="$t('all.size')" show-overflow-tooltip>
                   <template slot-scope="scope"
                     ><span v-if="scope.row.size == '0B'">-</span
                     ><span v-if="scope.row.size != '0B'">{{
@@ -98,7 +99,10 @@
                     }}</span></template
                   ></el-table-column
                 >
-                <el-table-column label="操作" show-overflow-tooltip>
+                <el-table-column
+                  :label="$t('all.caozuo')"
+                  show-overflow-tooltip
+                >
                   <template slot-scope="scope">
                     <el-button
                       style="margin-left: 10px"
@@ -106,7 +110,7 @@
                       icon="el-icon-download"
                       size="small"
                       @click="download(scope.row)"
-                      >下载</el-button
+                      >{{ $t("datamanager.download") }}</el-button
                     >
                   </template>
                 </el-table-column>

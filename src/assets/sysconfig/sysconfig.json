@@ -5,6 +5,7 @@
     "bocloud": "http://10.33.112.2:91/",
     "userInfo": "http://10.33.112.2:81/",
     "satelite": "http://10.33.112.2:81/satelite",
+    "tianditu": "http://10.33.112.2:81/tianditu",
     "remotesatelite": "https://data.cresda.cn/#/mapSearch?time="
   }
 }

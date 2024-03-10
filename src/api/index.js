@@ -4,7 +4,20 @@ import iderequest from "./ideAjax";
 import userInforequest from "./userInfoAjax";
 import datarequest from "./dataAjax";
 import sateliterequest from "./sateliteAjax";
+import tianditurequest from "./tianditu";
 import qs from "qs";
+
+export const reqTianDiTuList = (data) =>
+  tianditurequest({ url: "/picture/list", method: "get", params: data });
+
+export const newList = (data) =>
+  tianditurequest({ url: "/picture/newList", method: "get", params: data });
+
+export const getInfo = (id) =>
+  tianditurequest({ url: `/picture/${id}`, method: "get" });
+
+export const downloadZip = (data) =>
+  tianditurequest({ url: "/picture/downloadZip", method: "post", data });
 
 export const reqSateliteList = (data) =>
   sateliterequest({ url: "/picture/list", method: "get", params: data });
