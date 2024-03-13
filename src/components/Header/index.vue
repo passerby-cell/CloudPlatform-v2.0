@@ -207,6 +207,12 @@ export default {
     handleLang(type) {
       localStorage.setItem("locale", JSON.stringify(type));
       this.$i18n.locale = type;
+      if (
+        this.$router.history.current.name == "dataview" ||
+        this.$router.history.current.name == "images"
+      ) {
+        window.location.reload();
+      }
     },
     submitUpload() {
       this.$refs.upload.submit();

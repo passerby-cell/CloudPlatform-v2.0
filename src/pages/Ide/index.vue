@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
-        <el-breadcrumb-item>在线编程环境</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3_1") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -51,10 +51,13 @@
         >
           <el-table-column
             property="name"
-            :label="type == 1 ? '模型数据' : '模型结果'"
+            :label="type == 1 ? $t('ide.name[0]') : $t('ide.name[1]')"
           ></el-table-column>
-          <el-table-column property="catalog" label="路径"></el-table-column
-          ><el-table-column label="操作">
+          <el-table-column
+            property="catalog"
+            :label="$t('ide.path')"
+          ></el-table-column
+          ><el-table-column :label="$t('all.caozuo')">
             <template slot-scope="scope">
               <!-- <el-button
                 size="mini"
@@ -66,7 +69,7 @@
                 size="mini"
                 type="primary"
                 @click="openIDE(scope.row.catalog)"
-                >打开IDE</el-button
+                >{{ $t("ide.open") }}</el-button
               >
             </template>
           </el-table-column>
@@ -80,12 +83,13 @@
       :show-close="false"
     >
       <span style="width: 100%; height: 60px; font-size: 16px" slot="title"
-        >在线IDE<el-button
+        >{{ $t("ide.title")
+        }}<el-button
           type="danger"
           size="mini"
           @click="handleClose"
           style="float: right; margin-right: 10px; margin-bottom: 10px"
-          >退出</el-button
+          >{{ $t("ide.exit") }}</el-button
         ></span
       >
       <iframe

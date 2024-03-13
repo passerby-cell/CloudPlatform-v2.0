@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
-        <el-breadcrumb-item>模型镜像列表</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3_2") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -23,7 +23,6 @@
           <el-select
             class="size"
             v-model="selected"
-            placeholder="请选择仓库"
             style="width: 300px; margin-left: 10px"
             @change="selectChange"
           >
@@ -43,7 +42,7 @@
           enter-active-class="animate__animated animate__fadeInLeft"
           leave-active-class="animate__animated animate__fadeOutRight"
         >
-          <div style="width=100%;height: calc(100vh - 200px);overflow:auto;">
+          <div style="width: 100%; height: calc(100vh - 200px); overflow: auto">
             <div
               v-for="(item, index) in imageCatalogs"
               :key="index"
@@ -65,7 +64,10 @@
               :body-style="{ padding: '0px' }"
               style="height: 180px; width: 300px; margin-top: 5px"
             >
-              <el-empty description="暂无更多" :image-size="50"></el-empty>
+              <el-empty
+                :description="$t('image.info')"
+                :image-size="50"
+              ></el-empty>
             </el-card>
           </div>
         </Transition>
@@ -92,8 +94,12 @@
                 leave-active-class="animate__animated animate__fadeOutRight"
               >
                 <el-breadcrumb separator=">" class="size">
-                  <el-breadcrumb-item>镜像仓库</el-breadcrumb-item>
-                  <el-breadcrumb-item>镜像管理</el-breadcrumb-item>
+                  <el-breadcrumb-item>{{
+                    $t("sidebar.n3")
+                  }}</el-breadcrumb-item>
+                  <el-breadcrumb-item>{{
+                    $t("sidebar.n3_2")
+                  }}</el-breadcrumb-item>
                   <el-breadcrumb-item v-if="selected">{{
                     selected
                   }}</el-breadcrumb-item>
@@ -105,7 +111,7 @@
               <el-col :span="4" style="margin: 10px">
                 <el-input
                   size="small"
-                  placeholder="请输入镜像名称"
+                  :placeholder="$t('image.info1')"
                   v-model="imageName"
                 ></el-input>
               </el-col>
@@ -115,26 +121,26 @@
                   size="small"
                   class="el-icon-search"
                   @click="searchImageList()"
-                  >搜索</el-button
+                  >{{ $t("image.search") }}</el-button
                 >
               </el-col>
             </el-row>
             <div
               style="height: calc(100vh - 300px); width: 100%; overflow: auto"
             >
-              <el-result
+              <!-- <el-result
                 style="margin-top: 150px"
                 icon="info"
                 title="信息提示"
                 subTitle="点击左侧镜像仓库查看仓库详细信息"
                 v-if="!selected"
               >
-              </el-result>
+              </el-result> -->
               <el-result
                 style="margin-top: 150px"
                 icon="info"
-                title="信息提示"
-                subTitle="没有符合要求的镜像"
+                :title="$t('image.info2')"
+                :subTitle="$t('image.info3')"
                 v-if="showInfo"
               >
               </el-result>
@@ -174,7 +180,7 @@
                       ></i>
                     </div>
                     <span style="margin-left: 10px" class="size">{{
-                      item.imageName
+                      item.imageName.slice(15)
                     }}</span>
                   </el-card>
                 </Transition>
@@ -188,10 +194,10 @@
                       style="margin-left: 30px"
                       v-show="showImages[index].body"
                     >
-                      <el-descriptions-item label="镜像名称">{{
-                        item.imageName
+                      <el-descriptions-item :label="$t('image.imagename')">{{
+                        item.imageName.slice(15)
                       }}</el-descriptions-item>
-                      <el-descriptions-item label="仓库服务IP"
+                      <el-descriptions-item :label="$t('image.imageip')"
                         >192.168.0.199</el-descriptions-item
                       >
                     </el-descriptions>
@@ -214,12 +220,14 @@
                               ><el-descriptions
                                 style="margin-top: 10px; margin-left: 10px"
                               >
-                                <el-descriptions-item label="版本号">{{
-                                  activity.content
-                                }}</el-descriptions-item>
-                                <el-descriptions-item label="镜像大小">{{
-                                  activity.fileSize
-                                }}</el-descriptions-item>
+                                <el-descriptions-item
+                                  :label="$t('image.version')"
+                                  >{{ activity.content }}</el-descriptions-item
+                                >
+                                <el-descriptions-item
+                                  :label="$t('image.size')"
+                                  >{{ activity.fileSize }}</el-descriptions-item
+                                >
                               </el-descriptions></el-col
                             >
                             <el-col :span="4">
@@ -472,7 +480,7 @@ export default {
         },
         series: [
           {
-            name: "详细",
+            name: this.$t("image.info4"),
             type: "pie",
             radius: [10, 50],
             center: ["25%", "60%"],
@@ -507,12 +515,12 @@ export default {
           value: "",
         };
         let image = [
-          { value: 0, name: "城市路网提取" },
-          { value: 0, name: "水稻长势监测" },
-          { value: 0, name: "洪涝灾害监测" },
-          { value: 0, name: "基础设施识别" },
-          { value: 0, name: "旱情监测" },
-          { value: 0, name: "其他" },
+          { value: 0, name: this.$t("all.road") },
+          { value: 0, name: this.$t("all.rice") },
+          { value: 0, name: this.$t("all.flood") },
+          { value: 0, name: this.$t("all.building") },
+          { value: 0, name: this.$t("all.drought") },
+          { value: 0, name: this.$t("all.other") },
         ];
         // let image = [
         //   { value: 0, name: "总  数" },
@@ -553,6 +561,7 @@ export default {
         this.Image.push(image);
         this.options.push(option);
         this.title.push(title);
+        this.changeWareHouse(0);
       }
     }
     this.$nextTick(() => {

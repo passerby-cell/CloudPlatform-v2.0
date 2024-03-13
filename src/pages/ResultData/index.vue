@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
-        <el-breadcrumb-item>输出环境管理</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3_3") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-row>
@@ -21,14 +21,15 @@
             <el-row>
               <el-col :span="16" style="margin-top: 12px">
                 <h3 style="margin-left: 5px" class="size">
-                  <span style="color: #409eff">|</span>&nbsp;输出环境列表
+                  <span style="color: #409eff">|</span>&nbsp;{{
+                    $t("result.info[0]")
+                  }}
                 </h3>
               </el-col>
               <el-col :span="8"
                 ><el-button
                   style="
                     margin-top: 10px;
-
                     padding-right: 5px;
                     padding-top: 5px;
                     padding-bottom: 5px;
@@ -38,28 +39,33 @@
                   icon="el-icon-circle-plus-outline"
                   size="mini"
                   @click="parentFileDialogVisible = true"
-                  >新建</el-button
+                  >{{ $t("result.new") }}</el-button
                 ></el-col
               ></el-row
             >
           </Transition>
           <el-dialog
-            title="新建模型结果"
+            :title="$t('result.info[1]')"
             :visible.sync="parentFileDialogVisible"
             width="30%"
             :before-close="handleClose"
           >
             <el-input
-              placeholder="请输入新建的模型结果名称"
+              :placeholder="$t('result.info[2]')"
               size="small"
               v-model="newParentFileName"
             ></el-input>
             <span slot="footer" class="dialog-footer">
-              <el-button @click="parentFileDialogVisible = false" size="small"
-                >取 消</el-button
+              <el-button
+                @click="parentFileDialogVisible = false"
+                size="small"
+                >{{ $t("all.cancle") }}</el-button
               >
-              <el-button type="primary" @click="createParentFile" size="small"
-                >确 定</el-button
+              <el-button
+                type="primary"
+                @click="createParentFile"
+                size="small"
+                >{{ $t("all.confirm") }}</el-button
               >
             </span>
           </el-dialog>
@@ -119,13 +125,13 @@
                   </template>
                 </el-table-column> </el-table
               ><el-dialog
-                title="重命名模型结果"
+                :title="$t('result.info[3]')"
                 :visible.sync="parentFileNameDialogVisible"
                 width="30%"
                 :before-close="handleClose"
               >
                 <el-input
-                  placeholder="请输入重命名的模型结果名称"
+                  :placeholder="$t('result.info[4]')"
                   size="small"
                   v-model="newParentFileName"
                 ></el-input>
@@ -133,13 +139,13 @@
                   <el-button
                     @click="parentFileNameDialogVisible = false"
                     size="small"
-                    >取 消</el-button
+                    >{{ $t("all.cancle") }}</el-button
                   >
                   <el-button
                     type="primary"
                     @click="updateParentFileName()"
                     size="small"
-                    >确 定</el-button
+                    >{{ $t("all.confirm") }}</el-button
                   >
                 </span>
               </el-dialog>
@@ -160,13 +166,15 @@
           <el-row style="margin-top: 10px">
             <el-col :span="4">
               <h3 class="size" style="margin-left: 5px; margin-top: 3px">
-                <span class="size" style="color: #409eff">|</span
-                >&nbsp;输出环境文件列表
+                <span class="size" style="color: #409eff">|</span>&nbsp;{{
+                  $t("result.info[5]")
+                }}
               </h3>
             </el-col>
             <el-col :span="20"
               ><h3 class="size" v-if="parentFileName" style="margin-top: 3px">
-                当前输出环境: <el-tag size="small">{{ parentFileName }}</el-tag>
+                {{ $t("result.info[6]") }}
+                <el-tag size="small">{{ parentFileName }}</el-tag>
               </h3></el-col
             >
           </el-row>
@@ -177,7 +185,7 @@
               size="small"
               style="width: 99%"
             >
-              <template slot="prepend">当前路径:</template>
+              <template slot="prepend"> {{ $t("result.info[7]") }}</template>
             </el-input>
           </el-row>
           <el-row>
@@ -192,7 +200,7 @@
                 icon="el-icon-d-arrow-left"
                 size="small"
                 @click="goBack"
-                >返回</el-button
+                >{{ $t("result.return") }}</el-button
               ></Transition
             >
             <Transition
@@ -206,27 +214,27 @@
                 icon="el-icon-folder-add"
                 size="small"
                 @click="fileDialogVisible = true"
-                >新建文件夹</el-button
+                >{{ $t("result.info[8]") }}</el-button
               >
             </Transition>
             <el-dialog
-              title="新建文件夹"
+              :title="$t('result.info[8]')"
               :visible.sync="fileDialogVisible"
               width="30%"
               :before-close="handleClose"
             >
               <el-input
-                placeholder="请输入新建的文件名"
+                :placeholder="$t('result.info[9]')"
                 size="small"
                 v-model="newDirName"
               ></el-input>
               <span slot="footer" class="dialog-footer">
-                <el-button @click="fileDialogVisible = false" size="small"
-                  >取 消</el-button
-                >
-                <el-button type="primary" @click="newDir" size="small"
-                  >确 定</el-button
-                >
+                <el-button @click="fileDialogVisible = false" size="small">{{
+                  $t("all.cancle")
+                }}</el-button>
+                <el-button type="primary" @click="newDir" size="small">{{
+                  $t("all.confirm")
+                }}</el-button>
               </span>
             </el-dialog>
             <Transition
@@ -246,7 +254,7 @@
                 icon="el-icon-download"
                 size="small"
                 @click="downloadChildFiles"
-                >下载选中</el-button
+                >{{ $t("result.download") }}</el-button
               ></Transition
             >
             <Transition
@@ -260,7 +268,7 @@
                 icon="el-icon-delete"
                 size="small"
                 @click="deleteFiles"
-                >删除选中</el-button
+                >{{ $t("result.delete") }}</el-button
               ></Transition
             >
           </el-row>
@@ -286,7 +294,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="fileName"
-                  label="文件名"
+                  :label="$t('result.file[0]')"
                   show-overflow-tooltip
                 >
                   <template slot-scope="scope">
@@ -325,17 +333,21 @@
                 <el-table-column
                   show-overflow-tooltip
                   prop="modifyTime"
-                  label="修改时间"
+                  :label="$t('result.file[1]')"
                   width="250"
                 ></el-table-column>
                 <el-table-column
                   prop="fileSize"
-                  label="大小"
+                  :label="$t('result.file[2]')"
                   show-overflow-tooltip
                 ></el-table-column>
-                <el-table-column label="操作" width="320" show-overflow-tooltip>
+                <el-table-column
+                  :label="$t('all.caozuo')"
+                  width="320"
+                  show-overflow-tooltip
+                >
                   <template slot-scope="scope">
-                    <el-button
+                    <!-- <el-button
                       v-if="scope.row.fileName.indexOf(`csv`) != -1"
                       style="margin-left: 10px"
                       type="primary"
@@ -345,14 +357,14 @@
                         getCSVViewData(scope.row.fileName, scope.row.rootPath)
                       "
                       >可视化</el-button
-                    >
+                    > -->
                     <el-button
                       style="margin-left: 10px"
                       type="success"
                       icon="el-icon-edit"
                       size="small"
                       @click="changeIsShow(scope.$index)"
-                      >重命名</el-button
+                      >{{ $t("result.file[3]") }}</el-button
                     >
                     <el-button
                       style="margin-left: 10px"
@@ -360,7 +372,7 @@
                       icon="el-icon-download"
                       size="small"
                       @click="downloadChildFile(scope.row.fileName)"
-                      >下载</el-button
+                      >{{ $t("result.file[4]") }}</el-button
                     >
                     <el-button
                       style="margin-left: 10px"
@@ -368,7 +380,7 @@
                       icon="el-icon-delete"
                       size="small"
                       @click="deleteFile(scope.row.fileName)"
-                      >删除</el-button
+                      >{{ $t("result.file[5]") }}</el-button
                     >
                   </template>
                 </el-table-column>

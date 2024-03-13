@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
-        <el-breadcrumb-item>可视化展示</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3_5") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -49,7 +49,7 @@
           style="margin-left: 0px"
           clearable
           @clear="fixMap()"
-          placeholder="请选择示范点"
+          :placeholder="$t('mapbox.select')"
           @change="selectChange"
         ></el-cascader>
         <el-button
@@ -58,7 +58,7 @@
           type="primary"
           style="margin-left: 10px"
           v-if="!showDoubleMap"
-          >结果对比</el-button
+          >{{ $t("mapbox.jieguo") }}</el-button
         >
         <el-button
           @click="changeSize()"
@@ -66,7 +66,7 @@
           type="primary"
           style="margin-left: 10px"
           v-if="showDoubleMap"
-          >还原</el-button
+          >{{ $t("mapbox.reset") }}</el-button
         >
       </el-row>
       <el-button
@@ -419,16 +419,26 @@ export default {
       showDoubleMap: false,
       currentImage: 0,
       frameCount: 5,
-      allOptions: [
+
+      map_x: null,
+      map_y: null,
+      map_zoom: null,
+      map_pitch: null,
+      map_bear: null,
+    };
+  },
+  computed: {
+    allOptions() {
+      var allOptions = [
         {
           value: "城市路网提取",
-          label: "城市路网提取",
+          label: this.$t("all.road"),
           children: [
             {
               index: 0,
               value: "0",
-              label: "孟买",
-              name: "孟买",
+              label: this.$t("all.roadcity[0]"),
+              name: this.$t("all.roadcity[0]"),
               color: "#18f218",
               tag: [72.880127, 19.075847],
               zoom: 15,
@@ -444,13 +454,13 @@ export default {
         },
         {
           value: "水稻长势监测",
-          label: "水稻长势监测",
+          label: this.$t("all.rice"),
           children: [
             {
               index: 0,
-              name: "缅甸",
+              name: this.$t("all.ricecity[0]"),
               value: "0",
-              label: "缅甸",
+              label: this.$t("all.ricecity[0]"),
               color: "#BB271A",
               tag: [95.18500391855429, 17.320208045937093],
               zoom: 15,
@@ -466,13 +476,13 @@ export default {
         },
         {
           value: "旱情监测",
-          label: "旱情监测",
+          label: this.$t("all.drought"),
           children: [
             {
               index: 0,
-              name: "哈萨克斯坦",
+              name: this.$t("all.droughtcity[0]"),
               value: "0",
-              label: "哈萨克斯坦",
+              label: this.$t("all.droughtcity[0]"),
               color: "#ffdf60",
               tag: [64.75577203619281, 53.29277096996523],
               zoom: 7,
@@ -486,9 +496,9 @@ export default {
             },
             {
               index: 1,
-              name: "新疆",
+              name: this.$t("all.droughtcity[1]"),
               value: "1",
-              label: "新疆",
+              label: this.$t("all.droughtcity[1]"),
               color: "#ffdf60",
               tag: [83.80970464725857, 40.39604221906748],
               zoom: 5,
@@ -504,13 +514,13 @@ export default {
         },
         {
           value: "洪涝灾害监测",
-          label: "洪涝灾害监测",
+          label: this.$t("all.flood"),
           children: [
             {
               index: 0,
-              name: "孟加拉国",
+              name: this.$t("all.floodcity[0]"),
               value: "0",
-              label: "孟加拉国",
+              label: this.$t("all.floodcity[0]"),
               tag: [89.91287977937156, 23.64362166893602],
               color: "#4ea0fd",
               zoom: 11,
@@ -524,9 +534,9 @@ export default {
             },
             {
               index: 1,
-              name: "博格拉地区",
+              name: this.$t("all.floodcity[1]"),
               value: "1",
-              label: "博格拉地区",
+              label: this.$t("all.floodcity[1]"),
               tag: [89.45129761679254, 24.937121301900987],
               color: "#4ea0fd",
               zoom: 11,
@@ -540,9 +550,9 @@ export default {
             },
             {
               index: 2,
-              name: "加尔各答",
+              name: this.$t("all.floodcity[2]"),
               value: "2",
-              label: "加尔各答",
+              label: this.$t("all.floodcity[2]"),
               tag: [88.4470964626986, 22.46568144508325],
               color: "#4ea0fd",
               zoom: 15,
@@ -558,13 +568,13 @@ export default {
         },
         {
           value: "基础设施识别",
-          label: "基础设施识别",
+          label: this.$t("all.building"),
           children: [
             {
               index: 0,
-              name: "瓜德尔港",
+              name: this.$t("all.buildingcity[0]"),
               value: "0",
-              label: "瓜德尔港",
+              label: this.$t("all.buildingcity[0]"),
               tag: [62.323615, 25.119452],
               color: "#b3c0d1",
               zoom: 15,
@@ -578,9 +588,9 @@ export default {
             },
             {
               index: 1,
-              name: "厦门港",
+              name: this.$t("all.buildingcity[1]"),
               value: "1",
-              label: "厦门港",
+              label: this.$t("all.buildingcity[1]"),
               tag: [118.04787047095806, 24.4265100494397],
               color: "#b3c0d1",
               zoom: 12,
@@ -594,9 +604,9 @@ export default {
             },
             {
               index: 2,
-              name: "高雄港",
+              name: this.$t("all.buildingcity[2]"),
               value: "2",
-              label: "高雄港",
+              label: this.$t("all.buildingcity[2]"),
               tag: [120.32679399057355, 22.552896651715784],
               color: "#b3c0d1",
               zoom: 12,
@@ -610,15 +620,9 @@ export default {
             },
           ],
         },
-      ],
-      map_x: null,
-      map_y: null,
-      map_zoom: null,
-      map_pitch: null,
-      map_bear: null,
-    };
-  },
-  computed: {
+      ];
+      return allOptions;
+    },
     dataurl() {
       return this.sysURL.IPAddress.remotesatelite + new Date().getTime();
     },
@@ -836,9 +840,13 @@ export default {
         resultMap.on("style.load", () => {
           resultMap.setFog({});
         });
-        var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
+        if (JSON.parse(localStorage.getItem("locale")) == "zh") {
+          var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
+          resultMap.addControl(language2);
+        }
+        // var language2 = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
         resultMap.doubleClickZoom.disable();
-        resultMap.addControl(language2);
+        // resultMap.addControl(language2);
         addGuadaerLayer(resultMap);
         mengjialaguo_after(resultMap);
         addHasakesitanLayer(resultMap);
@@ -886,8 +894,11 @@ export default {
       map.doubleClickZoom.disable();
 
       // 设置语言
-      var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
-      map.addControl(language);
+      if (JSON.parse(localStorage.getItem("locale")) == "zh") {
+        var language = new MapboxLanguage({ defaultLanguage: "zh-Hans" });
+        map.addControl(language);
+      }
+
       // 地图导航
       var nav = new mapboxgl.NavigationControl();
       map.addControl(nav, "bottom-right");

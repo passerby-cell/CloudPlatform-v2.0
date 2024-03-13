@@ -987,7 +987,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="cancleTask()" style="margin-left: 725px">{{
+          <el-button @click="cancleTask()" style="margin-left: 700px">{{
             $t("all.cancle")
           }}</el-button>
           <el-button type="primary" @click="createTask()">{{

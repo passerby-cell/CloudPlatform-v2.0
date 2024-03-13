@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>个人中心</el-breadcrumb-item>
-        <el-breadcrumb-item>信息管理</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n4") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n4_1") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -28,7 +28,7 @@
           :rules="userInfoRules"
         >
           <el-descriptions
-            title="信息管理"
+            :title="$t('sidebar.n4_1')"
             :column="2"
             class="positioncss size"
             border
@@ -42,7 +42,7 @@
                 icon="el-icon-edit"
                 v-if="!edit"
                 @click="edit = true"
-                >编辑</el-button
+                >{{ $t("user.edit") }}</el-button
               >
               <el-form-item>
                 <el-button
@@ -51,7 +51,7 @@
                   icon="el-icon-check"
                   v-if="edit"
                   @click="updateUserInfo()"
-                  >保存</el-button
+                  >{{ $t("user.save") }}</el-button
                 >
                 <el-button
                   type="primary"
@@ -60,35 +60,35 @@
                   icon="el-icon-close"
                   v-if="edit"
                   @click="cancelUpdate()"
-                  >取消</el-button
+                  >{{ $t("all.cancle") }}</el-button
                 ></el-form-item
               >
             </template>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-info"></i>
-                登录账号 </template
+                {{ $t("user.info[0]") }} </template
               >{{ userInfo.login }}</el-descriptions-item
             >
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-user"></i>
-                昵称</template
+                {{ $t("user.info[1]") }}</template
               >{{ userInfo.name }}</el-descriptions-item
             >
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-edit"></i>
-                密码
+                {{ $t("user.info[2]") }}
               </template>
-              <span class="passwd" @click="passwordDialogVisible = true"
-                >修改密码</span
+              <span class="passwd" @click="passwordDialogVisible = true">
+                {{ $t("user.info[3]") }}</span
               ></el-descriptions-item
             >
             <el-descriptions-item>
               <template slot="label">
                 <i class="iconfont icon-xingbie" style="font-size: 16px"></i>
-                性别
+                {{ $t("user.info[4]") }}
               </template>
               <!-- <template slot="label">
                 <i class="el-icon-mobile-phone"></i>
@@ -99,14 +99,14 @@
               <el-form-item v-show="edit" prop="phone">
                 <!-- <el-input size="small" v-model="userSex"></el-input> -->
                 <el-select size="small" v-model="userSex">
-                  <el-option label="男" value="男"></el-option
-                  ><el-option label="女" value="女"></el-option
+                  <el-option :label="$t('user.info[5]')" value="男"></el-option
+                  ><el-option :label="$t('user.info[6]')" value="女"></el-option
                 ></el-select> </el-form-item
             ></el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-message"></i>
-                邮箱
+                {{ $t("user.info[7]") }}
               </template>
               <el-tag size="small" v-show="!edit">{{ userInfo.email }}</el-tag>
               <el-form-item v-show="edit" prop="email">
@@ -115,7 +115,7 @@
             </el-descriptions-item> </el-descriptions></el-form
       ></Transition>
       <el-dialog
-        title="修改密码"
+        :title="$t('user.info[8]')"
         :visible.sync="passwordDialogVisible"
         width="400px"
         :before-close="handleClose"
@@ -130,9 +130,9 @@
           :model="passwd"
         >
           <el-row>
-            <el-form-item label="当前密码" prop="oldPassword">
+            <el-form-item :label="$t('user.info[9]')" prop="oldPassword">
               <el-input
-                placeholder="请输入当前密码"
+                :placeholder="$t('user.info[10]')"
                 size="small"
                 v-model="passwd.oldPassword"
                 style="width: 270px"
@@ -141,30 +141,32 @@
               ></el-input> </el-form-item
           ></el-row>
           <el-row>
-            <el-form-item label="新密码" prop="newPassword1">
+            <el-form-item :label="$t('user.info[11]')" prop="newPassword1">
               <el-input
                 show-password
-                placeholder="请输入新密码"
+                :placeholder="$t('user.info[12]')"
                 size="small"
                 v-model="passwd.newPassword1"
                 style="width: 270px"
               ></el-input></el-form-item
           ></el-row>
           <el-row style="margin-bottom: 15px">
-            <el-form-item label="二次确认" prop="newPassword2">
+            <el-form-item :label="$t('user.info[13]')" prop="newPassword2">
               <el-input
                 show-password
-                placeholder="请再次输入新密码"
+                :placeholder="$t('user.info[14]')"
                 size="small"
                 v-model="passwd.newPassword2"
                 style="width: 270px"
               ></el-input></el-form-item></el-row
         ></el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="closePasswd()" size="small">取 消</el-button>
-          <el-button type="primary" @click="updatePasswd()" size="small"
-            >确 定</el-button
-          >
+          <el-button @click="closePasswd()" size="small">{{
+            $t("all.cancle")
+          }}</el-button>
+          <el-button type="primary" @click="updatePasswd()" size="small">{{
+            $t("all.confirm")
+          }}</el-button>
         </span>
       </el-dialog>
     </el-card>

@@ -9,7 +9,7 @@
               style="height: 60px; width: 210px; margin-left: 10px; float: left"
             />
             <div class="font" style="padding-top: 13px">
-              米级国产卫星数据存算共享云平台
+              {{ $t("header.title") }}
             </div>
           </div>
         </el-col>
@@ -19,22 +19,26 @@
       <div class="forms-container">
         <div class="signin-signup">
           <form action="#" class="sign-in-form">
-            <h2 class="title">登录</h2>
+            <h2 class="title">{{ $t("login.info[0]") }}</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="用户名" v-model="user.username" />
+              <input
+                type="text"
+                :placeholder="$t('login.info[1]')"
+                v-model="user.username"
+              />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input
                 type="password"
-                placeholder="密码"
+                :placeholder="$t('login.info[2]')"
                 v-model="user.password"
               />
             </div>
             <div class="drag" ref="dragDiv">
               <div class="drag_bg"></div>
-              <div class="drag_text">{{ confirmWords }}</div>
+              <div class="drag_text">{{ $t("login.info[5]") }}</div>
               <div
                 ref="moveDiv"
                 @mousedown="mousedownFn($event)"
@@ -45,7 +49,7 @@
             </div>
             <input
               type="submit"
-              value="立即登录"
+              :value="$t('login.info[3]')"
               class="btn solid"
               @click="doLogin"
             />
@@ -56,16 +60,16 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>欢迎使用</h3>
+            <h3>{{ $t("login.info[4]") }}</h3>
             <h5 style="margin-top: 10px; font-size: 16px">
-              米级国产卫星数据存算共享云平台
+              {{ $t("header.title") }}
             </h5>
           </div>
           <img src="./img/log.svg" class="image" alt="" />
         </div>
       </div>
     </div>
-    <div
+    <!-- <div
       style="
         text-align: center;
         font-size: 16px;
@@ -74,7 +78,7 @@
       "
     >
       <p style="padding-top: 22px">Copyright&copy;2022 南京信息工程大学</p>
-    </div>
+    </div> -->
   </div>
 </template>
 

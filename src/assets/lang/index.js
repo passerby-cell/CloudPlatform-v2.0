@@ -9,6 +9,7 @@ Vue.use(VueI18n);
 
 const i18n = new VueI18n({
   locale: JSON.parse(localStorage.getItem("locale")) || "zh",
+  globalInjection: true,
   messages: {
     en: {
       ...enLocale,

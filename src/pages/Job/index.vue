@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
-        <el-breadcrumb-item>实时作业列表</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2_4") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -34,7 +34,7 @@
           size="mini"
           type="primary"
           @click="toCreateJob"
-          >新建作业</el-button
+          >{{ $t("job.newjob") }}</el-button
         >
       </Transition>
       <Transition
@@ -53,7 +53,7 @@
         >
           <el-table-column
             prop="vcJobCnName"
-            label="任务名"
+            :label="$t('job.vcJobCnName')"
             show-overflow-tooltip
           >
             <template slot-scope="scope">
@@ -64,96 +64,101 @@
           </el-table-column>
           <el-table-column
             prop="startTime"
-            label="开始时间"
+            :label="$t('job.startTime')"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="endTime"
-            label="结束时间"
+            :label="$t('job.endTime')"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="taskTotal"
-            label="总任务数"
-            width="100"
+            :label="$t('job.taskTotal')"
+            width="130"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="taskCompleted"
-            label="运行完成数"
+            :label="$t('job.taskCompleted')"
             width="120"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="taskPending"
-            label="排队中"
-            width="80"
+            :label="$t('job.taskPending')"
+            width="90"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="cpuUsed"
-            label="cpu使用量"
+            :label="$t('job.cpuUsed')"
             width="120"
             show-overflow-tooltip
           ></el-table-column>
           <el-table-column
             prop="memUsed"
-            label="内存使用量"
+            :label="$t('job.memUsed')"
             width="120"
           ></el-table-column>
-          <el-table-column prop="status" label="状态" width="80" align="center">
+          <el-table-column
+            prop="status"
+            :label="$t('job.status')"
+            width="80"
+            align="center"
+          >
             <template slot-scope="scope">
               <el-tag
                 v-if="scope.row.status == 'Terminated'"
                 size="small"
                 type="danger"
-                >已终止</el-tag
+                >{{ $t("job.statuses[0]") }}</el-tag
               >
               <el-tag
                 v-if="scope.row.status == 'Pending'"
                 size="small"
                 type="warning"
-                >排队中</el-tag
+                >{{ $t("job.statuses[1]") }}</el-tag
               >
               <!-- TODO: 任务运行状态 -->
               <el-tag
                 size="small"
                 v-if="scope.row.status == 'Completed'"
                 type="success"
-                >已完成</el-tag
+                >{{ $t("job.statuses[2]") }}</el-tag
               >
               <el-tag
                 size="small"
                 type="warning"
                 v-if="scope.row.status == 'No_Running'"
-                >未开始</el-tag
+                >{{ $t("job.statuses[3]") }}</el-tag
               >
-              <el-tag size="small" v-if="scope.row.status == 'Running'"
-                >运行中</el-tag
-              >
+              <el-tag size="small" v-if="scope.row.status == 'Running'">{{
+                $t("job.statuses[5]")
+              }}</el-tag>
             </template>
           </el-table-column>
           <!-- TODO: 对任务的操作 -->
-          <el-table-column label="操作" width="210" align="center">
+          <el-table-column :label="$t('all.caozuo')" width="260" align="center">
             <template slot-scope="scope">
               <el-button
                 size="mini"
                 type="primary"
                 v-if="scope.row.status == 'No_Running'"
                 @click="startJob(scope.row.clusterId, scope.row.vcJobId)"
-                >启动</el-button
+                >{{ $t("job.caozuo[0]") }}</el-button
               >
               <el-button
                 size="mini"
                 type="success"
                 @click="openTemplateDialog(scope.row)"
-                >保存</el-button
+                >{{ $t("job.caozuo[1]") }}</el-button
               >
               <el-button
                 size="mini"
                 type="danger"
                 @click="deleteJob(scope.row.clusterId, scope.row.vcJobId)"
-                >删除</el-button
+                >{{ $t("job.caozuo[2]") }}</el-button
               >
             </template>
           </el-table-column>
@@ -178,19 +183,27 @@
       </el-col>
     </el-card>
     <el-dialog
-      title="保存为模板"
+      :title="$t('job.info1')"
       :visible.sync="dialogFormVisible"
       width="500px"
     >
       <el-form :model="template" :rules="templateRules" ref="templateForm">
-        <el-form-item label="中文名称" label-width="80px" prop="cnName">
+        <el-form-item
+          :label="$t('job.cnname')"
+          label-width="80px"
+          prop="cnName"
+        >
           <el-input
             v-model="template.cnName"
             autocomplete="off"
             style="width: 250px"
           ></el-input>
         </el-form-item>
-        <el-form-item label="英文名称" label-width="80px" prop="enName">
+        <el-form-item
+          :label="$t('job.enname')"
+          label-width="80px"
+          prop="enName"
+        >
           <el-input
             v-model="template.enName"
             autocomplete="off"
@@ -199,8 +212,12 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cancleSaveTemplate()">取 消</el-button>
-        <el-button type="primary" @click="saveTemplate()">确 定</el-button>
+        <el-button @click="cancleSaveTemplate()">{{
+          $t("all.cancle")
+        }}</el-button>
+        <el-button type="primary" @click="saveTemplate()">{{
+          $t("all.confirm")
+        }}</el-button>
       </div>
     </el-dialog>
   </div>

@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>数据集管理</el-breadcrumb-item>
-        <el-breadcrumb-item>结果列表</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n1") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n1_1") }}</el-breadcrumb-item>
       </el-breadcrumb> </Transition
     ><el-card
       class="card-style"

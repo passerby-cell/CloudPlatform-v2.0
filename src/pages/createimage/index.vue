@@ -205,14 +205,14 @@
               </h3>
             </el-col>
           </el-row>
-          <el-result
+          <!-- <el-result
             v-if="!showSteps"
             style="height: 100%; margin-top: 150px"
             icon="info"
             title="信息提示"
             subTitle="请新建镜像制作流程或编辑已有流程"
           >
-          </el-result>
+          </el-result> -->
           <el-steps
             :active="activeIndex"
             style="margin-top: 10px"
@@ -881,6 +881,7 @@ export default {
       });
     }
     // this.handleCurrentChange(1, "d");
+    this.editImageProcess(0);
   },
 };
 </script>

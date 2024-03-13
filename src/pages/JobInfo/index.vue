@@ -6,11 +6,11 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>作业执行</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n2") }}</el-breadcrumb-item>
         <el-breadcrumb-item
-          ><span @click="toJob" class="bread"
-            >实时作业列表</span
-          ></el-breadcrumb-item
+          ><span @click="toJob" class="bread">{{
+            $t("sidebar.n2_4")
+          }}</span></el-breadcrumb-item
         >
         <el-breadcrumb-item>{{
           joblist[index].vcJobCnName
@@ -33,20 +33,22 @@
         >
           <el-row :span="12" style="margin-top: 0px">
             <h3 style="margin-left: 0px" class="size">
-              <span style="color: #409eff">|</span>&nbsp;基本信息
+              <span style="color: #409eff">|</span>&nbsp;{{
+                $t("jobinfo.xinxi")
+              }}
             </h3>
           </el-row>
           <el-row style="margin-top: 25px">
             <el-col :span="8"
               ><span class="size"
-                >作业名称：{{ joblist[index].vcJobCnName }}</span
+                >{{ $t("jobinfo.name") }}{{ joblist[index].vcJobCnName }}</span
               ></el-col
             >
             <el-col :span="8"
-              ><span class="size">作业类型：标准作业</span></el-col
+              ><span class="size">{{ $t("jobinfo.leixing") }}</span></el-col
             >
             <el-col :span="8"
-              ><span class="size">所属队列：default</span></el-col
+              ><span class="size">{{ $t("jobinfo.queue") }}</span></el-col
             >
           </el-row></el-card
         >
@@ -65,14 +67,17 @@
         >
           <el-row :span="12" style="">
             <h3 style="margin-left: 5px" class="size">
-              <span style="color: #409eff">|</span>&nbsp;计算实例列表
+              <span style="color: #409eff">|</span>&nbsp;{{
+                $t("jobinfo.info[0]")
+              }}
             </h3>
           </el-row>
           <el-row style="margin-top: 10px">
             <el-col :span="4" style="">
               <el-input
                 size="small"
-                placeholder="请输入节点名称"
+                style="margin-top: 10px"
+                :placeholder="$t('jobinfo.info[1]')"
                 v-model="hostName"
                 prefix-icon="el-icon-search"
               ></el-input>
@@ -81,7 +86,7 @@
               <el-input
                 size="small"
                 prefix-icon="el-icon-search"
-                placeholder="请输入计算实例名称"
+                :placeholder="$t('jobinfo.info[2]')"
                 v-model="podName"
               ></el-input>
             </el-col>
@@ -91,7 +96,7 @@
                 size="small"
                 class="el-icon-search"
                 @click="searchList()"
-                >搜索</el-button
+                >{{ $t("jobinfo.info[3]") }}</el-button
               >
             </el-col>
             <el-col :span="8" style="margin-left: 10px">
@@ -100,14 +105,14 @@
                 style="margin-top: 10px; height: 32px"
                 closable
                 @close="clearHostSearch"
-                >节点:{{ hostName }}</el-tag
+                >{{ $t("jobinfo.info[4]") }}{{ hostName }}</el-tag
               >
               <el-tag
                 v-if="showPodName"
                 style="margin-top: 10px; height: 32px; margin-left: 10px"
                 closable
                 @close="clearPodSearch"
-                >计算实例:{{ podName }}</el-tag
+                >{{ $t("jobinfo.info[5]") }}{{ podName }}</el-tag
               >
             </el-col>
           </el-row>
@@ -127,18 +132,18 @@
             >
               <el-table-column
                 prop="hostName"
-                label="节点名称"
+                :label="$t('jobinfo.taskinfo[0]')"
                 show-overflow-tooltip
               >
               </el-table-column>
               <el-table-column
                 prop="hostIp"
-                label="节点IP"
+                :label="$t('jobinfo.taskinfo[1]')"
                 show-overflow-tooltip
               ></el-table-column>
               <el-table-column
                 prop="podName"
-                label="计算实例"
+                :label="$t('jobinfo.taskinfo[2]')"
                 show-overflow-tooltip
               ></el-table-column>
               <!-- <el-table-column
@@ -148,33 +153,33 @@
               ></el-table-column> -->
               <el-table-column
                 prop="status"
-                label="实例状态"
+                :label="$t('jobinfo.taskinfo[3]')"
                 show-overflow-tooltip
               ></el-table-column>
               <el-table-column
                 prop="taskName"
-                label="所属任务"
+                :label="$t('jobinfo.taskinfo[4]')"
                 show-overflow-tooltip
               ></el-table-column>
               <el-table-column
                 prop="startTime"
-                label="开始运行时间"
+                :label="$t('jobinfo.taskinfo[5]')"
                 show-overflow-tooltip
               ></el-table-column>
               <el-table-column
                 prop="endTime"
-                label="运行结束时间"
+                :label="$t('jobinfo.taskinfo[6]')"
                 show-overflow-tooltip
               ></el-table-column>
               <!-- TODO:日志-->
-              <el-table-column label="操作" width="300">
+              <el-table-column :label="$t('all.caozuo')" width="300">
                 <template slot-scope="scope">
                   <el-button
                     size="mini"
                     type="warning"
                     icon="el-icon-chat-dot-round"
                     @click="getJobLogs(scope.$index, scope.row)"
-                    >日志</el-button
+                    >{{ $t("jobinfo.taskinfo[7]") }}</el-button
                   >
 
                   <el-button
@@ -182,7 +187,7 @@
                     type="success"
                     icon="el-icon-view"
                     @click="ConvertViewLogs(scope.$index, scope.row)"
-                    >过程展示</el-button
+                    >{{ $t("jobinfo.taskinfo[8]") }}</el-button
                   >
                   <el-button
                     v-if="
@@ -197,7 +202,7 @@
                     icon="el-icon-view"
                     type="primary"
                     @click="toGIS(scope.row)"
-                    >结果展示</el-button
+                    >{{ $t("jobinfo.taskinfo[9]") }}</el-button
                   >
                 </template>
               </el-table-column>
@@ -207,11 +212,11 @@
             :visible.sync="rizhiDialogVisible"
             :before-close="handleClose"
             width="1000px"
-            title="日志"
+            :title="$t('jobinfo.taskinfo[8]')"
           >
             <pre
               v-loading="loading"
-              element-loading-text="拼命加载中"
+              :element-loading-text="$t('jobinfo.taskinfo[10]')"
               element-loading-spinner="el-icon-loading"
               v-highlight
               style="
@@ -230,7 +235,7 @@
                                                             </pre>
           </el-dialog>
           <el-dialog
-            title="可视化"
+            :title="$t('jobinfo.taskinfo[11]')"
             class="dialog"
             :visible.sync="viewDialogVisible"
             width="60%"
@@ -243,9 +248,9 @@
             ></el-cascader>
             <div id="chart" style="height: 400px; width: 100%"></div>
             <span slot="footer" class="dialog-footer">
-              <el-button type="primary" @click="handleViewClose"
-                >关 闭</el-button
-              >
+              <el-button type="primary" @click="handleViewClose">{{
+                $t("jobinfo.taskinfo[12]")
+              }}</el-button>
             </span>
           </el-dialog>
 

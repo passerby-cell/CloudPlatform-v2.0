@@ -6,8 +6,8 @@
       leave-active-class="animate__animated animate__fadeOutRight"
     >
       <el-breadcrumb separator="/" class="size">
-        <el-breadcrumb-item>过程管理</el-breadcrumb-item>
-        <el-breadcrumb-item>系统作业模板</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3") }}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t("sidebar.n3_4") }}</el-breadcrumb-item>
       </el-breadcrumb>
     </Transition>
     <el-card
@@ -27,34 +27,39 @@
           max-height="600"
           style="font-size: 16px"
         >
-          <el-table-column
-            property="templateId"
-            label="模板ID"
-          ></el-table-column>
+          <el-table-column property="templateId" label="ID"></el-table-column>
           <el-table-column
             property="tvcJobCnName"
-            label="模板名称"
+            :label="$t('template.tvcJobCnName')"
           ></el-table-column>
           <el-table-column
             property="priorityClassName"
-            label="优先级"
+            :label="$t('template.priorityClassName')"
           ></el-table-column>
-          <el-table-column label="备注" show-overflow-tooltip>
+          <el-table-column :label="$t('template.tag')" show-overflow-tooltip>
             <template slot-scope="scope">
-              <span class="size" v-if="scope.row.tvcJobCnName == '城市路网提取'"
-                >针对孟买地区卫星影像开展道路提取工作</span
+              <span
+                class="size"
+                v-if="scope.row.tvcJobCnName == '城市路网提取'"
+                >{{ $t("template.info[0]") }}</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '洪涝灾害监测'"
-                >针对孟加拉国地区卫星影像开展洪涝监测工作</span
+              <span
+                class="size"
+                v-if="scope.row.tvcJobCnName == '洪涝灾害监测'"
+                >{{ $t("template.info[1]") }}</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '旱情监测'"
-                >针对哈萨克斯坦地区卫星影像开展干旱监测工作</span
+              <span class="size" v-if="scope.row.tvcJobCnName == '旱情监测'">{{
+                $t("template.info[2]")
+              }}</span>
+              <span
+                class="size"
+                v-if="scope.row.tvcJobCnName == '水稻长势监测'"
+                >{{ $t("template.info[3]") }}</span
               >
-              <span class="size" v-if="scope.row.tvcJobCnName == '水稻长势监测'"
-                >针对缅甸地区卫星影像开展水稻长势监测工作</span
-              >
-              <span class="size" v-if="scope.row.tvcJobCnName == '基础设施识别'"
-                >针对瓜德尔港地区卫星影像开展土地利用分类工作</span
+              <span
+                class="size"
+                v-if="scope.row.tvcJobCnName == '基础设施识别'"
+                >{{ $t("template.info[4]") }}</span
               >
               <!-- <span class="size" v-if="scope.row.tvcJobCnName == '可视化模板'"
                 >雷达回波外推的可视化模版</span
@@ -67,7 +72,7 @@
                 size="mini"
                 type="primary"
                 @click="createJob(scope.row.templateId)"
-                >创建作业</el-button
+                >{{ $t("template.new") }}</el-button
               >
               <el-button
                 size="mini"
@@ -80,7 +85,7 @@
                   scope.row.templateId != 42 &&
                   scope.row.templateId != 41
                 "
-                >删除</el-button
+                >{{ $t("template.delete") }}</el-button
               >
               <el-tag
                 v-if="
@@ -92,7 +97,7 @@
                 "
                 type="success"
                 style="margin-left: 10px"
-                >系统预置</el-tag
+                >{{ $t("template.yuzhi") }}</el-tag
               >
             </template>
           </el-table-column>
