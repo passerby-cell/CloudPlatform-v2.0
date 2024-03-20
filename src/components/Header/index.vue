@@ -11,30 +11,17 @@
         </div>
       </el-col>
       <el-col :span="1">
-        <div style="text-align: center; height: 60px; font-size: 16px">
-          <!-- {{ username }} -->
+        <div
+          style="text-align: center; height: 60px; font-size: 16px"
+          @click="handleLang()"
+        >
+          <i class="el-icon-refresh" style="color: black; cursor: pointer">{{
+            $t("header.lang")
+          }}</i>
         </div>
       </el-col>
       <el-col style="width: 100px">
         <el-submenu index="1" style="padding: 0px">
-          <el-menu-item
-            index="1"
-            style="padding: 0px"
-            @click="handleLang('zh')"
-          >
-            <i class="el-icon-refresh" style="color: black">{{
-              $t("header.zh")
-            }}</i>
-          </el-menu-item>
-          <el-menu-item
-            index="2"
-            style="padding: 0px"
-            @click="handleLang('en')"
-          >
-            <i class="el-icon-refresh" style="color: black">{{
-              $t("header.en")
-            }}</i>
-          </el-menu-item>
           <el-menu-item
             index="2"
             style="padding: 0px"
@@ -204,7 +191,16 @@ export default {
     },
   },
   methods: {
-    handleLang(type) {
+    handleLang() {
+      if (!localStorage.getItem("locale")) {
+        localStorage.setItem("locale", JSON.stringify("zh"));
+      }
+      let type = "zh";
+      if (JSON.parse(localStorage.getItem("locale")) == "zh") {
+        type = "en";
+      } else {
+        type = "zh";
+      }
       localStorage.setItem("locale", JSON.stringify(type));
       this.$i18n.locale = type;
       if (

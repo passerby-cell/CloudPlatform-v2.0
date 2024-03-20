@@ -8,19 +8,23 @@
       <el-breadcrumb separator="/" class="size">
         <el-breadcrumb-item>{{ $t("sidebar.n1") }}</el-breadcrumb-item>
         <el-breadcrumb-item>{{ $t("sidebar.n1_1") }}</el-breadcrumb-item>
-      </el-breadcrumb> </Transition
-    ><el-card
+      </el-breadcrumb>
+    </Transition>
+    <el-card
       class="card-style"
       shadow="hover"
       :body-style="{ padding: '10px' }"
       style="height: calc(100vh - 170px); overflow: hidden"
       ><div class="map" id="olMap"></div>
       <div class="search_body">
-        <el-input placeholder="请输入内容" v-model="searchData.content">
-          <span slot="prefix" @click="showDialog" style="font-size: 21px">
+        <el-input
+          :placeholder="$t('language.Please_enter_content')"
+          v-model="searchData.content"
+        >
+          <span slot="prefix" @click="showDialog" style="font-size: 25px">
             <i class="el-input__icon el-icon-menu"></i>
           </span>
-          <span slot="suffix" @click="search" style="font-size: 21px">
+          <span slot="suffix" @click="search" style="font-size: 25px">
             <i class="el-input__icon el-icon-search"></i>
           </span>
         </el-input>
@@ -31,145 +35,161 @@
             :body-style="{ background: ' #f3f3f3', color: '#606266' }"
           >
             <div>
-              <h3>光学传感器</h3>
+              <h3>{{ $t("language.Optical_Sensors") }}</h3>
               <el-divider></el-divider>
-              <div style="line-height: 22px; font-size: 12px">
+              <div style="line-height: 22px">
                 <div style="margin-bottom: 10px">
-                  <span>卫星-传感器选择</span>
+                  <span>{{ $t("language.satellite_Sensor_Selection") }}</span>
                   <span style="float: right">
                     <el-dropdown @command="handleCommand">
-                      <span class="el-dropdown-link">
+                      <span class="el-dropdown-link" style="color: #263f5e">
                         {{ type
                         }}<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                       <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="a"
-                          >按分辨率</el-dropdown-item
-                        >
-                        <el-dropdown-item command="b"
-                          >按卫星系列</el-dropdown-item
-                        >
+                        <el-dropdown-item command="a">{{
+                          $t("language.By_Resolution")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item command="b">{{
+                          $t("language.By_Satellite_Series")
+                        }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </el-dropdown>
                   </span>
                 </div>
                 <el-popover placement="right" width="1212" trigger="click">
-                  <div style="height: 400px" v-if="type === '按分辨率'">
+                  <div
+                    style="height: 400px"
+                    v-if="type === $t('language.By_Resolution')"
+                  >
                     <el-row :gutter="20">
                       <el-col :span="8">
-                        <div class="search_body_cgq_title">优于1米</div>
+                        <div class="search_body_cgq_title">
+                          {{ $t("language.Better_than_1_meter") }}
+                        </div>
                         <div class="search_body_cgq_title_checkbox">
-                          高分二号（GF2）
+                          {{ $t("language.Gaofen_2") }}
                         </div>
                         <el-checkbox-group v-model="searchData.SatelliteID">
-                          <el-checkbox label="GF2:PMS1"
-                            >PMS1(1米全色和4米多光谱相机)</el-checkbox
-                          >
+                          <el-checkbox label="GF2:PMS1">{{
+                            $t("language.PMS1")
+                          }}</el-checkbox>
                         </el-checkbox-group>
                       </el-col>
                       <el-col :span="8">
                         <div style="margin-bottom: 20px">
-                          <div class="search_body_cgq_title">2米</div>
+                          <div class="search_body_cgq_title">
+                            {{ $t("language.two_meters") }}
+                          </div>
                           <div class="search_body_cgq_title_checkbox">
-                            高分1号（GF1）
+                            {{ $t("language.Gaofen_1") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="GF1:PMS"
-                              >PMS(2米全色和8米多光谱相机)</el-checkbox
-                            >
+                            <el-checkbox label="GF1:PMS">{{
+                              $t("language.PMS2")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                         <div style="margin-bottom: 20px">
                           <div class="search_body_cgq_title_checkbox">
-                            资源三号2号卫星（ZY302）
+                            {{ $t("language.Ziyuan_3_2") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="ZY302:TMS"
-                              >TMS（2.5米前视和后视、2.1米正下视和5.8米多光谱）</el-checkbox
-                            >
+                            <el-checkbox label="ZY302:TMS">{{
+                              $t("language.TMS_2_5")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                         <div style="margin-bottom: 20px">
                           <div class="search_body_cgq_title_checkbox">
-                            高分六号（GF6）
+                            {{ $t("language.Gaofen_6") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="GF6:PMS"
-                              >PMS(2米全色和8米多光谱相机)</el-checkbox
-                            >
+                            <el-checkbox label="GF6:PMS">{{
+                              $t("language.PMS2")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                       </el-col>
                       <el-col :span="8">
                         <div style="margin-bottom: 20px">
-                          <div class="search_body_cgq_title">5-6米</div>
+                          <div class="search_body_cgq_title">
+                            {{ $t("language.five_six_meters") }}
+                          </div>
                           <div class="search_body_cgq_title_checkbox">
-                            资源三号卫星（ZY3）
+                            {{ $t("language.Ziyuan_3") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
                             <el-checkbox label="ZY3:MUX">
-                              MUX（6米多光谱相机）
+                              {{ $t("language.MUX_6") }}
                             </el-checkbox>
                           </el-checkbox-group>
                         </div>
                       </el-col>
                     </el-row>
                   </div>
-                  <div style="height: 400px" v-if="type === '按卫星系列'">
+                  <div
+                    style="height: 400px"
+                    v-if="type === $t('language.By_Satellite_Series')"
+                  >
                     <el-row :gutter="20">
                       <el-col :span="12">
                         <div style="margin-bottom: 20px">
-                          <div class="search_body_cgq_title">高分系列</div>
+                          <div class="search_body_cgq_title">
+                            {{ $t("language.Gaofen_series") }}
+                          </div>
                           <div class="search_body_cgq_title_checkbox">
-                            高分1号（GF1）
+                            {{ $t("language.Gaofen_1") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="GF1:PMS"
-                              >PMS(2米全色和8米多光谱相机)</el-checkbox
-                            >
+                            <el-checkbox label="GF1:PMS">{{
+                              $t("language.PMS2")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                         <div style="margin-bottom: 20px">
                           <div class="search_body_cgq_title_checkbox">
-                            高分二号（GF2）
+                            {{ $t("language.Gaofen_2") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="GF2:PMS"
-                              >PMS(1米全色和4米多光谱相机)</el-checkbox
-                            >
+                            <el-checkbox label="GF2:PMS">{{
+                              $t("language.PMS1")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                         <div style="margin-bottom: 20px">
                           <div class="search_body_cgq_title_checkbox">
-                            高分六号（GF6）
+                            {{ $t("language.Gaofen_6") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="GF6:PMS"
-                              >PMS(2米全色和8米多光谱相机)</el-checkbox
-                            >
+                            <el-checkbox label="GF6:PMS">{{
+                              $t("language.PMS2")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                       </el-col>
                       <el-col :span="12">
                         <div style="margin-bottom: 20px">
-                          <div class="search_body_cgq_title">资源系列</div>
+                          <div class="search_body_cgq_title">
+                            {{ $t("language.Ziyuan_series") }}
+                          </div>
                           <div class="search_body_cgq_title_checkbox">
-                            资源三号2号卫星（ZY302）
+                            {{ $t("language.Ziyuan_3_2") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="ZY302:TMS"
-                              >TMS（2.5米前视和后视、2.1米正下视和5.8米多光谱）</el-checkbox
-                            >
+                            <el-checkbox label="ZY302:TMS">{{
+                              $t("language.TMS_2_5")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                         <div style="margin-bottom: 20px">
                           <div class="search_body_cgq_title_checkbox">
-                            资源三号卫星（ZY3）
+                            {{ $t("language.Ziyuan_3") }}
                           </div>
                           <el-checkbox-group v-model="searchData.SatelliteID">
-                            <el-checkbox label="ZY3:MUX"
-                              >MUX（6米多光谱相机）</el-checkbox
-                            >
+                            <el-checkbox label="ZY3:MUX">{{
+                              $t("language.MUX_6")
+                            }}</el-checkbox>
                           </el-checkbox-group>
                         </div>
                       </el-col>
@@ -186,7 +206,11 @@
                     ref="cgq"
                   >
                     <div v-if="searchData.SatelliteID.length === 0">
-                      点击选择卫星传感器检索
+                      {{
+                        $t(
+                          "language.Click_to_select_satellite_sensor_for_retrieval"
+                        )
+                      }}
                     </div>
                     <div v-else>
                       <el-row :gutter="10">
@@ -204,9 +228,9 @@
                   </div>
                 </el-popover>
               </div>
-              <div style="line-height: 22px; font-size: 12px; margin-top: 20px">
+              <div style="line-height: 22px; margin-top: 20px">
                 <div style="margin-bottom: 10px">
-                  <span>采集时间</span>
+                  <span>{{ $t("language.Collection_Time") }}</span>
                 </div>
                 <div>
                   <el-date-picker
@@ -214,8 +238,8 @@
                     v-model="searchData.ProduceTime"
                     type="daterange"
                     value-format="yyyy-MM-dd"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
+                    :start-placeholder="$t('language.StartDate')"
+                    :end-placeholder="$t('language.EndDate')"
                     align="right"
                     unlink-panels
                     :picker-options="pickerOptions"
@@ -223,115 +247,129 @@
                   </el-date-picker>
                 </div>
               </div>
-              <div style="line-height: 22px; font-size: 12px; margin-top: 20px">
+              <div style="line-height: 22px; margin-top: 20px">
                 <div style="margin-bottom: 10px">
-                  <span>一带一路示范区域选择</span>
+                  <span>{{
+                    $t("language.Belt_and_Road_Demonstration_Area_Selection")
+                  }}</span>
                 </div>
                 <el-popover width="600" trigger="click">
                   <div style="height: 260px">
                     <div>
-                      <span class="search_body_xzqy_left">热点区域：</span>
-                      <span
-                        style="color: #3b3030; margin-right: 20px"
-                        @click="handleCity('孟买')"
-                        >孟买</span
+                      <span class="search_body_xzqy"
+                        >{{ $t("language.Hotspot_Areas") }}：</span
                       >
                       <span
                         style="color: #3b3030; margin-right: 20px"
-                        @click="handleCity('高雄港')"
-                        >高雄港</span
+                        @click="handleCity($t('language.Mumbai'))"
+                        >{{ $t("language.Mumbai") }}</span
                       >
                       <span
                         style="color: #3b3030; margin-right: 20px"
-                        @click="handleCity('瓜德尔港')"
-                        >瓜德尔港</span
+                        @click="handleCity($t('language.Kaohsiung_Port'))"
+                        >{{ $t("language.Kaohsiung_Port") }}</span
                       >
                       <span
                         style="color: #3b3030; margin-right: 20px"
-                        @click="handleCity('缅甸')"
-                        >缅甸</span
+                        @click="handleCity($t('language.Gwadar_Port'))"
+                        >{{ $t("language.Gwadar_Port") }}</span
+                      >
+                      <span
+                        style="color: #3b3030; margin-right: 20px"
+                        @click="handleCity($t('language.Myanmar'))"
+                        >{{ $t("language.Myanmar") }}</span
                       >
                       <span
                         style="color: #3b3030"
-                        @click="handleCity('孟加拉国')"
-                        >孟加拉国</span
+                        @click="handleCity($t('language.Bangladesh'))"
+                        >{{ $t("language.Bangladesh") }}</span
                       >
                     </div>
                     <el-divider style="font-size: 20px"></el-divider>
                     <el-row :gutter="20">
                       <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
-                        <div class="search_body_xzqy_left">道路提取</div>
+                        <div class="search_body_xzqy">
+                          {{ $t("language.Road_Extraction") }}
+                        </div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('孟买')"
+                          @click="handleCity($t('language.Mumbai'))"
                         >
-                          孟买
+                          {{ $t("language.Mumbai") }}
                         </div>
                       </el-col>
                       <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
-                        <div class="search_body_xzqy_left">土地利用分类</div>
-                        <div
-                          class="search_body_xzqy_left"
-                          @click="handleCity('瓜德尔港')"
-                        >
-                          瓜德尔港
+                        <div class="search_body_xzqy">
+                          {{ $t("language.Land_Use_Classification") }}
                         </div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('厦门港')"
+                          @click="handleCity($t('language.Gwadar_Port'))"
                         >
-                          厦门港
+                          {{ $t("language.Gwadar_Port") }}
                         </div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('高雄港')"
+                          @click="handleCity($t('language.Xiamen'))"
                         >
-                          高雄港
+                          {{ $t("language.Xiamen") }}
                         </div>
-                      </el-col>
-                      <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
-                        <div class="search_body_xzqy_left">水稻长势检测</div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('缅甸')"
+                          @click="handleCity($t('language.Kaohsiung_Port'))"
                         >
-                          缅甸
+                          {{ $t("language.Kaohsiung_Port") }}
                         </div>
                       </el-col>
                       <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
-                        <div class="search_body_xzqy_left">洪涝灾害监测</div>
-                        <div
-                          class="search_body_xzqy_left"
-                          @click="handleCity('孟加拉国')"
-                        >
-                          孟加拉国
+                        <div class="search_body_xzqy">
+                          {{ $t("language.Rice_Growth_Monitoring") }}
                         </div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('博格拉地区')"
+                          @click="handleCity($t('language.Mumbai'))"
                         >
-                          博格拉地区
-                        </div>
-                        <div
-                          class="search_body_xzqy_left"
-                          @click="handleCity('加尔各答')"
-                        >
-                          加尔各答
+                          {{ $t("language.Mumbai") }}
                         </div>
                       </el-col>
                       <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
-                        <div class="search_body_xzqy_left">干旱监测</div>
-                        <div
-                          class="search_body_xzqy_left"
-                          @click="handleCity('哈萨克斯坦')"
-                        >
-                          哈萨克斯坦
+                        <div class="search_body_xzqy">
+                          {{ $t("language.Flood_Disaster_Monitoring") }}
                         </div>
                         <div
                           class="search_body_xzqy_left"
-                          @click="handleCity('新疆')"
+                          @click="handleCity($t('language.Bangladesh'))"
                         >
-                          新疆
+                          {{ $t("language.Bangladesh") }}
+                        </div>
+                        <div
+                          class="search_body_xzqy_left"
+                          @click="handleCity($t('language.Bogra'))"
+                        >
+                          {{ $t("language.Bogra") }}
+                        </div>
+                        <div
+                          class="search_body_xzqy_left"
+                          @click="handleCity($t('language.Kolkata'))"
+                        >
+                          {{ $t("language.Kolkata") }}
+                        </div>
+                      </el-col>
+                      <el-col :xs="12" :sm="12" :lg="{ span: '4-8' }">
+                        <div class="search_body_xzqy">
+                          {{ $t("language.Drought_Monitoring") }}
+                        </div>
+                        <div
+                          class="search_body_xzqy_left"
+                          @click="handleCity($t('language.Kazakhstan'))"
+                        >
+                          {{ $t("language.Kazakhstan") }}
+                        </div>
+                        <div
+                          class="search_body_xzqy_left"
+                          @click="handleCity($t('language.Xinjiang'))"
+                        >
+                          {{ $t("language.Xinjiang") }}
                         </div>
                       </el-col>
                     </el-row>
@@ -346,40 +384,51 @@
                     "
                     ref="xzqy"
                   >
-                    <div v-if="!searchData.area">点击选择新政区域检索</div>
+                    <div v-if="!searchData.area">
+                      {{
+                        $t("language.Click_to_select_new_area_for_retrieval")
+                      }}
+                    </div>
                     <div v-else>{{ searchData.area }}</div>
                   </div>
                 </el-popover>
               </div>
-              <div style="line-height: 22px; font-size: 12px; margin-top: 20px">
+              <div style="line-height: 22px; margin-top: 20px">
                 <div style="margin-bottom: 10px">
                   <span>
-                    <span class="search_body_xzqy_left">热点区域：</span>
+                    <span class="search_body_xzqy"
+                      >{{ $t("language.Hotspot_Areas") }}：</span
+                    >
                     <span>
                       <span
+                        class="search_body_hot"
                         style="color: #3b3030; margin-right: 10px"
-                        @click="handleCity('中国')"
-                        >中国</span
+                        @click="handleCity($t('language.Mumbai'))"
+                        >{{ $t("language.Mumbai") }}</span
                       >
                       <span
+                        class="search_body_hot"
                         style="color: #3b3030; margin-right: 10px"
-                        @click="handleCity('张家口市')"
-                        >张家口市</span
+                        @click="handleCity($t('language.Kaohsiung_Port'))"
+                        >{{ $t("language.Kaohsiung_Port") }}</span
                       >
                       <span
+                        class="search_body_hot"
                         style="color: #3b3030; margin-right: 10px"
-                        @click="handleCity('北京市')"
-                        >北京市</span
+                        @click="handleCity($t('language.Gwadar_Port'))"
+                        >{{ $t("language.Gwadar_Port") }}</span
                       >
                       <span
+                        class="search_body_hot"
                         style="color: #3b3030; margin-right: 10px"
-                        @click="handleCity('海口市')"
-                        >海口市</span
+                        @click="handleCity($t('language.Myanmar'))"
+                        >{{ $t("language.Myanmar") }}</span
                       >
                       <span
+                        class="search_body_hot"
                         style="color: #3b3030; margin-right: 10px"
-                        @click="handleCity('武汉市')"
-                        >武汉市</span
+                        @click="handleCity($t('language.Bangladesh'))"
+                        >{{ $t("language.Bangladesh") }}</span
                       >
                     </span>
                   </span>
@@ -409,18 +458,32 @@
 
             <el-table
               :data="tableData"
-              style="width: 100%; height: 520px; overflow: auto"
+              style="width: 100%; height: 500px; overflow: auto"
               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="55"> </el-table-column>
-              <el-table-column prop="img" label="图片">
+              <el-table-column prop="img" label="$t('language.Image')">
                 <template slot-scope="scope">
-                  <img :src="scope.row.img" width="80" height="80" />
+                  <img
+                    :src="scope.row.img"
+                    @click="showImageOnMap(scope.row)"
+                    width="80"
+                    height="80"
+                  />
                 </template>
               </el-table-column>
-              <el-table-column prop="title" label="名称"> </el-table-column>
+              <el-table-column prop="title" label="$t('language.Name')">
+                <template v-slot="scope">
+                  <span
+                    @click="showImageOnMap_name(scope.row)"
+                    style="cursor: pointer; color: #409eff"
+                  >
+                    {{ scope.row.title }}
+                  </span>
+                </template>
+              </el-table-column>
               <el-table-column
-                label="操作"
+                label="Action"
                 align="center"
                 class-name="small-padding fixed-width"
               >
@@ -431,7 +494,7 @@
                       type="text"
                       icon="el-icon-view"
                       @click="detail(scope.row.id)"
-                      >详情
+                      >{{ $t("language. Details") }}
                     </el-button>
                   </div>
                   <div>
@@ -440,7 +503,7 @@
                       type="text"
                       icon="el-icon-download"
                       @click="download(scope.row.url)"
-                      >下载
+                      >{{ $t("language.Download") }}
                     </el-button>
                   </div>
                 </template>
@@ -458,7 +521,7 @@
         </div>
       </div>
       <el-dialog
-        title="详细信息"
+        :title="$t('language.Detailed_Information')"
         :visible.sync="dialog"
         width="1350px"
         append-to-body
@@ -473,42 +536,42 @@
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-user"></i>
-                  卫星型号
+                  {{ $t("language.Satellite_Model") }}
                 </template>
                 {{ data.satelliteID }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-cpu"></i>
-                  传感器
+                  {{ $t("language.Sensor") }}
                 </template>
                 {{ data.sensorID }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-timer"></i>
-                  时间
+                  {{ $t("language.Time") }}
                 </template>
                 {{ data.produceTime }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-location-outline"></i>
-                  地域
+                  {{ $t("language.Region") }}
                 </template>
                 {{ data.area }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-timer"></i>
-                  东经
+                  {{ $t("language.East_Longitude") }}
                 </template>
                 {{ data.e }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-location-outline"></i>
-                  北纬
+                  {{ $t("language.North_Latitude") }}
                 </template>
                 {{ data.n }}
               </el-descriptions-item>
@@ -516,75 +579,6 @@
           </el-col>
         </el-row>
       </el-dialog>
-      <!-- <Transition
-        appear
-        enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight"
-      >
-        <h1>1.按卫星搜索卫星图像</h1></Transition
-      >
-      <Transition
-        appear
-        enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight"
-      >
-        <div class="view_search">
-          <table style="background: #999; width: 100%">
-            <tr>
-              <td class="title">卫星</td>
-              <td>
-                <el-input
-                  v-model="satellite"
-                  placeholder="请输入卫星"
-                ></el-input>
-              </td>
-            </tr>
-            <tr>
-              <td
-                style="background: #eec; text-align: center; padding: 0.2em"
-                colspan="2"
-              >
-                <el-button @click="search(2, 0, satellite)">提交</el-button>
-                <el-button @click="reset">重置</el-button>
-              </td>
-            </tr>
-          </table>
-        </div></Transition
-      >
-      <Transition
-        appear
-        enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight"
-      >
-        <h1>2.按准确地卫星搜索卫星图像</h1></Transition
-      >
-      <Transition
-        appear
-        enter-active-class="animate__animated animate__fadeInLeft"
-        leave-active-class="animate__animated animate__fadeOutRight"
-        ><div class="view_search">
-          <table style="background: #999; width: 100%">
-            <tr>
-              <th colspan="10" class="title">卫星</th>
-            </tr>
-            <tr style="text-align: center">
-              <td
-                v-for="item in satelliteList"
-                :key="item"
-                style="
-                  background: #def;
-                  font-weight: bold;
-                  padding: 0.2em 0.4em;
-                  font-size: 0.8rem;
-                "
-                @click="search(2, 1, item)"
-              >
-                {{ item }}
-              </td>
-            </tr>
-          </table>
-        </div></Transition
-      > -->
     </el-card>
   </div>
 </template>
@@ -597,16 +591,21 @@ import { defaults as defaultControls } from "ol/control";
 import Map from "ol/Map.js";
 import View from "ol/View.js";
 import { downloadZip, getInfo, newList } from "@/api";
+import ImageLayer from "ol/layer/Image";
+import ImageStatic from "ol/source/ImageStatic";
+import { extend as olExtend, createEmpty, isEmpty } from "ol/extent";
+
+import { get as getProjection } from "ol/proj";
 export default {
   data() {
     return {
       sysURL: require("@/assets/sysconfig/sysconfig.json"),
-      satellite: "",
-      satelliteList: ["GF1", "GF2", "GF3", "GF4", "GF5", "GF6", "ZY3"],
+      language: "",
+      // t: this.$i18n.locale,
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: "$t('language.PastWeek')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -615,7 +614,7 @@ export default {
             },
           },
           {
-            text: "最近一个月",
+            text: "$t('language.PastMonth')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -624,7 +623,7 @@ export default {
             },
           },
           {
-            text: "最近三个月",
+            text: "$t('language.PastThreeMonths')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -633,7 +632,7 @@ export default {
             },
           },
           {
-            text: "最近一年",
+            text: "$t('language.PastYear')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -642,7 +641,7 @@ export default {
             },
           },
           {
-            text: "最近三年",
+            text: "$t('language. PastThreeYears')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -651,11 +650,11 @@ export default {
             },
           },
           {
-            text: "最近六年",
+            text: "$t('language.PastFiveYears')",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 365 * 6);
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 365 * 5);
               picker.$emit("pick", [start, end]);
             },
           },
@@ -664,7 +663,8 @@ export default {
       total: 0,
       map: null,
       parser: null,
-      type: "按分辨率",
+      // logo: logo,
+      type: $t("language.By_Resolution"),
       searchData: {
         SatelliteID: [],
         area: "",
@@ -678,19 +678,207 @@ export default {
       tableData: [],
       multipleSelection: [],
       dialog: false,
+      imageLayer: null, // 存储图像图层引用
+      imageLayers: {},
+      grayLayers: {}, // 用于存储灰色背景图层的对象
+      blueBorderLayers: {}, // 用于存储蓝色边框图层的对象
+      currentViewState: null, // 用于保存当前视图状态
+      isSingleImageView: false,
+      allImagesViewState: null,
       data: {},
     };
   },
+
+  mounted() {
+    this.initMap();
+  },
+  // created () {
+  //   this.language = this.$i18n.locale === 'zh' ? '中文' : 'English'
+  // },
   methods: {
-    reset() {
-      this.satellite = "";
+    addImageLayer(imageUrl, Extent) {
+      const extent = Extent;
+
+      // 创建图像源
+      const imageSource = new ImageStatic({
+        url: imageUrl,
+        projection: getProjection("EPSG:4326"), // 使用地图的投影
+        imageExtent: extent, // 图片覆盖的范围
+      });
+
+      // 创建图像图层
+      const imageLayer = new ImageLayer({
+        source: imageSource,
+      });
+
+      // 如果已经存在图层，先移除
+      // if (this.imageLayer) {
+      //   this.map.removeLayer(this.imageLayer);
+      // }
+
+      // 保存图层引用并添加到地图上
+      this.imageLayer = imageLayer;
+      this.map.addLayer(this.imageLayer);
+
+      // 将地图视图定位到图像范围
+      // this.map.getView().fit(extent, {
+      //   duration: 2000, // 动画持续时间
+      //   padding: [500, 500, 300, 500] // 周围空间的大小
+      // });
     },
-    search(type, flag, content) {
-      localStorage.setItem("content", content);
-      localStorage.setItem("type", type);
-      localStorage.setItem("flag", flag);
-      this.$router.push("/satelitedata");
+
+    showImageOnMap(row) {
+      const imageUrl = row.img; // 图片 URL
+      const Extent = [
+        row.minLongitude, //TopLeftLongitude
+        row.minLatitude, //BottomRightLatitude
+        row.maxLongitude, //BottomRightLongitude
+        row.maxLatitude, //TopLeftLatitude
+      ];
+      this.addImageLayer(imageUrl, Extent);
     },
+
+    addImageLayer_name(imageUrl, Extent) {
+      const extent = Extent;
+
+      // 创建图像源
+      const imageSource = new ImageStatic({
+        url: imageUrl,
+        projection: getProjection("EPSG:4326"), // 使用地图的投影
+        imageExtent: extent, // 图片覆盖的范围
+      });
+
+      // 创建图像图层
+      const imageLayer = new ImageLayer({
+        source: imageSource,
+      });
+
+      // 如果已经存在图层，先移除
+      if (this.imageLayer) {
+        this.map.removeLayer(this.imageLayer);
+      }
+
+      // 保存图层引用并添加到地图上
+      this.imageLayer = imageLayer;
+      this.map.addLayer(this.imageLayer);
+
+      // 将地图视图定位到图像范围
+      this.map.getView().fit(extent, {
+        duration: 2000, // 动画持续时间
+        padding: [500, 500, 300, 500], // 周围空间的大小
+      });
+    },
+
+    showImageOnMap_name(row) {
+      // 如果当前已经是单张图片视图，那么还原到所有图片的视图状态
+      if (this.isSingleImageView) {
+        this.showAllImagesOnMap(this.tableData);
+        this.isSingleImageView = false; // 更新标记状态
+      } else {
+        this.clearImageLayers(); // 清除现有的所有图层
+        const imageUrl = row.img; // 图片 URL
+        const Extent = [
+          row.minLongitude, //TopLeftLongitude
+          row.minLatitude, //BottomRightLatitude
+          row.maxLongitude, //BottomRightLongitude
+          row.maxLatitude, //TopLeftLatitude
+        ];
+        this.addImageLayer_name(imageUrl, Extent);
+        this.isSingleImageView = true; // 更新标记状态
+      }
+    },
+
+    addRectangleLayer(extent, color, id) {
+      const rectangleFeature = new Feature({
+        geometry: fromExtent(extent),
+      });
+
+      // 创建样式对象
+      const style = new Style({
+        stroke: new Stroke({
+          color: "blue", // 将边框颜色设置为蓝色
+          width: 1,
+        }),
+        fill: new Fill({
+          color: "rgba(128, 128, 128, 0.3)", // 灰色背景
+        }),
+      });
+
+      // 为矩形要素应用样式
+      rectangleFeature.setStyle(style);
+
+      // 创建矢量源并添加矩形要素
+      const vectorSource = new VectorSource({
+        features: [rectangleFeature],
+      });
+
+      // 创建矢量图层并添加到地图上
+      const vectorLayer = new VectorLayer({
+        source: vectorSource,
+      });
+
+      this.map.addLayer(vectorLayer);
+      if (color === "gray") {
+        this.grayLayers[id] = vectorLayer;
+      } else if (color === "blue") {
+        this.blueBorderLayers[id] = vectorLayer;
+      }
+    },
+
+    showAllImagesOnMap(results) {
+      this.clearImageLayers();
+      // 初始化一个空的范围用于累计所有结果的范围
+      let combinedExtent = createEmpty();
+      results.forEach((result) => {
+        const extent = [
+          result.minLongitude, //TopLeftLongitude
+          result.minLatitude, //BottomRightLatitude
+          result.maxLongitude, //BottomRightLongitude
+          result.maxLatitude, //TopLeftLatitude
+        ];
+        this.addRectangleLayer(extent, "gray", result.id);
+
+        // 扩展累计范围以包含当前结果的范围
+        combinedExtent = olExtend(combinedExtent, extent);
+      });
+
+      // 检查累计范围是否有效
+      if (!isEmpty(combinedExtent)) {
+        // 将地图视图定位到累计范围，确保所有结果都在视图之内
+        this.map.getView().fit(combinedExtent, {
+          duration: 2000, // 动画持续时间
+          padding: [800, 500, 500, 800], // 周围空间的大小
+        });
+      }
+    },
+
+    // clearImageLayers() {
+    //   Object.keys(this.grayLayers).forEach(id => {
+    //     this.map.removeLayer(this.grayLayers[id]);
+    //     delete this.grayLayers[id];
+    //   });
+    // },
+
+    clearImageLayers() {
+      // 清除灰色图层
+      Object.keys(this.grayLayers).forEach((id) => {
+        this.map.removeLayer(this.grayLayers[id]);
+        delete this.grayLayers[id];
+      });
+
+      // 清除蓝色边框图层
+      Object.keys(this.blueBorderLayers).forEach((id) => {
+        this.map.removeLayer(this.blueBorderLayers[id]);
+        delete this.blueBorderLayers[id];
+      });
+
+      // 清除图像图层
+      if (this.imageLayer) {
+        this.map.removeLayer(this.imageLayer);
+        this.imageLayer = null;
+      }
+    },
+
     downloadAll() {
       if (this.multipleSelection.length === 0) {
         this.$message.warning("请勾选至少一个资料进行下载！");
@@ -705,11 +893,10 @@ export default {
       const ids = this.multipleSelection.map((x) => x.id);
       downloadZip(ids).then((res) => {
         loading.close();
-        window.open(res.msg);
+        window.location = res.msg;
       });
     },
     download(url) {
-      // window.location = "http://localhost:8080" + url;
       window.open(this.sysURL.IPAddress.tianditu + url);
     },
     detail(id) {
@@ -727,6 +914,7 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+
     search() {
       if (!this.searchData.content) {
         if (this.searchData.SatelliteID.length === 0) {
@@ -749,8 +937,11 @@ export default {
       newList(this.searchData).then((res) => {
         this.dataDialog = true;
         this.tableData = res.rows;
+
         this.total = res.total;
         this.searchDivDialog = false;
+        // 调用 showAllImagesOnMap 展示所有搜索结果
+        this.showAllImagesOnMap(this.tableData);
       });
     },
     handleCity(city) {
@@ -792,7 +983,9 @@ export default {
       this.map = map;
       // 添加地图
       let url = "http://t{0-7}.tianditu.com/DataServer?x={x}&y={y}&l={z}";
-      url = `${url}&T=vec_c&tk=9b4ecdac4b2d783fa385db96110f115f`;
+      // url = `${url}&T=vec_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //矢量底图
+      // url = `${url}&T=img_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //影像底图
+      url = `${url}&T=ter_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //地形底图
       const source = new XYZ({
         url: url,
         projection: "EPSG:4326",
@@ -803,7 +996,9 @@ export default {
       this.map.addLayer(tdtLayer);
       // 添加注记
       url = "http://t{0-7}.tianditu.com/DataServer?x={x}&y={y}&l={z}";
-      url = `${url}&T=cva_c&tk=9b4ecdac4b2d783fa385db96110f115f`;
+      // url = `${url}&T=cva_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //矢量注记
+      // url = `${url}&T=cia_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //影像注记
+      url = `${url}&T=cta_c&tk=9b4ecdac4b2d783fa385db96110f115f`; //地形注记
       const sourceCVA = new XYZ({
         url: url,
         projection: "EPSG:4326",
@@ -813,9 +1008,6 @@ export default {
       });
       this.map.addLayer(tdtcvaLayer);
     },
-  },
-  mounted() {
-    this.initMap();
   },
 };
 </script>

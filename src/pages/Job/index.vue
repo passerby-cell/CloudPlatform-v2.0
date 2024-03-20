@@ -134,7 +134,7 @@
                 >{{ $t("job.statuses[3]") }}</el-tag
               >
               <el-tag size="small" v-if="scope.row.status == 'Running'">{{
-                $t("job.statuses[5]")
+                $t("job.statuses[4]")
               }}</el-tag>
             </template>
           </el-table-column>

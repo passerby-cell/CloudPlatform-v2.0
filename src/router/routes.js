@@ -16,7 +16,7 @@ import Template from "@/pages/template";
 import DataBaseManager from "@/pages/databasemanager";
 import Area from "@/pages/satelite/area/area.vue";
 import Date from "@/pages/satelite/date/date.vue";
-import Satelite from "@/pages/satelite/gf/satellite.vue";
+import Satelite from "@/pages/satelite/gf/satelite.vue";
 import SateliteData from "@/pages/satelite/data.vue";
 
 export default [

@@ -256,9 +256,10 @@
                   <i class="el-icon-arrow-down el-icon--right"></i>
                 </el-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="uploadFile"></el-dropdown-item>
-                    {{ $t("data.upload1") }}</el-dropdown-item>
+                  <el-dropdown-item command="uploadFile">
+                    {{ $t("data.upload1") }}</el-dropdown-item
                   >
+
                   <el-dropdown-item command="uploadFiles">
                     {{ $t("data.upload2") }}</el-dropdown-item
                   >
@@ -266,7 +267,7 @@
               </el-dropdown>
             </Transition>
             <el-dialog
-              :title="$t('data.upload') "
+              :title="$t('data.upload')"
               :visible.sync="uploadDialogVisible"
               width="433px"
               :before-close="handleClose"
@@ -286,7 +287,7 @@
                     size="small"
                     style="margin-right: 10px"
                     @click="submitUpload"
-                    >{{$t('data.upload')}}</el-button
+                    >{{ $t("data.upload") }}</el-button
                   >
                 </el-col>
                 <el-col :span="4"
@@ -294,7 +295,7 @@
                     @click="close"
                     size="small"
                     style="margin-left: 10px"
-                    >{{$t('data.close')}}</el-button
+                    >{{ $t("data.close") }}</el-button
                   ></el-col
                 >
               </el-row>
@@ -310,8 +311,8 @@
               >
                 <i class="el-icon-upload"></i>
                 <div class="el-upload__text">
-                  {{$t('data.upload3')}}
-                  <em>{{$t('data.upload4')}}</em>
+                  {{ $t("data.upload3") }}
+                  <em>{{ $t("data.upload4") }}</em>
                 </div>
                 <div class="el-upload__tip" slot="tip"></div>
               </el-upload>
@@ -327,7 +328,7 @@
                 icon="el-icon-delete"
                 size="small"
                 @click="deleteFiles"
-                >{{$t('data.deleteselected')}}</el-button
+                >{{ $t("data.deleteselected") }}</el-button
               ></Transition
             >
           </el-row>
@@ -427,7 +428,11 @@
                   :label="$t('data.size')"
                   show-overflow-tooltip
                 ></el-table-column>
-                <el-table-column :label="$t('all.caozuo')" width="200" show-overflow-tooltip>
+                <el-table-column
+                  :label="$t('all.caozuo')"
+                  width="200"
+                  show-overflow-tooltip
+                >
                   <template slot-scope="scope">
                     <el-button
                       style="margin-left: 10px"
@@ -435,7 +440,7 @@
                       icon="el-icon-edit"
                       size="small"
                       @click="changeIsShow(scope.$index)"
-                      >{{$t('data.renamefile')}}</el-button
+                      >{{ $t("data.renamefile") }}</el-button
                     >
                     <el-button
                       style="margin-left: 10px"
@@ -443,7 +448,7 @@
                       icon="el-icon-delete"
                       size="small"
                       @click="deleteFile(scope.row.fileName)"
-                      >{{$t('data.delete')}}</el-button
+                      >{{ $t("data.delete") }}</el-button
                     >
                   </template>
                 </el-table-column>
