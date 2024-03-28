@@ -11,7 +11,7 @@ module.exports = defineConfig({
     // 代理服务器可以将路由中的指定前缀转发到指定的后端服务器中
     proxy: {
       "/bocloud": {
-        target: "http://10.255.248.22:91",
+        target: "http://10.33.112.2:91",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         pathRewrite: {
@@ -19,7 +19,7 @@ module.exports = defineConfig({
         },
       },
       "/ide": {
-        target: "http://10.255.248.22:81",
+        target: "http://10.33.112.2:81",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         pathRewrite: {
@@ -27,15 +27,7 @@ module.exports = defineConfig({
         },
       },
       // "/ide": {
-      //   target: "http://10.255.248.22:80",
-      //   ws: true, // 是否启用websockets
-      //   changeOrigin: true, // 代理时是否更改host
-      //   pathRewrite: {
-      //     "^/ide": "", //这里理解成用'/api'代替target里面的地址,比如我要调用'http://40.00.100.100:3002/user/add'，直接写'/api/user/add'即可
-      //   },
-      // },
-      // "/ide": {
-      //   target: "http://10.255.248.22:80",
+      //   target: "http://10.33.112.2:80",
       //   ws: true, // 是否启用websockets
       //   changeOrigin: true, // 代理时是否更改host
       //   pathRewrite: {
@@ -43,7 +35,7 @@ module.exports = defineConfig({
       //   },
       // },
       "/userInfo": {
-        target: "http://10.255.248.22:80",
+        target: "http://10.33.112.2:81",
         ws: true, // 是否启用websockets
         changeOrigin: true, // 代理时是否更改host
         // pathRewrite: {
@@ -59,7 +51,7 @@ module.exports = defineConfig({
       // },
 
       "/accessdata": {
-        target: "https://47.100.46.113:80",
+        target: "http://10.33.112.2:15244",
         secure: false,
         changeOrigin: true, // 代理时是否更改host
         pathRewrite: {
@@ -67,7 +59,7 @@ module.exports = defineConfig({
         },
       },
       // "/accessdata": {
-      //   target: "http://10.255.248.22:15248/",
+      //   target: "http://10.33.112.2:15248/",
       //   secure: false,
       //   changeOrigin: true, // 代理时是否更改host
       //   pathRewrite: {
@@ -75,7 +67,7 @@ module.exports = defineConfig({
       //   },
       // },
       "/satelite": {
-        target: "http://10.255.248.22:81",
+        target: "http://10.33.112.2:81",
         secure: false,
         changeOrigin: true, // 代理时是否更改host
         // pathRewrite: {
@@ -91,7 +83,7 @@ module.exports = defineConfig({
       //   // },
       // },
       "/tianditu": {
-        target: "http://10.255.248.22:80",
+        target: "http://10.33.112.2:81",
         secure: false,
         changeOrigin: true, // 代理时是否更改host
         // pathRewrite: {

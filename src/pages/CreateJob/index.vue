@@ -297,7 +297,11 @@
                 <el-option
                   v-for="(item, index) in imageCatalogList"
                   :key="index"
-                  :label="item.envName == 't1' ? 'private' : item.envName"
+                  :label="
+                    item.envName == 'cluster-default-default'
+                      ? 'private'
+                      : item.envName
+                  "
                   :value="item.catalogId"
                 ></el-option>
               </el-select> </el-form-item

@@ -1,11 +1,11 @@
 {
   "IPAddress": {
-    "mapbox": "http://10.255.248.22:81/",
-    "ide": "http://10.255.248.22:81/",
-    "bocloud": "http://10.255.248.22:91/",
-    "userInfo": "http://10.255.248.22:80/",
-    "satelite": "http://10.255.248.22:80/satelite",
-    "tianditu": "http://10.255.248.22:80/tianditu",
+    "mapbox": "http://10.33.112.2:81/",
+    "ide": "http://10.33.112.2:92/",
+    "bocloud": "http://10.33.112.2:91/",
+    "userInfo": "http://10.33.112.2:81/",
+    "satelite": "http://10.33.112.2:81/satelite",
+    "tianditu": "http://10.33.112.2:81/tianditu",
     "remotesatelite": "https://data.cresda.cn/#/mapSearch?time="
   }
 }
