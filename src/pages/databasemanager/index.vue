@@ -155,7 +155,7 @@ export default {
   name: "DataBaseManager",
   data() {
     return {
-      pageSize: 10,
+      pageSize: 20,
       path: ["/"],
       accessPath: "",
       basePath: "",
@@ -322,7 +322,7 @@ export default {
             this.downloadFileList.push({
               name: path + result.data.content[i].name,
               url:
-                "https://lhy980916.vip:80/d/阿里云盘/公开/" +
+                "http://10.33.112.2:15244/d/阿里云盘/公开/数据集/" +
                 this.basePath +
                 this.dirpath +
                 path +
@@ -345,7 +345,7 @@ export default {
         }, 4000);
       } else {
         window.open(
-          "https://lhy980916.vip:80/d/阿里云盘/公开/" +
+          "http://10.33.112.2:15244/d/阿里云盘/公开/数据集/" +
             this.basePath +
             this.dirpath +
             obj.name +
@@ -407,7 +407,7 @@ export default {
 
           break;
       }
-      this.pagenationReq(1, 10, this.basePath);
+      this.pagenationReq(1, 20, this.basePath);
     }
   },
 };

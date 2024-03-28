@@ -20,6 +20,10 @@ const actions = {
         commit("DATA", []);
         commit("TOTALPAGE", 0);
       } else {
+        result.data.content.sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
+
         commit("DATA", result.data.content);
         commit("TOTALPAGE", result.data.total);
       }
