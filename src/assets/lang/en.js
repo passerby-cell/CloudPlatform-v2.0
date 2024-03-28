@@ -367,7 +367,7 @@ export default {
     status: "status",
     success: "success",
     fail: "fail",
-    pengding: "toward",
+    pending: "toward",
     notstart: "inactive",
     caozuo: "operator",
     flow: "process",

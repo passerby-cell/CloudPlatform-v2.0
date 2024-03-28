@@ -29,9 +29,7 @@
             <el-option
               v-for="item in options"
               :key="item.value"
-              :label="
-                item.value == 'cluster-default-default' ? 'private' : item.value
-              "
+              :label="item.value == 't1' ? 'private' : item.value"
               :value="item.value"
             >
             </el-option>
@@ -555,7 +553,7 @@ export default {
         image[5].value = count.data[5].count;
         option.value = result.data.warehouseInfo[0].imageCatalogs[i].envName;
         title.text = result.data.warehouseInfo[0].imageCatalogs[i].envName;
-        if (title.text == "cluster-default-default") {
+        if (title.text == "t1") {
           title.text = "private";
         }
         this.Image.push(image);

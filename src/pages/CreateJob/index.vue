@@ -297,11 +297,7 @@
                 <el-option
                   v-for="(item, index) in imageCatalogList"
                   :key="index"
-                  :label="
-                    item.envName == 'cluster-default-default'
-                      ? 'private'
-                      : item.envName
-                  "
+                  :label="item.envName == 't1' ? 'private' : item.envName"
                   :value="item.catalogId"
                 ></el-option>
               </el-select> </el-form-item
@@ -1086,7 +1082,7 @@ export default {
         workingDir: null,
         description: "",
         repository: "default",
-        repositoryDir: "cluster-default-default",
+        repositoryDir: "public",
         image: "",
         imagePrefix: "",
         imageVersion: "",
@@ -1196,6 +1192,9 @@ export default {
           return false;
         } else {
           _this.vcJob.queueId = _this.queueList[0].queueId;
+          _this.tasks[0].gpuVideoMem = Number(_this.tasks[0].gpuVideoMem);
+          console.log(_this.tasks.gpuVideoMem);
+          console.log(_this.tasks);
           let result = await reqCreateJob({
             tasks: _this.tasks,
             target: _this.target,
@@ -1360,7 +1359,7 @@ export default {
         workingDir: null,
         description: "",
         repository: "default",
-        repositoryDir: "cluster-default-default",
+        repositoryDir: "pubilc",
         image: "",
         imagePrefix: "",
         imageVersion: "",

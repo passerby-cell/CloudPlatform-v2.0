@@ -442,7 +442,7 @@ export default {
               color: "#18f218",
               tag: [72.880127, 19.075847],
               zoom: 15,
-              templateId: 39,
+              templateId: 50,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟买</h1></div>
               <div>
@@ -464,7 +464,7 @@ export default {
               color: "#BB271A",
               tag: [95.18500391855429, 17.320208045937093],
               zoom: 15,
-              templateId: 38,
+              templateId: 49,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>缅甸</h1></div>
               <div>
@@ -486,7 +486,7 @@ export default {
               color: "#ffdf60",
               tag: [64.75577203619281, 53.29277096996523],
               zoom: 7,
-              templateId: 36,
+              templateId: 48,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>哈萨克斯坦</h1></div>
               <div>
@@ -502,7 +502,7 @@ export default {
               color: "#ffdf60",
               tag: [83.80970464725857, 40.39604221906748],
               zoom: 5,
-              templateId: 36,
+              templateId: 48,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>新疆</h1></div>
               <div>
@@ -524,7 +524,7 @@ export default {
               tag: [89.91287977937156, 23.64362166893602],
               color: "#4ea0fd",
               zoom: 11,
-              templateId: 34,
+              templateId: 47,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>孟加拉国</h1></div>
               <div>
@@ -540,7 +540,7 @@ export default {
               tag: [89.45129761679254, 24.937121301900987],
               color: "#4ea0fd",
               zoom: 11,
-              templateId: 34,
+              templateId: 47,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>博格拉地区</h1></div>
               <div>
@@ -556,7 +556,7 @@ export default {
               tag: [88.4470964626986, 22.46568144508325],
               color: "#4ea0fd",
               zoom: 15,
-              templateId: 34,
+              templateId: 47,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>加尔各答</h1></div>
               <div>
@@ -578,7 +578,7 @@ export default {
               tag: [62.323615, 25.119452],
               color: "#b3c0d1",
               zoom: 15,
-              templateId: 32,
+              templateId: 46,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>瓜德尔港</h1></div>
               <div>
@@ -594,7 +594,7 @@ export default {
               tag: [118.04787047095806, 24.4265100494397],
               color: "#b3c0d1",
               zoom: 12,
-              templateId: 32,
+              templateId: 46,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>厦门港</h1></div>
               <div>
@@ -610,7 +610,7 @@ export default {
               tag: [120.32679399057355, 22.552896651715784],
               color: "#b3c0d1",
               zoom: 12,
-              templateId: 32,
+              templateId: 46,
               message: `<div style="height:100%;width:100%;">
               <div style="text-align:center"><h1>高雄港</h1></div>
               <div>

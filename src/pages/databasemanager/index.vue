@@ -55,7 +55,7 @@
                 ref="table"
                 :data="Data"
                 style="width: 100%; margin-top: 5px"
-                max-height="620"
+                max-height="670"
               >
                 <el-table-column
                   prop="fileName"
@@ -238,7 +238,7 @@ export default {
       }
       this.path.splice(index + 1, this.path.length - index - 1);
       this.regPathSecret();
-      this.pageSize = 10;
+      this.pageSize = 20;
       this.pagenationReq(1, this.pageSize, this.basePath + this.dirpath);
     },
     handleCurrentChange(val) {

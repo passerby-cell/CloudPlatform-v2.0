@@ -79,21 +79,21 @@
                 type="danger"
                 @click="deleteTemplate(scope.row)"
                 v-if="
-                  scope.row.templateId != 45 &&
-                  scope.row.templateId != 44 &&
-                  scope.row.templateId != 43 &&
-                  scope.row.templateId != 42 &&
-                  scope.row.templateId != 41
+                  scope.row.templateId != 50 &&
+                  scope.row.templateId != 49 &&
+                  scope.row.templateId != 48 &&
+                  scope.row.templateId != 47 &&
+                  scope.row.templateId != 46
                 "
                 >{{ $t("template.delete") }}</el-button
               >
               <el-tag
                 v-if="
-                  scope.row.templateId == 45 ||
-                  scope.row.templateId == 44 ||
-                  scope.row.templateId == 43 ||
-                  scope.row.templateId == 42 ||
-                  scope.row.templateId == 41
+                  scope.row.templateId == 50 ||
+                  scope.row.templateId == 49 ||
+                  scope.row.templateId == 48 ||
+                  scope.row.templateId == 47 ||
+                  scope.row.templateId == 46
                 "
                 type="success"
                 style="margin-left: 10px"

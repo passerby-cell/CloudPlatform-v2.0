@@ -48,7 +48,6 @@
           style="width: 98.5%; margin-top: 10px; margin-left: 10px"
           :data="formatedJobList"
           :border="true"
-          :row-class-name="tableRowClassName"
           max-height="700"
         >
           <el-table-column
