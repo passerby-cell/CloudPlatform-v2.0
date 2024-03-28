@@ -173,7 +173,7 @@ export default {
                 "InfrastructureIdentification",
               ];
               for (let i = 0; i < 5; i++) {
-                reqCreateParentFile(dict[i], "", 7, 1);
+                reqCreateParentFile(dict[i], "", 6, 1);
               }
             }
           } else {
