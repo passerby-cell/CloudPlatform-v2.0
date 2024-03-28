@@ -192,11 +192,16 @@
                   <el-button
                     v-if="
                       scope.row.status == 'Completed' &&
-                      (scope.row.taskName == 'cityroadnetworkextraction' ||
-                        scope.row.taskName == 'ricegrowthmonitoring' ||
-                        scope.row.taskName == 'droughtmonitoring' ||
-                        scope.row.taskName == 'floodmonitoring' ||
-                        scope.row.taskName == 'infrastructureidentification')
+                      (joblist[index].vcJobCnName.split('-')[0] ==
+                        'cityroadnetworkextraction' ||
+                        joblist[index].vcJobCnName.split('-')[0] ==
+                          'ricegrowthmonitoring' ||
+                        joblist[index].vcJobCnName.split('-')[0] ==
+                          'droughtmonitoring' ||
+                        joblist[index].vcJobCnName.split('-')[0] ==
+                          'floodmonitoring' ||
+                        joblist[index].vcJobCnName.split('-')[0] ==
+                          'infrastructureidentification')
                     "
                     size="mini"
                     icon="el-icon-view"
@@ -335,11 +340,10 @@ export default {
     },
   },
   methods: {
-    toGIS(data) {
-      // console.log("data", data);
+    toGIS() {
       this.$router.push({
         name: "dataview",
-        query: { prefix: data.taskName },
+        query: { prefix: this.joblist[this.index].vcJobCnName.split("-")[0] },
       });
     },
     changeSelected() {

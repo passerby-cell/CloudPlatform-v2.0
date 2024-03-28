@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center; font-size: 16px">
+  <div style="text-align: center; font-size: 16px" class="footer">
     Copyright&copy;{{ year }} {{ $t("footer.nuist") }}
   </div>
 </template>
@@ -19,4 +19,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.footer {
+  background-color: #bccbd9;
+}
+</style>

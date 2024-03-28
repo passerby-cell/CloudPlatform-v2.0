@@ -236,7 +236,7 @@
             <el-row>
               <h3 class="size">
                 <span style="color: #409eff">|</span>&nbsp;{{
-                  $t("createImageBitmap.modelbiao")
+                  $t("createimage.modelbiao")
                 }}
               </h3>
             </el-row>
@@ -350,11 +350,7 @@
                   <el-option
                     v-for="(item, index) in imageCatalogList"
                     :key="index"
-                    :label="
-                      item.envName == 'cluster-default-default'
-                        ? 'private'
-                        : item.envName
-                    "
+                    :label="item.envName == 't1' ? 'private' : item.envName"
                     :value="item.pushCatalog"
                   >
                   </el-option>
@@ -544,6 +540,7 @@ import {
   reqImagelIST,
 } from "@/api";
 import { Loading } from "element-ui";
+
 export default {
   name: "CreateImage",
   data() {
@@ -574,7 +571,6 @@ export default {
       "currPageNum",
     ]),
     imageVersion() {
-      // var d = new Date();
       return "v" + Date.parse(new Date()) / 1000;
     },
     imageNameAndVersion() {
@@ -632,11 +628,7 @@ export default {
         let result = await reqUserInfoUpdateImageProcessStepThree({
           id: this.showSteps,
           filepath: this.imageProcessList[this.processIndex].path,
-          imageTag:
-            "abcsys.cn:5000/" +
-            this.repositoryDir +
-            "/" +
-            this.imageProcessList[this.processIndex].step1,
+          imageTag: this.imageProcessList[this.processIndex].step2,
           imageCatalog: this.catalog,
           parentCatalog: this.repositoryDir == "public" ? 0 : 1,
         });
@@ -773,21 +765,23 @@ export default {
     },
     editImageProcess(index) {
       this.showSteps = this.imageProcessList[index].id;
+      console.log(this.imageProcessList[index].id);
       this.processIndex = index;
       this.handleActiveIndex(this.imageProcessList[index]);
       this.getDataSet();
       this.getWareHouseList();
       this.showlogs = false;
       if (this.imageProcessList[index].step3logs) {
-        this.handleAsync(index);
+        let _this = this;
+        this.reloading = true;
+        setTimeout(() => {
+          _this.handleAsync(index);
+        }, 3000);
       }
     },
     handleAsync() {
       this.reloading = true;
-      let name =
-        this.repositoryDired == "private"
-          ? "cluster-default-default"
-          : "public";
+      let name = this.repositoryDired == "private" ? "t1" : "public";
       let tag = 0;
       for (let i = 0; i < this.imageCatalogList.length; i++) {
         if (this.imageCatalogList[i].pushCatalog == name) {
@@ -802,7 +796,7 @@ export default {
           } else {
             clearInterval(timer);
           }
-        }, 60000);
+        }, 30000);
       }
     },
     async deleteImageProcess(id) {
@@ -880,8 +874,10 @@ export default {
         imageCatalogs: result.data.warehouseInfo[0].imageCatalogs,
       });
     }
-    // this.handleCurrentChange(1, "d");
-    this.editImageProcess(0);
+    let _this = this;
+    setTimeout(() => {
+      _this.editImageProcess(0);
+    }, 1000);
   },
 };
 </script>

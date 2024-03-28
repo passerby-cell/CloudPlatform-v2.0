@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-menu mode="horizontal" background-color="#ADB6CA" text-color="black">
+    <el-menu mode="horizontal" text-color="black" class="header">
       <el-col :span="20">
         <div style="text-align: center; height: 60px">
           <img
@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     handleLang() {
-      if (!localStorage.getItem("locale")) {
+      if (!JSON.parse(localStorage.getItem("locale"))) {
         localStorage.setItem("locale", JSON.stringify("zh"));
       }
       let type = "zh";
@@ -290,10 +290,13 @@ export default {
 <style>
 .font {
   /* float: right; */
-  font-size: 25px;
-  font-style: oblique;
-  color: #409eff;
+  font-size: 26px;
+  font-weight: 500;
+  color: #ffffff;
   text-align: center;
+}
+.header {
+  background-image: linear-gradient(rgba(0, 58, 111, 0.8), rgba(0, 58, 111, 0));
 }
 
 .size {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-menu mode="horizontal" background-color="#ADB6CA" text-color="black">
+      <el-menu mode="horizontal" class="header" text-color="black">
         <el-col :span="20">
           <div style="text-align: center; height: 60px">
             <img
@@ -173,7 +173,7 @@ export default {
                 "InfrastructureIdentification",
               ];
               for (let i = 0; i < 5; i++) {
-                reqCreateParentFile(dict[i], "", 6, 1);
+                reqCreateParentFile(dict[i], "", 7, 1);
               }
             }
           } else {
@@ -255,6 +255,9 @@ export default {
   font-size: 30px;
   color: #409eff;
 }
+.header {
+  background-image: linear-gradient(rgba(0, 58, 111, 0.8), rgba(0, 99, 193, 0));
+}
 .el-card {
   margin-top: 170px;
 
@@ -268,9 +271,8 @@ export default {
   /* overflow: hidden; */
 }
 .font {
-  font-size: 25px;
-  font-style: oblique;
-  color: #409eff;
+  font-size: 26px;
+  color: #ffffff;
 }
 .drag {
   position: relative;

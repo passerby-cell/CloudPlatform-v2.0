@@ -662,7 +662,7 @@ export default {
         this.newParentFileId,
         this.newParentFileName,
         "",
-        6,
+        7,
         2
       );
       if (result.code == "200") {
@@ -692,7 +692,7 @@ export default {
     },
     async createParentFile() {
       //TODO:storageId type
-      let result = await reqCreateParentFile(this.newParentFileName, "", 6, 2);
+      let result = await reqCreateParentFile(this.newParentFileName, "", 7, 2);
       if (result.code == "200") {
         this.parentFileDialogVisible = false;
         this.$message({

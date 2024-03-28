@@ -64,7 +64,7 @@ export default {
   },
 
   header: {
-    title: "重点研发项目-米级国产卫星数据存算共享云平台",
+    title: "政府间国际科技创新合作-米级国产卫星数据存算共享云平台",
     zh: "中文",
     lang: "En",
     en: "English",
@@ -356,7 +356,7 @@ export default {
     status: "流程状态",
     success: "成功",
     fail: "失败",
-    pengding: "进行中",
+    pending: "进行中",
     notstart: "未开始",
     caozuo: "操作",
     flow: "镜像制作流程",

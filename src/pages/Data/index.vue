@@ -627,7 +627,7 @@ export default {
         this.$message.error("请输入模型数据名称");
         return;
       }
-      let result1 = await reqCreateParentFile(this.newParentFileName, "", 6, 1);
+      let result1 = await reqCreateParentFile(this.newParentFileName, "", 7, 1);
       // let result2 = await reqCreateParentFile(this.newParentFileName, "", 6, 2);
       if (result1.code == "200") {
         this.parentFileDialogVisible = false;
